@@ -79,14 +79,14 @@
 
 | Role | Member | ID | Responsibilities |
 |------|--------|----|------------------|
-| **Backend & Deployment Lead** | Trukoti Vinay | 248D1A059R | Server architecture, API development, deployment strategies |
-| **Frontend React Developer** | Pagdipalu Sunny Kiran | 248D1A059B | UI components, user experience, React implementation |
-| **UI/UX + API Research Lead** | Chakrapanda Sathvik | 248D1A058D | Interface design, user research, API integration |
-| **Celery / Async Processing Engineer** | Ciliveru Mani Muktesh | 248D1A058J | Background jobs, task queues, asynchronous operations |
-| **MongoDB, Redis & Monitoring Engineer** | Rentala Risheeth Preetham | 248D1A059G | Database design, caching strategies, system monitoring |
+| **Backend & Deployment Lead** | TIRUKOTI VINAY | 248D1A059R | Server architecture, API development, deployment strategies |
+| **Frontend React Developer** | PAGIDIPALLI SUNNY KIRAN | 248D1A059B | UI components, user experience, React implementation |
+| **UI/UX + API Research Lead** | CHAKRAPANDA SATHWIK | 248D1A058D | Interface design, user research, API integration |
+| **Celery / Async Processing Engineer** | CILIVERU MANIMUKTESH | 248D1A058J | Background jobs, task queues, asynchronous operations |
+| **MongoDB, Redis & Monitoring Engineer** | RENTALA RISHEETH PREETHAM | 248D1A059G | Database design, caching strategies, system monitoring |
 
 ### 👨‍🏫 Project Mentor
-**G. Swella Goud** - Project Guide & Mentor
+**G. Swetha Goud** - Project Guide & Mentor
 
 ## 🚀 Key Features
 
