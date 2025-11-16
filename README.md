@@ -230,7 +230,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🏆 Acknowledgments
 
-- **G. Swella Goud** for mentorship and guidance
+- **G. Swetha Goud** for mentorship and guidance
 - **DevMatrix Team** for collaborative development
 - **MERN Stack Community** for excellent documentation and support
 - **Open Source Contributors** whose libraries power our platform
