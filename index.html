@@ -14,7 +14,7 @@
             --sunset-orange: #ff4d00;
             --cyber-yellow: #ffff00;
             --dark-bg: #0a0a0a;
-            --card-bg: rgba(20, 20, 30, 0.8);
+            --card-bg: rgba(20, 20, 30, 0.9);
         }
 
         * {
@@ -28,7 +28,7 @@
             background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
             color: white;
             min-height: 100vh;
-            overflow: hidden;
+            overflow-x: hidden;
             position: relative;
         }
 
@@ -47,6 +47,7 @@
             animation: gradientShift 8s ease-in-out infinite;
             z-index: -2;
         }
+
         @keyframes gradientShift {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
@@ -77,7 +78,7 @@
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -89,10 +90,10 @@
 
         .logo {
             font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
             font-weight: 900;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             background: linear-gradient(45deg, var(--neon-green), var(--electric-blue), var(--hot-pink), var(--cyber-yellow));
             background-size: 300% 300%;
             -webkit-background-clip: text;
@@ -100,6 +101,7 @@
             background-clip: text;
             animation: gradientFlow 3s ease infinite;
             text-shadow: 0 0 30px rgba(0, 255, 106, 0.3);
+            line-height: 1.2;
         }
 
         @keyframes gradientFlow {
@@ -108,19 +110,21 @@
         }
 
         .tagline {
-            font-size: 1.4rem;
+            font-size: clamp(1rem, 3vw, 1.4rem);
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: rgba(255, 255, 255, 0.8);
             font-weight: 300;
-            letter-spacing: 2px;
+            letter-spacing: 1px;
+            line-height: 1.4;
+            padding: 0 10px;
         }
 
         .main-card {
             background: var(--card-bg);
             backdrop-filter: blur(20px);
             border-radius: 20px;
-            padding: 40px;
+            padding: clamp(20px, 5vw, 40px);
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.1);
             box-shadow: 
@@ -131,6 +135,7 @@
             overflow: hidden;
             max-width: 600px;
             width: 100%;
+            margin: 0 auto;
         }
 
         .main-card::before {
@@ -151,18 +156,19 @@
 
         .status-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
+            font-size: clamp(1.8rem, 5vw, 2.5rem);
             margin-bottom: 20px;
             background: linear-gradient(45deg, var(--hot-pink), var(--sunset-orange));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
 
         .description {
-            font-size: 1.1rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem);
             line-height: 1.6;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             color: rgba(255, 255, 255, 0.8);
         }
 
@@ -171,7 +177,7 @@
             height: 8px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 10px;
-            margin: 30px 0;
+            margin: 25px 0;
             overflow: hidden;
             position: relative;
         }
@@ -209,18 +215,18 @@
         .tech-stack {
             display: flex;
             flex-wrap: wrap;
-            gap: 15px;
+            gap: 10px;
             justify-content: center;
-            margin: 30px 0;
+            margin: 25px 0;
         }
 
         .tech-item {
-            padding: 12px 20px;
+            padding: 10px 15px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
+            border-radius: 20px;
             border: 1px solid;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
+            font-size: clamp(0.8rem, 2.5vw, 0.9rem);
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -248,74 +254,98 @@
         .tech-item:nth-child(5) { border-color: var(--violet-pulse); color: var(--violet-pulse); }
 
         .countdown {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin: 30px 0;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            margin: 25px 0;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        @media (min-width: 480px) {
+            .countdown {
+                grid-template-columns: repeat(4, 1fr);
+            }
         }
 
         .countdown-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
+            padding: 15px 10px;
             border-radius: 15px;
-            min-width: 80px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            min-width: 0;
         }
 
         .countdown-number {
             font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
+            font-size: clamp(1.5rem, 5vw, 2rem);
             font-weight: 700;
             background: linear-gradient(45deg, var(--neon-green), var(--electric-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            line-height: 1.2;
         }
 
         .countdown-label {
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 2vw, 0.8rem);
             color: rgba(255, 255, 255, 0.6);
             margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .team-info {
-            margin-top: 30px;
+            margin-top: 25px;
             padding-top: 20px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
+            width: 100%;
         }
 
         .team-title {
             font-family: 'Orbitron', sans-serif;
-            font-size: 1.2rem;
+            font-size: clamp(1rem, 3vw, 1.2rem);
             margin-bottom: 15px;
             color: var(--neon-green);
         }
 
         .team-members {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 8px;
             justify-content: center;
         }
 
         .team-member {
-            padding: 8px 15px;
+            padding: 8px 12px;
             background: rgba(0, 255, 106, 0.1);
-            border-radius: 15px;
+            border-radius: 12px;
             border: 1px solid var(--neon-green);
-            font-size: 0.8rem;
+            font-size: clamp(0.7rem, 2.5vw, 0.8rem);
             color: var(--neon-green);
+            text-align: center;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .social-links {
             display: flex;
-            gap: 20px;
+            flex-direction: column;
+            gap: 12px;
             justify-content: center;
-            margin-top: 30px;
+            margin-top: 25px;
+            width: 100%;
+        }
+
+        @media (min-width: 480px) {
+            .social-links {
+                flex-direction: row;
+            }
         }
 
         .social-link {
-            padding: 12px 25px;
+            padding: 12px 20px;
             border-radius: 25px;
             text-decoration: none;
             font-weight: 600;
@@ -323,6 +353,11 @@
             border: 2px solid;
             position: relative;
             overflow: hidden;
+            text-align: center;
+            font-size: clamp(0.9rem, 2.5vw, 1rem);
+            flex: 1;
+            max-width: 200px;
+            margin: 0 auto;
         }
 
         .social-link::before {
@@ -357,8 +392,8 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 300px;
-            height: 300px;
+            width: min(300px, 80vw);
+            height: min(300px, 80vw);
             border: 2px solid var(--neon-green);
             border-radius: 50%;
             animation: pulse 3s infinite;
@@ -367,23 +402,53 @@
 
         @keyframes pulse {
             0% { 
-                width: 300px; 
-                height: 300px; 
+                width: min(300px, 80vw); 
+                height: min(300px, 80vw); 
                 opacity: 1; 
             }
             100% { 
-                width: 500px; 
-                height: 500px; 
+                width: min(500px, 90vw); 
+                height: min(500px, 90vw); 
                 opacity: 0; 
             }
         }
 
-        @media (max-width: 768px) {
-            .logo { font-size: 3rem; }
-            .status-title { font-size: 2rem; }
-            .countdown { gap: 10px; }
-            .countdown-item { min-width: 60px; padding: 15px; }
-            .countdown-number { font-size: 1.5rem; }
+        /* Mobile-specific adjustments */
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .main-card {
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+            
+            .countdown {
+                gap: 8px;
+            }
+            
+            .countdown-item {
+                padding: 12px 8px;
+            }
+            
+            .team-members {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Touch device optimizations */
+        @media (hover: none) {
+            .tech-item:hover,
+            .social-link:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .tech-item:active,
+            .social-link:active {
+                transform: scale(0.98);
+            }
         }
     </style>
 </head>
@@ -401,8 +466,7 @@
             <h2 class="status-title">🚀 UNDER DEVELOPMENT</h2>
             <p class="description">
                 We're crafting an extraordinary food delivery experience powered by advanced MERN stack architecture, 
-                real-time processing, and intelligent algorithms. Our platform is being meticulously engineered for 
-                scalability, performance, and seamless user experience.
+                real-time processing, and intelligent algorithms.
             </p>
             
             <div class="progress-container">
@@ -419,37 +483,37 @@
             
             <div class="countdown">
                 <div class="countdown-item">
-                    <div class="countdown-number" id="days">45</div>
-                    <div class="countdown-label">DAYS</div>
+                    <div class="countdown-number" id="days">00</div>
+                    <div class="countdown-label">Days</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-number" id="hours">18</div>
-                    <div class="countdown-label">HOURS</div>
+                    <div class="countdown-number" id="hours">00</div>
+                    <div class="countdown-label">Hours</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-number" id="minutes">32</div>
-                    <div class="countdown-label">MINUTES</div>
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-label">Minutes</div>
                 </div>
                 <div class="countdown-item">
-                    <div class="countdown-number" id="seconds">15</div>
-                    <div class="countdown-label">SECONDS</div>
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-label">Seconds</div>
                 </div>
             </div>
             
             <div class="team-info">
                 <h3 class="team-title">TEAM DEVMATRIX</h3>
                 <div class="team-members">
-                    <div class="team-member">Trukoti Vinay</div>
-                    <div class="team-member">Sunny Kiran</div>
-                    <div class="team-member">Sathvik</div>
-                    <div class="team-member">Manimukthesh</div>
-                    <div class="team-member">Risheeth Preetham</div>
+                    <div class="team-member">TIRUKOTI VINAY</div>
+                    <div class="team-member">PAGIDIPALLI SUNNY KIRAN</div>
+                    <div class="team-member">CHAKRAPANDA SATHWIK</div>
+                    <div class="team-member">CILIVERU MANIMUKTESH</div>
+                    <div class="team-member">RENTALA RISHEETH PREETHAM</div>
                 </div>
             </div>
             
             <div class="social-links">
-                <a href="#" class="social-link github">GitHub Repo</a>
-                <a href="#" class="social-link contact">Get Notified</a>
+                <a href="https://github.com/Devmatrix25/SmartEats/" class="social-link github">GitHub Repo</a>
+                <a href="mailto:devmatrixteam25@gmail.com?subject=NOTIFICATION&body=Hi%20there! I want to get notfied first" class="social-link contact">Get Notified</a>
             </div>
         </div>
     </div>
@@ -459,8 +523,9 @@
         function createParticles() {
             const particlesContainer = document.getElementById('particles');
             const colors = ['#00ff6a', '#0066ff', '#ff0080', '#8a2be2', '#ffff00'];
+            const particleCount = window.innerWidth < 768 ? 25 : 50;
             
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < particleCount; i++) {
                 const particle = document.createElement('div');
                 particle.className = 'particle';
                 
@@ -483,9 +548,12 @@
             }
         }
 
-        // Countdown timer (example target date)
+        // Countdown timer - Set to 45 days from now
         function updateCountdown() {
-            const targetDate = new Date('2025-02-01').getTime();
+            const targetDate = new Date();
+            targetDate.setDate(targetDate.getDate() + 45); // 45 days from now
+            targetDate.setHours(18, 0, 0, 0); // Set to 6:00 PM
+            
             const now = new Date().getTime();
             const difference = targetDate - now;
             
@@ -499,7 +567,24 @@
                 document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
                 document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
                 document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            } else {
+                // Countdown finished
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                
+                document.querySelector('.status-title').textContent = '🎉 LAUNCHING SOON!';
+                document.querySelector('.description').textContent = 'We are putting the final touches on SmartEats. Get ready for an amazing food delivery experience!';
             }
+        }
+
+        // Handle responsive behavior
+        function handleResize() {
+            // Recreate particles on resize for better mobile experience
+            const particlesContainer = document.getElementById('particles');
+            particlesContainer.innerHTML = '';
+            createParticles();
         }
 
         // Initialize
@@ -508,19 +593,36 @@
             updateCountdown();
             setInterval(updateCountdown, 1000);
             
-            // Add hover effects
-            const cards = document.querySelectorAll('.tech-item, .social-link');
-            cards.forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-5px) scale(1.05)';
-                    this.style.boxShadow = '0 10px 25px rgba(0, 255, 106, 0.3)';
+            // Add interactive effects for devices that support hover
+            if (window.matchMedia("(hover: hover)").matches) {
+                const interactiveElements = document.querySelectorAll('.tech-item, .social-link');
+                interactiveElements.forEach(element => {
+                    element.addEventListener('mouseenter', function() {
+                        this.style.transform = 'translateY(-5px) scale(1.05)';
+                        this.style.boxShadow = '0 10px 25px rgba(0, 255, 106, 0.3)';
+                    });
+                    
+                    element.addEventListener('mouseleave', function() {
+                        this.style.transform = 'translateY(0) scale(1)';
+                        this.style.boxShadow = 'none';
+                    });
+                });
+            }
+            
+            // Add touch feedback for mobile
+            const touchElements = document.querySelectorAll('.tech-item, .social-link');
+            touchElements.forEach(element => {
+                element.addEventListener('touchstart', function() {
+                    this.style.transform = 'scale(0.95)';
                 });
                 
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0) scale(1)';
-                    this.style.boxShadow = 'none';
+                element.addEventListener('touchend', function() {
+                    this.style.transform = 'scale(1)';
                 });
             });
+
+            // Handle window resize
+            window.addEventListener('resize', handleResize);
         });
     </script>
 </body>
