@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEats - Coming Soon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Share+Tech+Mono&family=Exo+2:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff6a;
+            --electric-blue: #0066ff;
+            --violet-pulse: #8a2be2;
+            --hot-pink: #ff0080;
+            --sunset-orange: #ff4d00;
+            --cyber-yellow: #ffff00;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(20, 20, 30, 0.8);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Exo 2', sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: white;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Animated Gradient Background */
+        .gradient-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 128, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 102, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(0, 255, 106, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 60% 60%, rgba(138, 43, 226, 0.1) 0%, transparent 50%);
+            animation: gradientShift 8s ease-in-out infinite;
+            z-index: -2;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* Floating Particles */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--neon-green);
+            border-radius: 50%;
+            animation: float 6s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(180deg); }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--neon-green), var(--electric-blue), var(--hot-pink), var(--cyber-yellow));
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientFlow 3s ease infinite;
+            text-shadow: 0 0 30px rgba(0, 255, 106, 0.3);
+        }
+
+        @keyframes gradientFlow {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .tagline {
+            font-size: 1.4rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 300;
+            letter-spacing: 2px;
+        }
+
+        .main-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                0 0 50px rgba(0, 255, 106, 0.1),
+                0 0 100px rgba(0, 102, 255, 0.05),
+                inset 0 0 50px rgba(255, 255, 255, 0.05);
+            position: relative;
+            overflow: hidden;
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .status-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--hot-pink), var(--sunset-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .progress-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 30px 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--neon-green), var(--electric-blue));
+            border-radius: 10px;
+            width: 75%;
+            animation: progressPulse 2s ease-in-out infinite;
+            position: relative;
+        }
+
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: progressShine 1.5s infinite;
+        }
+
+        @keyframes progressPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+
+        @keyframes progressShine {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .tech-item {
+            padding: 12px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            border: 1px solid;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tech-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .tech-item:hover::before {
+            left: 100%;
+        }
+
+        .tech-item:nth-child(1) { border-color: var(--neon-green); color: var(--neon-green); }
+        .tech-item:nth-child(2) { border-color: var(--electric-blue); color: var(--electric-blue); }
+        .tech-item:nth-child(3) { border-color: var(--hot-pink); color: var(--hot-pink); }
+        .tech-item:nth-child(4) { border-color: var(--cyber-yellow); color: var(--cyber-yellow); }
+        .tech-item:nth-child(5) { border-color: var(--violet-pulse); color: var(--violet-pulse); }
+
+        .countdown {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin: 30px 0;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 15px;
+            min-width: 80px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .countdown-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, var(--neon-green), var(--electric-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 5px;
+        }
+
+        .team-info {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .team-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--neon-green);
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .team-member {
+            padding: 8px 15px;
+            background: rgba(0, 255, 106, 0.1);
+            border-radius: 15px;
+            border: 1px solid var(--neon-green);
+            font-size: 0.8rem;
+            color: var(--neon-green);
+        }
+
+        .social-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .social-link {
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .social-link:hover::before {
+            left: 100%;
+        }
+
+        .github {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--electric-blue);
+            color: var(--electric-blue);
+        }
+
+        .contact {
+            background: linear-gradient(45deg, var(--hot-pink), var(--sunset-orange));
+            border-color: transparent;
+            color: white;
+        }
+
+        .pulse-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            border: 2px solid var(--neon-green);
+            border-radius: 50%;
+            animation: pulse 3s infinite;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { 
+                width: 300px; 
+                height: 300px; 
+                opacity: 1; 
+            }
+            100% { 
+                width: 500px; 
+                height: 500px; 
+                opacity: 0; 
+            }
+        }
+
+        @media (max-width: 768px) {
+            .logo { font-size: 3rem; }
+            .status-title { font-size: 2rem; }
+            .countdown { gap: 10px; }
+            .countdown-item { min-width: 60px; padding: 15px; }
+            .countdown-number { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="gradient-bg"></div>
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <div class="pulse-ring"></div>
+        
+        <h1 class="logo">SMARTEATS</h1>
+        <p class="tagline">REVOLUTIONIZING FOOD DELIVERY WITH CUTTING-EDGE TECHNOLOGY</p>
+        
+        <div class="main-card">
+            <h2 class="status-title">🚀 UNDER DEVELOPMENT</h2>
+            <p class="description">
+                We're crafting an extraordinary food delivery experience powered by advanced MERN stack architecture, 
+                real-time processing, and intelligent algorithms. Our platform is being meticulously engineered for 
+                scalability, performance, and seamless user experience.
+            </p>
+            
+            <div class="progress-container">
+                <div class="progress-bar"></div>
+            </div>
+            
+            <div class="tech-stack">
+                <div class="tech-item">React.js</div>
+                <div class="tech-item">Node.js</div>
+                <div class="tech-item">MongoDB</div>
+                <div class="tech-item">Redis</div>
+                <div class="tech-item">Celery</div>
+            </div>
+            
+            <div class="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="days">45</div>
+                    <div class="countdown-label">DAYS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">18</div>
+                    <div class="countdown-label">HOURS</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">32</div>
+                    <div class="countdown-label">MINUTES</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">15</div>
+                    <div class="countdown-label">SECONDS</div>
+                </div>
+            </div>
+            
+            <div class="team-info">
+                <h3 class="team-title">TEAM DEVMATRIX</h3>
+                <div class="team-members">
+                    <div class="team-member">Trukoti Vinay</div>
+                    <div class="team-member">Sunny Kiran</div>
+                    <div class="team-member">Sathvik</div>
+                    <div class="team-member">Manimukthesh</div>
+                    <div class="team-member">Risheeth Preetham</div>
+                </div>
+            </div>
+            
+            <div class="social-links">
+                <a href="#" class="social-link github">GitHub Repo</a>
+                <a href="#" class="social-link contact">Get Notified</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Create floating particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const colors = ['#00ff6a', '#0066ff', '#ff0080', '#8a2be2', '#ffff00'];
+            
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 4 + 1;
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const left = Math.random() * 100;
+                const delay = Math.random() * 6;
+                const duration = Math.random() * 4 + 4;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.left = `${left}vw`;
+                particle.style.top = `${Math.random() * 100}vh`;
+                particle.style.animationDelay = `${delay}s`;
+                particle.style.animationDuration = `${duration}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Countdown timer (example target date)
+        function updateCountdown() {
+            const targetDate = new Date('2025-02-01').getTime();
+            const now = new Date().getTime();
+            const difference = targetDate - now;
+            
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days.toString().padStart(2, '0');
+                document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+                document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+                document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+            }
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            createParticles();
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+            
+            // Add hover effects
+            const cards = document.querySelectorAll('.tech-item, .social-link');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-5px) scale(1.05)';
+                    this.style.boxShadow = '0 10px 25px rgba(0, 255, 106, 0.3)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0) scale(1)';
+                    this.style.boxShadow = 'none';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
