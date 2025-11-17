@@ -11,7 +11,7 @@
 
 [![Project Status](https://img.shields.io/badge/Status-In%20Development-00ff6a?style=flat-square)]()
 [![Team Size](https://img.shields.io/badge/Team-5%20Members-00ff6a?style=flat-square)]()
-[![Mentor](https://img.shields.io/badge/Mentor-G.%20Swella%20Goud-00ff6a?style=flat-square)]()
+[![Mentor](https://img.shields.io/badge/Mentor-G.%20Swetha%20Goud-00ff6a?style=flat-square)]()
 
 </div>
 
@@ -27,7 +27,7 @@
 
 ```
 ┌─────────────────┐    ┌──────────────────┐    ┌────────────────────┐
-│   React Frontend│    │  Node.js/Express │    │   MongoDB Database │
+│  React Frontend │    │  Node.js/Express │    │  MongoDB Database  │
 │                 │    │     API Layer    │    │                    │
 └─────────────────┘    └──────────────────┘    └────────────────────┘
          │                       │                       │
@@ -44,8 +44,8 @@
                  │                       │
          ┌───────▼───────┐       ┌───────▼───────┐
          │  Prometheus   │       │   Logstash    │
-         │  Monitoring   │       │  Logging &    │
-         │   & Metrics   │       │  Analytics    │
+         │  Monitoring   │       │   Logging &   │
+         │   & Metrics   │       │   Analytics   │
          └───────────────┘       └───────────────┘
 ```
 
@@ -79,11 +79,11 @@
 
 | Role | Member | ID | Responsibilities |
 |------|--------|----|------------------|
-| **Backend & Deployment Lead** | TIRUKOTI VINAY | 248D1A059R | Server architecture, API development, deployment strategies |
-| **Frontend React Developer** | PAGIDIPALLI SUNNY KIRAN | 248D1A059B | UI components, user experience, React implementation |
-| **UI/UX + API Research Lead** | CHAKRAPANDA SATHWIK | 248D1A058D | Interface design, user research, API integration |
-| **Celery / Async Processing Engineer** | CILIVERU MANIMUKTESH | 248D1A058J | Background jobs, task queues, asynchronous operations |
-| **MongoDB, Redis & Monitoring Engineer** | RENTALA RISHEETH PREETHAM | 248D1A059G | Database design, caching strategies, system monitoring |
+| **Backend & Deployment Lead** | TIRUKOTI VINAY | 24BD1A059R | Server architecture, API development, deployment strategies |
+| **Frontend React Developer** | PAGIDIPALLI SUNNY KIRAN | 24BD1A059B | UI components, user experience, React implementation |
+| **UI/UX + API Research Lead** | CHAKRAPANDA SATHWIK | 24BD1A058D | Interface design, user research, API integration |
+| **Celery / Async Processing Engineer** | CILIVERU MANIMUKTESH | 24BD1A058J | Background jobs, task queues, asynchronous operations |
+| **MongoDB, Redis & Monitoring Engineer** | RENTALA RISHEETH PREETHAM | 24BD1A059G | Database design, caching strategies, system monitoring |
 
 ### 👨‍🏫 Project Mentor
 **G. Swetha Goud** - Project Guide & Mentor
@@ -111,7 +111,7 @@
 ## 📁 Project Structure
 
 ```
-smart-eats/
+SmartEats/
 ├── frontend/                 # React.js application
 │   ├── src/
 │   │   ├── components/      # Reusable UI components
@@ -149,8 +149,8 @@ smart-eats/
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/devmatrix/smart-eats.git
-   cd smart-eats
+   git clone https://github.com/devmatrix/SmartEats.git
+   cd SmartEats
    ```
 
 2. **Backend Setup**
@@ -188,15 +188,15 @@ smart-eats/
 ### Environment Variables
 ```env
 # Database
-MONGODB_URI=mongodb://localhost:27017/smart-eats
-REDIS_URL=redis://localhost:6379
+MONGODB_URI=mongodb+srv://devmatrixteam25_db_user:<db_password>@smarteats25.lici3we.mongodb.net/?appName=SmartEats25
+REDIS_URL=redis-18658.c283.us-east-1-4.ec2.cloud.redislabs.com:18658
 
 # JWT Authentication
-JWT_SECRET=your_jwt_secret
-JWT_EXPIRES_IN=7d
+JWT_SECRET=2e75add36fab6e871007d9df9bfb996e3125bce61d35bb740d594a8cfca5411499db1119fa75875d4128307207ff9f85e7802973c6848635ca56a2668a7f3680
+JWT_EXPIRES_IN=3d
 
 # Message Broker
-RABBITMQ_URL=amqp://localhost:5672
+RABBITMQ_URL=amqps://dmulwxje:<RB_password>@puffin.rmq2.cloudamqp.com/dmulwxje
 
 # Monitoring
 PROMETHEUS_PORT=9090
@@ -226,7 +226,7 @@ We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.md) file for details.
 
 ## 🏆 Acknowledgments
 
