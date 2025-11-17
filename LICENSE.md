@@ -1,7 +1,7 @@
 # SmartEats License (2025)
 
 Copyright (c) 2025 DevMatrix Team  
-Authors: Trukoti Vinay, Sunny Kiran, Sathvik, Manimukthesh, Risheeth Preetham
+Authors: Trukoti Vinay, Sunny Kiran, Sathwik, Manimukthesh, Risheeth Preetham
 
 Version: 1.0 — Effective 2025
 
