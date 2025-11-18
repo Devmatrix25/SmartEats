@@ -112,28 +112,56 @@
 
 ```
 SmartEats/
-├── frontend/                 # React.js application
-│   ├── src/
-│   │   ├── components/      # Reusable UI components
-│   │   ├── pages/          # Application pages
-│   │   ├── hooks/          # Custom React hooks
-│   │   └── utils/          # Utility functions
-├── backend/                 # Node.js/Express API
-│   ├── controllers/         # Route controllers
-│   ├── models/             # Database models
-│   ├── middleware/         # Custom middleware
-│   ├── routes/             # API routes
-│   └── config/             # Configuration files
-├── celery-workers/          # Python Celery workers
-│   ├── tasks/              # Async task definitions
-│   └── config/             # Celery configuration
-├── monitoring/              # Observability setup
-│   ├── prometheus/         # Metrics configuration
-│   ├── grafana/            # Dashboard definitions
-│   └── logstash/           # Log processing pipelines
-└── docker/                  # Containerization files
-    ├── docker-compose.yml
-    └── nginx/
+│
+│── src/
+│ ├── base.css
+│ ├── base.js
+│ ├── components/ # Reusable UI components
+│ └── utils/ # Utility functions
+│
+├── Users/
+│ ├── index.html # Onboarding / Auth
+│ ├── products.html # Restaurant menu
+│ ├── cart.html # Cart + Checkout
+│ ├── order-history.html # Past orders
+│ ├── track-order.html # Real-time Order tracking (map + ETA)
+│ ├── support.html # User Support
+│ ├── profile.html # Profile + Wallet + History
+│
+├── Restaurants/
+│ ├── index.html # Login/Signup
+│ ├── menu.html # Menu management
+│ ├── orders.html # Incoming order queue
+│ ├── sales.html # Sales dashboard
+│ ├── support.html # Restaurant Support
+│ ├── profile.html # Profile + Earnings + Sales History
+│
+├── Drivers/
+│ ├── index.html # Auth + KYC
+│ ├── requests.html # Incoming requests (accept/reject)
+│ ├── navigation.html # Navigation (map + pick/deliver buttons)
+│ ├── support.html # Driver Support
+│ ├── profile.html # Profile + Earnings + Delivery History
+│ ├── earnings.html # Earnings dashboard
+│
+├── backend/ # Node.js/Express API
+│ ├── package.json
+│ ├── .env
+│ ├── server.js
+│ ├── controllers/ # Route controllers
+│ ├── models/ # Database models
+│ ├── middleware/ # Custom middleware
+│ ├── routes/ # API routes
+│ └── config/ # Config files
+│
+├── celery-workers/ # Python Celery workers (optional)
+│ ├── tasks/ # Async task definitions
+│ └── config/ # Celery configuration
+│
+├── monitoring/ # Observability setup
+│ ├── prometheus/ # Metrics configuration
+│ ├── grafana/ # Dashboard definitions
+│ └── logstash/ # Log processing pipelines
 ```
 
 ## 🚀 Getting Started
