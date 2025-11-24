@@ -1,0 +1,1347 @@
+[
+  {
+    "owner": "675a1f7493adb0a4c09d1123",
+    "name": "Spice Garden",
+    "description": "Authentic North Indian cuisine with traditional recipes passed down through generations",
+    "cuisine": ["Indian", "Mughlai"],
+    "address": {
+      "street": "MG Road",
+      "city": "Bangalore",
+      "state": "Karnataka",
+      "zipCode": "560001",
+      "country": "India",
+      "coordinates": {
+        "lat": 12.9716,
+        "lng": 77.5946
+      }
+    },
+    "contact": {
+      "phone": "+91-80-25555555",
+      "email": "info@spicegarden.com"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      "https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg"
+    ],
+    "logo": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+    "rating": 4.5,
+    "reviewCount": 320,
+    "deliveryInfo": {
+      "minOrder": 200,
+      "deliveryFee": 30,
+      "deliveryTime": 35,
+      "deliveryRadius": 6
+    },
+    "operatingHours": {
+      "monday": { "open": "10:00", "close": "23:00" },
+      "tuesday": { "open": "10:00", "close": "23:00" },
+      "wednesday": { "open": "10:00", "close": "23:00" },
+      "thursday": { "open": "10:00", "close": "23:00" },
+      "friday": { "open": "10:00", "close": "23:30" },
+      "saturday": { "open": "10:00", "close": "23:30" },
+      "sunday": { "open": "10:00", "close": "23:00" }
+    },
+    "menu": [
+      {
+        "name": "Paneer Tikka",
+        "description": "Cottage cheese cubes marinated in spices and grilled in tandoor",
+        "price": 280,
+        "originalPrice": 320,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Paneer", "Yogurt", "Spices", "Bell Peppers"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["popular", "chef-special"]
+      },
+      {
+        "name": "Butter Chicken",
+        "description": "Tender chicken in rich tomato and butter gravy",
+        "price": 350,
+        "originalPrice": 400,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Chicken", "Tomato", "Butter", "Cream", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["popular", "signature"]
+      },
+      {
+        "name": "Chicken Biryani",
+        "description": "Fragrant basmati rice cooked with chicken and aromatic spices",
+        "price": 320,
+        "originalPrice": 380,
+        "category": "Biryani",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Basmati Rice", "Chicken", "Spices", "Saffron"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 30,
+        "tags": ["popular", "best-seller"]
+      },
+      {
+        "name": "Gulab Jamun",
+        "description": "Soft milk dumplings soaked in sugar syrup",
+        "price": 120,
+        "originalPrice": 150,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Milk", "Sugar", "Flour", "Cardamom"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["sweet", "traditional"]
+      },
+      {
+        "name": "Mango Lassi",
+        "description": "Refreshing yogurt drink with mango pulp",
+        "price": 90,
+        "originalPrice": 120,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/1233319/pexels-photo-1233319.jpeg",
+        "ingredients": ["Yogurt", "Mango", "Sugar", "Cardamom"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 3,
+        "tags": ["refreshing", "seasonal"]
+      },
+      {
+        "name": "Dal Makhani",
+        "description": "Creamy black lentils slow-cooked with butter and spices",
+        "price": 220,
+        "originalPrice": 260,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Black Lentils", "Butter", "Cream", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["popular", "vegetarian"]
+      },
+      {
+        "name": "Tandoori Roti",
+        "description": "Traditional Indian bread baked in clay oven",
+        "price": 40,
+        "originalPrice": 50,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Wheat Flour", "Water", "Salt"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 10,
+        "tags": ["bread", "traditional"]
+      },
+      {
+        "name": "Chicken Tikka Masala",
+        "description": "Grilled chicken pieces in creamy tomato sauce",
+        "price": 340,
+        "originalPrice": 390,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken", "Tomato", "Cream", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["popular", "chef-special"]
+      },
+      {
+        "name": "Vegetable Biryani",
+        "description": "Aromatic rice cooked with mixed vegetables and spices",
+        "price": 240,
+        "originalPrice": 290,
+        "category": "Biryani",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Basmati Rice", "Mixed Vegetables", "Spices", "Saffron"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["vegetarian", "healthy"]
+      },
+      {
+        "name": "Rasmalai",
+        "description": "Soft cheese patties in sweetened milk",
+        "price": 140,
+        "originalPrice": 170,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Milk", "Sugar", "Cardamom", "Pistachios"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["sweet", "premium"]
+      },
+      {
+        "name": "Masala Chai",
+        "description": "Traditional Indian spiced tea",
+        "price": 50,
+        "originalPrice": 60,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/302896/pexels-photo-302896.jpeg",
+        "ingredients": ["Tea", "Milk", "Sugar", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["traditional", "hot"]
+      },
+      {
+        "name": "Samosa",
+        "description": "Crispy pastry filled with spiced potatoes and peas",
+        "price": 80,
+        "originalPrice": 100,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
+        "ingredients": ["Potatoes", "Peas", "Flour", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["popular", "snack"]
+      }
+    ],
+    "isActive": true,
+    "isVerified": true,
+    "commissionRate": 15,
+    "analytics": {
+      "totalOrders": 1500,
+      "totalRevenue": 520000,
+      "monthlyRevenue": 38000
+    }
+  },
+  {
+    "owner": "675a1f7493adb0a4c09d1123",
+    "name": "Coastal Flavors",
+    "description": "Authentic South Indian coastal cuisine with fresh seafood specialties",
+    "cuisine": ["Indian", "Seafood", "Andhra"],
+    "address": {
+      "street": "Marine Drive",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "zipCode": "600001",
+      "country": "India",
+      "coordinates": {
+        "lat": 13.0827,
+        "lng": 80.2707
+      }
+    },
+    "contact": {
+      "phone": "+91-44-25555555",
+      "email": "contact@coastalflavors.com"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      "https://images.pexels.com/photos/1267320/pexels-photo-1267320.jpeg"
+    ],
+    "logo": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+    "rating": 4.3,
+    "reviewCount": 280,
+    "deliveryInfo": {
+      "minOrder": 180,
+      "deliveryFee": 25,
+      "deliveryTime": 40,
+      "deliveryRadius": 7
+    },
+    "operatingHours": {
+      "monday": { "open": "11:00", "close": "22:30" },
+      "tuesday": { "open": "11:00", "close": "22:30" },
+      "wednesday": { "open": "11:00", "close": "22:30" },
+      "thursday": { "open": "11:00", "close": "22:30" },
+      "friday": { "open": "11:00", "close": "23:00" },
+      "saturday": { "open": "11:00", "close": "23:00" },
+      "sunday": { "open": "11:00", "close": "22:30" }
+    },
+    "menu": [
+      {
+        "name": "Fish Fry",
+        "description": "Crispy fried fish marinated in traditional spices",
+        "price": 320,
+        "originalPrice": 380,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1599487488170-d11ec9c172f0",
+        "ingredients": ["Fish", "Spices", "Oil", "Lemon"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["popular", "coastal"]
+      },
+      {
+        "name": "Chicken Chettinad",
+        "description": "Spicy chicken curry from Chettinad region",
+        "price": 340,
+        "originalPrice": 390,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Chicken", "Coconut", "Spices", "Curry Leaves"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 30,
+        "tags": ["spicy", "signature"]
+      },
+      {
+        "name": "Prawn Biryani",
+        "description": "Fragrant rice with fresh prawns and spices",
+        "price": 380,
+        "originalPrice": 430,
+        "category": "Biryani",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Basmati Rice", "Prawns", "Spices", "Mint"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 35,
+        "tags": ["seafood", "premium"]
+      },
+      {
+        "name": "Masala Dosa",
+        "description": "Crispy rice crepe filled with spiced potatoes",
+        "price": 120,
+        "originalPrice": 150,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Rice", "Lentils", "Potatoes", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["popular", "breakfast"]
+      },
+      {
+        "name": "Coconut Rice",
+        "description": "Fragrant rice cooked with coconut and mild spices",
+        "price": 160,
+        "originalPrice": 190,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Rice", "Coconut", "Mustard Seeds", "Curry Leaves"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 10,
+        "tags": ["mild", "traditional"]
+      },
+      {
+        "name": "Mango Pudding",
+        "description": "Creamy mango flavored pudding",
+        "price": 130,
+        "originalPrice": 160,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Mango", "Milk", "Sugar", "Gelatin"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["seasonal", "refreshing"]
+      },
+      {
+        "name": "Salted Lassi",
+        "description": "Traditional yogurt drink with salt and spices",
+        "price": 80,
+        "originalPrice": 100,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/1233319/pexels-photo-1233319.jpeg",
+        "ingredients": ["Yogurt", "Salt", "Cumin", "Mint"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 3,
+        "tags": ["traditional", "digestive"]
+      },
+      {
+        "name": "Vegetable Uttapam",
+        "description": "Thick rice pancake with mixed vegetables",
+        "price": 140,
+        "originalPrice": 170,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Rice", "Lentils", "Vegetables", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["breakfast", "healthy"]
+      },
+      {
+        "name": "Chicken 65",
+        "description": "Spicy deep-fried chicken appetizer",
+        "price": 280,
+        "originalPrice": 320,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken", "Red Chili", "Curry Leaves", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["spicy", "popular"]
+      },
+      {
+        "name": "Egg Curry",
+        "description": "Boiled eggs in spicy onion-tomato gravy",
+        "price": 220,
+        "originalPrice": 260,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Eggs", "Onion", "Tomato", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["spicy", "economical"]
+      },
+      {
+        "name": "Filter Coffee",
+        "description": "Traditional South Indian filter coffee",
+        "price": 60,
+        "originalPrice": 80,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/302896/pexels-photo-302896.jpeg",
+        "ingredients": ["Coffee", "Milk", "Sugar"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["traditional", "strong"]
+      },
+      {
+        "name": "Payasam",
+        "description": "Traditional South Indian sweet rice pudding",
+        "price": 110,
+        "originalPrice": 140,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Rice", "Milk", "Sugar", "Dry Fruits"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 10,
+        "tags": ["sweet", "festive"]
+      }
+    ],
+    "isActive": true,
+    "isVerified": true,
+    "commissionRate": 15,
+    "analytics": {
+      "totalOrders": 1200,
+      "totalRevenue": 380000,
+      "monthlyRevenue": 32000
+    }
+  },
+  {
+    "owner": "675a1f7493adb0a4c09d1123",
+    "name": "Royal Darbar",
+    "description": "Premium Mughlai cuisine with royal recipes and luxurious ambiance",
+    "cuisine": ["Indian", "Mughlai", "North Indian"],
+    "address": {
+      "street": "Connaught Place",
+      "city": "New Delhi",
+      "state": "Delhi",
+      "zipCode": "110001",
+      "country": "India",
+      "coordinates": {
+        "lat": 28.6139,
+        "lng": 77.2090
+      }
+    },
+    "contact": {
+      "phone": "+91-11-25555555",
+      "email": "royal@royaldarbar.com"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      "https://images.pexels.com/photos/941861/pexels-photo-941861.jpeg"
+    ],
+    "logo": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+    "rating": 4.7,
+    "reviewCount": 450,
+    "deliveryInfo": {
+      "minOrder": 300,
+      "deliveryFee": 40,
+      "deliveryTime": 30,
+      "deliveryRadius": 8
+    },
+    "operatingHours": {
+      "monday": { "open": "11:00", "close": "23:30" },
+      "tuesday": { "open": "11:00", "close": "23:30" },
+      "wednesday": { "open": "11:00", "close": "23:30" },
+      "thursday": { "open": "11:00", "close": "23:30" },
+      "friday": { "open": "11:00", "close": "00:00" },
+      "saturday": { "open": "11:00", "close": "00:00" },
+      "sunday": { "open": "11:00", "close": "23:30" }
+    },
+    "menu": [
+      {
+        "name": "Mutton Rogan Josh",
+        "description": "Tender mutton cooked in rich Kashmiri gravy",
+        "price": 480,
+        "originalPrice": 550,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Mutton", "Yogurt", "Spices", "Onion"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 40,
+        "tags": ["premium", "signature"]
+      },
+      {
+        "name": "Chicken Kebab Platter",
+        "description": "Assortment of grilled chicken kebabs",
+        "price": 420,
+        "originalPrice": 480,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken", "Spices", "Yogurt", "Herbs"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["premium", "royal"]
+      },
+      {
+        "name": "Mutton Biryani",
+        "description": "Royal biryani with tender mutton pieces",
+        "price": 450,
+        "originalPrice": 520,
+        "category": "Biryani",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Basmati Rice", "Mutton", "Saffron", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 45,
+        "tags": ["royal", "signature"]
+      },
+      {
+        "name": "Naan Basket",
+        "description": "Assorted Indian breads including butter naan and garlic naan",
+        "price": 180,
+        "originalPrice": 220,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Flour", "Butter", "Garlic", "Yogurt"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["bread", "assorted"]
+      },
+      {
+        "name": "Shahi Tukda",
+        "description": "Royal bread pudding with dry fruits",
+        "price": 160,
+        "originalPrice": 190,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Bread", "Milk", "Sugar", "Dry Fruits"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 10,
+        "tags": ["royal", "sweet"]
+      },
+      {
+        "name": "Kesar Pista Shake",
+        "description": "Saffron pistachio milkshake",
+        "price": 150,
+        "originalPrice": 180,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/1233319/pexels-photo-1233319.jpeg",
+        "ingredients": ["Milk", "Saffron", "Pistachio", "Sugar"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["premium", "royal"]
+      },
+      {
+        "name": "Dal Bukhara",
+        "description": "Slow-cooked black lentils with cream",
+        "price": 280,
+        "originalPrice": 330,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Black Lentils", "Cream", "Butter", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 35,
+        "tags": ["signature", "slow-cooked"]
+      },
+      {
+        "name": "Paneer Butter Masala",
+        "description": "Cottage cheese in rich tomato butter gravy",
+        "price": 320,
+        "originalPrice": 370,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Paneer", "Tomato", "Butter", "Cream"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["vegetarian", "popular"]
+      },
+      {
+        "name": "Chicken Reshmi Kebab",
+        "description": "Silky smooth chicken kebabs marinated in cream",
+        "price": 350,
+        "originalPrice": 400,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken", "Cream", "Cashew", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["premium", "silky"]
+      },
+      {
+        "name": "Vegetable Biryani",
+        "description": "Royal vegetable biryani with saffron",
+        "price": 280,
+        "originalPrice": 330,
+        "category": "Biryani",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Basmati Rice", "Vegetables", "Saffron", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 30,
+        "tags": ["vegetarian", "royal"]
+      },
+      {
+        "name": "Phirni",
+        "description": "Ground rice pudding with cardamom",
+        "price": 140,
+        "originalPrice": 170,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Rice", "Milk", "Sugar", "Cardamom"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 8,
+        "tags": ["traditional", "creamy"]
+      },
+      {
+        "name": "Rose Sharbat",
+        "description": "Refreshing rose flavored drink",
+        "price": 90,
+        "originalPrice": 120,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/1233319/pexels-photo-1233319.jpeg",
+        "ingredients": ["Rose Syrup", "Water", "Lemon", "Sugar"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 3,
+        "tags": ["refreshing", "floral"]
+      }
+    ],
+    "isActive": true,
+    "isVerified": true,
+    "commissionRate": 18,
+    "analytics": {
+      "totalOrders": 2000,
+      "totalRevenue": 850000,
+      "monthlyRevenue": 65000
+    }
+  },
+  {
+    "owner": "675a1f7493adb0a4c09d1123",
+    "name": "Dragon Wok",
+    "description": "Authentic Chinese cuisine with Szechuan and Cantonese specialties",
+    "cuisine": ["Chinese", "Asian"],
+    "address": {
+      "street": "Park Street",
+      "city": "Kolkata",
+      "state": "West Bengal",
+      "zipCode": "700016",
+      "country": "India",
+      "coordinates": {
+        "lat": 22.5726,
+        "lng": 88.3639
+      }
+    },
+    "contact": {
+      "phone": "+91-33-25555555",
+      "email": "hello@dragonwok.com"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      "https://images.pexels.com/photos/1058277/pexels-photo-1058277.jpeg"
+    ],
+    "logo": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+    "rating": 4.4,
+    "reviewCount": 380,
+    "deliveryInfo": {
+      "minOrder": 220,
+      "deliveryFee": 30,
+      "deliveryTime": 35,
+      "deliveryRadius": 6
+    },
+    "operatingHours": {
+      "monday": { "open": "11:30", "close": "23:00" },
+      "tuesday": { "open": "11:30", "close": "23:00" },
+      "wednesday": { "open": "11:30", "close": "23:00" },
+      "thursday": { "open": "11:30", "close": "23:00" },
+      "friday": { "open": "11:30", "close": "23:30" },
+      "saturday": { "open": "11:30", "close": "23:30" },
+      "sunday": { "open": "11:30", "close": "23:00" }
+    },
+    "menu": [
+      {
+        "name": "Chicken Manchurian",
+        "description": "Crispy chicken in spicy Szechuan sauce",
+        "price": 280,
+        "originalPrice": 330,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken", "Soy Sauce", "Ginger", "Garlic", "Chili"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["popular", "spicy"]
+      },
+      {
+        "name": "Vegetable Spring Rolls",
+        "description": "Crispy rolls filled with mixed vegetables",
+        "price": 180,
+        "originalPrice": 220,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
+        "ingredients": ["Cabbage", "Carrot", "Spring Onion", "Flour"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["crispy", "vegetarian"]
+      },
+      {
+        "name": "Chicken Fried Rice",
+        "description": "Stir-fried rice with chicken and vegetables",
+        "price": 240,
+        "originalPrice": 290,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Rice", "Chicken", "Vegetables", "Soy Sauce"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["popular", "quick"]
+      },
+      {
+        "name": "Szechuan Noodles",
+        "description": "Spicy noodles with vegetables in Szechuan sauce",
+        "price": 220,
+        "originalPrice": 260,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Noodles", "Vegetables", "Szechuan Sauce", "Sesame"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["spicy", "noodles"]
+      },
+      {
+        "name": "Sweet and Sour Chicken",
+        "description": "Crispy chicken in tangy sweet and sour sauce",
+        "price": 300,
+        "originalPrice": 350,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Chicken", "Pineapple", "Bell Peppers", "Sauce"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["tangy", "popular"]
+      },
+      {
+        "name": "Vegetable Hakka Noodles",
+        "description": "Stir-fried noodles with fresh vegetables",
+        "price": 200,
+        "originalPrice": 240,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Noodles", "Mixed Vegetables", "Soy Sauce", "Oil"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 12,
+        "tags": ["vegetarian", "quick"]
+      },
+      {
+        "name": "Chicken Lollipop",
+        "description": "French-cut chicken wings shaped like lollipops",
+        "price": 320,
+        "originalPrice": 370,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Chicken Wings", "Flour", "Spices", "Sauces"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["popular", "crispy"]
+      },
+      {
+        "name": "Egg Fried Rice",
+        "description": "Classic fried rice with scrambled eggs",
+        "price": 190,
+        "originalPrice": 230,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Rice", "Eggs", "Vegetables", "Spring Onion"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 12,
+        "tags": ["classic", "quick"]
+      },
+      {
+        "name": "Gobi Manchurian",
+        "description": "Crispy cauliflower in spicy Manchurian sauce",
+        "price": 220,
+        "originalPrice": 260,
+        "category": "Starter",
+        "image": "https://images.unsplash.com/photo-1601050690597-df0568f70950",
+        "ingredients": ["Cauliflower", "Flour", "Sauces", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 18,
+        "tags": ["vegetarian", "spicy"]
+      },
+      {
+        "name": "Chicken Chow Mein",
+        "description": "Stir-fried noodles with chicken and vegetables",
+        "price": 260,
+        "originalPrice": 310,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Noodles", "Chicken", "Cabbage", "Carrot", "Sauces"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["noodles", "popular"]
+      },
+      {
+        "name": "Fortune Cookie",
+        "description": "Crispy cookie with fortune message inside",
+        "price": 40,
+        "originalPrice": 50,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Flour", "Sugar", "Vanilla", "Butter"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["fun", "traditional"]
+      },
+      {
+        "name": "Green Tea",
+        "description": "Healthy Japanese green tea",
+        "price": 60,
+        "originalPrice": 80,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/302896/pexels-photo-302896.jpeg",
+        "ingredients": ["Green Tea Leaves", "Water"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["healthy", "traditional"]
+      }
+    ],
+    "isActive": true,
+    "isVerified": true,
+    "commissionRate": 16,
+    "analytics": {
+      "totalOrders": 1800,
+      "totalRevenue": 520000,
+      "monthlyRevenue": 42000
+    }
+  },
+  {
+    "owner": "675a1f7493adb0a4c09d1123",
+    "name": "Punjabi Dhaba",
+    "description": "Authentic Punjabi street food and traditional recipes",
+    "cuisine": ["Indian", "Punjabi", "North Indian"],
+    "address": {
+      "street": "Sector 17",
+      "city": "Chandigarh",
+      "state": "Punjab",
+      "zipCode": "160017",
+      "country": "India",
+      "coordinates": {
+        "lat": 30.7333,
+        "lng": 76.7794
+      }
+    },
+    "contact": {
+      "phone": "+91-172-2555555",
+      "email": "punjabi@dhaba.com"
+    },
+    "images": [
+      "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4",
+      "https://images.pexels.com/photos/2474661/pexels-photo-2474661.jpeg"
+    ],
+    "logo": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136",
+    "rating": 4.2,
+    "reviewCount": 290,
+    "deliveryInfo": {
+      "minOrder": 150,
+      "deliveryFee": 20,
+      "deliveryTime": 25,
+      "deliveryRadius": 5
+    },
+    "operatingHours": {
+      "monday": { "open": "08:00", "close": "23:00" },
+      "tuesday": { "open": "08:00", "close": "23:00" },
+      "wednesday": { "open": "08:00", "close": "23:00" },
+      "thursday": { "open": "08:00", "close": "23:00" },
+      "friday": { "open": "08:00", "close": "23:30" },
+      "saturday": { "open": "08:00", "close": "23:30" },
+      "sunday": { "open": "08:00", "close": "23:00" }
+    },
+    "menu": [
+      {
+        "name": "Amritsari Kulcha",
+        "description": "Stuffed bread from Amritsar with spicy filling",
+        "price": 120,
+        "originalPrice": 150,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Flour", "Potatoes", "Spices", "Butter"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["popular", "punjabi"]
+      },
+      {
+        "name": "Butter Chicken",
+        "description": "Classic Punjabi butter chicken",
+        "price": 320,
+        "originalPrice": 370,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Chicken", "Butter", "Tomato", "Cream", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 25,
+        "tags": ["signature", "popular"]
+      },
+      {
+        "name": "Rajma Chawal",
+        "description": "Kidney beans curry with steamed rice",
+        "price": 140,
+        "originalPrice": 170,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Kidney Beans", "Rice", "Onion", "Tomato", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["comfort", "vegetarian"]
+      },
+      {
+        "name": "Chole Bhature",
+        "description": "Spicy chickpeas with fried bread",
+        "price": 160,
+        "originalPrice": 190,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Chickpeas", "Flour", "Spices", "Oil"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["popular", "breakfast"]
+      },
+      {
+        "name": "Lassi",
+        "description": "Traditional Punjabi yogurt drink",
+        "price": 80,
+        "originalPrice": 100,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/1233319/pexels-photo-1233319.jpeg",
+        "ingredients": ["Yogurt", "Sugar", "Cardamom"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 3,
+        "tags": ["traditional", "refreshing"]
+      },
+      {
+        "name": "Paneer Tikka Masala",
+        "description": "Grilled cottage cheese in rich gravy",
+        "price": 280,
+        "originalPrice": 330,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1565557623262-b51c2513a641",
+        "ingredients": ["Paneer", "Cream", "Tomato", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 20,
+        "tags": ["vegetarian", "popular"]
+      },
+      {
+        "name": "Aloo Paratha",
+        "description": "Whole wheat bread stuffed with spiced potatoes",
+        "price": 100,
+        "originalPrice": 120,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Wheat Flour", "Potatoes", "Spices", "Butter"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": false,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 12,
+        "tags": ["breakfast", "traditional"]
+      },
+      {
+        "name": "Mutton Curry",
+        "description": "Hearty mutton curry with traditional spices",
+        "price": 380,
+        "originalPrice": 430,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1603894584373-5ac82b2ae398",
+        "ingredients": ["Mutton", "Onion", "Tomato", "Spices", "Yogurt"],
+        "dietaryInfo": {
+          "isVegetarian": false,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 40,
+        "tags": ["hearty", "traditional"]
+      },
+      {
+        "name": "Sarson Ka Saag",
+        "description": "Mustard greens cooked with spices",
+        "price": 180,
+        "originalPrice": 220,
+        "category": "Main Course",
+        "image": "https://images.unsplash.com/photo-1585937421612-70a008356fbe",
+        "ingredients": ["Mustard Greens", "Spinach", "Spices", "Corn Flour"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": true
+        },
+        "availability": true,
+        "preparationTime": 30,
+        "tags": ["seasonal", "traditional"]
+      },
+      {
+        "name": "Makki Di Roti",
+        "description": "Corn flour bread served with sarson ka saag",
+        "price": 60,
+        "originalPrice": 80,
+        "category": "Main Course",
+        "image": "https://images.pexels.com/photos/12737656/pexels-photo-12737656.jpeg",
+        "ingredients": ["Corn Flour", "Water", "Salt"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": true,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 10,
+        "tags": ["seasonal", "traditional"]
+      },
+      {
+        "name": "Gajar Ka Halwa",
+        "description": "Carrot pudding with dry fruits",
+        "price": 120,
+        "originalPrice": 150,
+        "category": "Desserts",
+        "image": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445",
+        "ingredients": ["Carrot", "Milk", "Sugar", "Dry Fruits", "Ghee"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 15,
+        "tags": ["seasonal", "sweet"]
+      },
+      {
+        "name": "Masala Chai",
+        "description": "Traditional Indian spiced tea",
+        "price": 40,
+        "originalPrice": 50,
+        "category": "Drinks",
+        "image": "https://images.pexels.com/photos/302896/pexels-photo-302896.jpeg",
+        "ingredients": ["Tea", "Milk", "Sugar", "Spices"],
+        "dietaryInfo": {
+          "isVegetarian": true,
+          "isVegan": false,
+          "isGlutenFree": true,
+          "isSpicy": false
+        },
+        "availability": true,
+        "preparationTime": 5,
+        "tags": ["traditional", "hot"]
+      }
+    ],
+    "isActive": true,
+    "isVerified": true,
+    "commissionRate": 14,
+    "analytics": {
+      "totalOrders": 1600,
+      "totalRevenue": 350000,
+      "monthlyRevenue": 28000
+    }
+  }
+]
