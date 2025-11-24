@@ -6,6 +6,8 @@ import Cart from '../models/Cart.js';
 import User from '../models/User.js';
 import Restaurant from '../models/Restaurant.js';
 import Payment from '../models/Payment.js';
+import Stripe from 'stripe';
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const router = express.Router();
 
@@ -23,15 +25,12 @@ router.post('/create-payment-intent', authenticate, [
 
         const { orderId, amount, currency } = req.body;
 
-        // In production, integrate with Stripe/PayU/Razorpay
-        // For demo, we'll simulate payment intent creation
-        const paymentIntent = {
-            id: `pi_${Math.random().toString(36).substr(2, 9)}`,
-            client_secret: `pi_${Math.random().toString(36).substr(2, 9)}_secret_${Math.random().toString(36).substr(2, 9)}`,
-            amount: Math.round(amount * 100), // Convert to smallest currency unit
-            currency: currency.toLowerCase(),
-            status: 'requires_payment_method'
-        };
+        // Create a real Stripe PaymentIntent
+const paymentIntent = await stripe.paymentIntents.create({
+    amount: Math.round(amount * 100), // convert INR → paise
+    currency: currency.toLowerCase(),
+    automatic_payment_methods: { enabled: true }
+});
 
         // Store payment intent in database
         const payment = new Payment({
@@ -69,11 +68,14 @@ router.post('/confirm', authenticate, [
         }
 
         const { paymentIntentId, orderId } = req.body;
-
-        // In production, verify payment with payment gateway
-        // For demo, we'll simulate successful payment
-        const isPaymentSuccessful = Math.random() > 0.1; // 90% success rate for demo
-
+        
+        await Payment.findOneAndUpdate(
+    { paymentIntentId },
+    {
+        status: 'succeeded',
+        paidAt: new Date()
+    }
+);
         if (!isPaymentSuccessful) {
             return res.status(400).json({ message: 'Payment failed. Please try again.' });
         }
@@ -488,5 +490,6 @@ async function handlePaymentFailure(paymentIntent) {
         console.error('Handle payment failure error:', error);
     }
 }
+
 
 export default router;
