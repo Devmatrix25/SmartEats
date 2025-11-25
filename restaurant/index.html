@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEats - Restaurant</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .restaurant-hero {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .benefit-card {
+            border: none;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            height: 100%;
+        }
+        
+        .benefit-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .registration-steps {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            padding: 2rem;
+        }
+        
+        .step-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="restaurant"></smart-eats-navbar>
+
+    <!-- Hero Section -->
+    <section class="restaurant-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold mb-4">Grow Your Restaurant Business</h1>
+                    <p class="lead mb-4">Join SmartEats and reach thousands of hungry customers in your area. Increase your revenue with our delivery platform.</p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#register" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-store me-2"></i>Register Now
+                        </a>
+                        <a href="#benefits" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-chart-line me-2"></i>Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" 
+                         alt="Restaurant" 
+                         class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits -->
+    <section id="benefits" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Partner with SmartEats?</h2>
+                <p class="text-muted">Grow your business with our powerful delivery platform</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Reach More Customers</h5>
+                        <p class="text-muted">Access thousands of potential customers in your delivery area</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h5>Increase Revenue</h5>
+                        <p class="text-muted">Boost your sales by 30% on average with online orders</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="benefit-card">
+                        <div class="benefit-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h5>Easy Management</h5>
+                        <p class="text-muted">Simple dashboard to manage orders, menu, and analytics</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Process -->
+    <section id="register" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="registration-steps">
+                        <h3 class="fw-bold text-center mb-4">Get Started in 4 Simple Steps</h3>
+                        
+                        <div class="step-item">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h5 class="fw-bold">Create Account</h5>
+                                <p class="text-muted mb-0">Sign up as a restaurant partner with basic information</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h5 class="fw-bold">Restaurant Details</h5>
+                                <p class="text-muted mb-0">Provide your restaurant information, menu, and photos</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h5 class="fw-bold">Document Verification</h5>
+                                <p class="text-muted mb-0">Upload required business documents for verification</p>
+                            </div>
+                        </div>
+                        
+                        <div class="step-item">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h5 class="fw-bold">Go Live</h5>
+                                <p class="text-muted mb-0">Start receiving orders after approval (usually within 24 hours)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary btn-lg" onclick="startRegistration()">
+                                <i class="fas fa-play-circle me-2"></i>Start Registration
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <div class="card-body p-4">
+                            <div class="text-center mb-4">
+                                <h3 class="fw-bold">Restaurant Login</h3>
+                                <p class="text-muted">Access your restaurant dashboard</p>
+                            </div>
+                            
+                            <form id="restaurantLoginForm">
+                                <div class="mb-3">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" name="password" required>
+                                </div>
+                                <div class="mb-3 form-check">
+                                    <input type="checkbox" class="form-check-input" name="remember">
+                                    <label class="form-check-label">Remember me</label>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 py-2">
+                                    <i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard
+                                </button>
+                            </form>
+                            
+                            <div class="text-center mt-3">
+                                <a href="#" class="text-decoration-none">Forgot password?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Restaurant Registration Section -->
+<section id="restaurant-register" class="py-5 bg-white">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-7">
+                <div class="card shadow-sm">
+                    <div class="card-body p-4">
+                        
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold">Register Your Restaurant</h3>
+                            <p class="text-muted">Create a new restaurant partner account</p>
+                        </div>
+
+                        <form id="restaurantRegisterForm">
+
+                            <div class="mb-3">
+                                <label class="form-label">Owner First Name</label>
+                                <input type="text" class="form-control" name="firstName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Owner Last Name</label>
+                                <input type="text" class="form-control" name="lastName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Phone Number</label>
+                                <input type="tel" class="form-control" name="phone" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Create Password</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Restaurant Name</label>
+                                <input type="text" class="form-control" name="restaurantName" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Restaurant Description</label>
+                                <textarea class="form-control" rows="2" name="description"></textarea>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Restaurant Address</label>
+                                <textarea class="form-control" rows="2" name="address" required></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                <i class="fas fa-store me-2"></i>Create Restaurant Account
+                            </button>
+                        </form>
+
+                        <div class="text-center mt-3">
+                            <span>Already registered?</span>
+                            <a href="#restaurantLoginForm" class="text-decoration-none">Login here</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 SmartEats Restaurant Portal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        function startRegistration() {
+            if (smartEats.currentUser) {
+                window.location.href = 'profile.html?setup=start';
+            } else {
+                smartEats.showToast('Please login or create an account first', 'info');
+                document.querySelector('.card').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Form handling
+        smartEats.handleFormSubmit(
+            document.getElementById('restaurantLoginForm'),
+            '/auth/login',
+            'POST',
+            (data) => {
+                localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('refreshToken', data.refreshToken);
+                // Save user object so role check works
+                localStorage.setItem('currentUser', JSON.stringify(data.user));
+                
+                if (data.user.role === 'restaurant') {
+                    window.location.href = 'orders.html';
+                } else {
+                    smartEats.showToast('Please use a restaurant account', 'warning');
+                }
+            }
+        );
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (smartEats.currentUser) {
+                if (smartEats.currentUser.role === 'restaurant') {
+                    window.location.href = 'orders.html';
+                } else {
+                    smartEats.showToast('Please use the restaurant portal with a restaurant account', 'warning');
+                }
+            }
+        });
+    </script>
+    <script>
+    // RESTAURANT REGISTRATION HANDLER
+    smartEats.handleFormSubmit(
+        document.getElementById('restaurantRegisterForm'),
+        '/auth/register',
+        'POST',
+        async (data) => {
+
+            smartEats.showToast("Account created successfully!", "success");
+
+            // Save tokens
+            localStorage.setItem("accessToken", data.accessToken);
+            localStorage.setItem("refreshToken", data.refreshToken);
+
+            // Redirect to restaurant setup
+            window.location.href = "profile.html?setup=start";
+        }
+    );
+</script>
+</body>
+</html>
