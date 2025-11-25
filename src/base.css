@@ -1,0 +1,166 @@
+:root {
+  /* Primary Colors */
+  --primary-orange: #FC8019;
+  --dark-orange: #E56A10;
+  --light-orange: #FF9E4D;
+  
+  /* Neutral Colors */
+  --dark-grey: #3D3D3D;
+  --medium-grey: #6B6B6B;
+  --light-grey: #EDEDED;
+  --off-white: #FAFAFA;
+  --pure-white: #FFFFFF;
+  
+  /* Supporting Colors */
+  --success: #1DBF73;
+  --warning: #F7B801;
+  --error: #D13B3B;
+  --info: #0099E5;
+  
+  /* Theme Variables */
+  --bg-primary: var(--pure-white);
+  --bg-secondary: var(--off-white);
+  --text-primary: var(--dark-grey);
+  --text-secondary: var(--medium-grey);
+  --border-color: var(--light-grey);
+}
+
+[data-theme="dark"] {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: var(--pure-white);
+  --text-secondary: var(--light-grey);
+  --border-color: #404040;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+/* Utility Classes */
+.btn-primary {
+  background-color: var(--primary-orange);
+  border-color: var(--primary-orange);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark-orange);
+  border-color: var(--dark-orange);
+}
+
+.btn-outline-primary {
+  border-color: var(--primary-orange);
+  color: var(--primary-orange);
+}
+
+.btn-outline-primary:hover {
+  background-color: var(--primary-orange);
+  border-color: var(--primary-orange);
+}
+
+.text-primary { color: var(--primary-orange) !important; }
+.bg-primary { background-color: var(--primary-orange) !important; }
+.bg-success { background-color: var(--success) !important; }
+.bg-warning { background-color: var(--warning) !important; }
+.bg-error { background-color: var(--error) !important; }
+.bg-info { background-color: var(--info) !important; }
+
+/* Loading Spinner */
+.loading-spinner {
+  width: 2rem;
+  height: 2rem;
+  border: 3px solid var(--light-grey);
+  border-top: 3px solid var(--primary-orange);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Card Styles */
+.card {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 12px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+
+/* Navigation */
+.navbar-brand {
+  font-weight: 700;
+  color: var(--primary-orange) !important;
+}
+
+.navbar {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Form Styles */
+.form-control:focus {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 0.2rem rgba(252, 128, 25, 0.25);
+}
+
+/* Badge Styles */
+.badge {
+  font-weight: 500;
+  padding: 0.375rem 0.75rem;
+}
+
+/* Alert Styles */
+.alert {
+  border: none;
+  border-radius: 8px;
+}
+
+/* Progress Bar */
+.progress {
+  height: 8px;
+  border-radius: 4px;
+}
+
+.progress-bar {
+  background-color: var(--primary-orange);
+}
+
+/* Map Container */
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background-color: var(--bg-secondary);
+}
+
+/* Order Status Badges */
+.status-pending { background-color: var(--warning); color: white; }
+.status-accepted { background-color: var(--info); color: white; }
+.status-preparing { background-color: var(--info); color: white; }
+.status-ready { background-color: var(--success); color: white; }
+.status-picked { background-color: var(--primary-orange); color: white; }
+.status-delivered { background-color: var(--success); color: white; }
+.status-cancelled { background-color: var(--error); color: white; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
