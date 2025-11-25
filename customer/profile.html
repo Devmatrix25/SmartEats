@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .profile-header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        .avatar-upload {
+            position: relative;
+            display: inline-block;
+        }
+        
+        .avatar-img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .avatar-edit {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--primary-orange);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: 3px solid white;
+        }
+        
+        .stat-card {
+            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .address-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+        
+        .address-card.default {
+            border-color: var(--primary-orange);
+            background: rgba(255, 107, 53, 0.05);
+        }
+        
+        .address-actions {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+        }
+        
+        .nav-pills .nav-link {
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.75rem 1rem;
+        }
+        
+        .nav-pills .nav-link.active {
+            background: var(--primary-orange);
+            color: white;
+        }
+        
+        .preference-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .preference-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="container py-4">
+        <div class="row">
+            <!-- Sidebar Navigation -->
+            <div class="col-lg-3">
+                <div class="profile-card">
+                    <div class="profile-header">
+                        <div class="avatar-upload">
+                            <img id="userAvatar" src="" alt="Profile" class="avatar-img">
+                            <div class="avatar-edit" onclick="document.getElementById('avatarInput').click()">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <input type="file" id="avatarInput" accept="image/*" style="display: none;" onchange="uploadAvatar(event)">
+                        </div>
+                        <h4 class="fw-bold mt-3" id="userName">Loading...</h4>
+                        <p class="text-muted" id="userEmail">Loading...</p>
+                    </div>
+                    
+                    <ul class="nav nav-pills flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#personal" data-bs-toggle="tab">
+                                <i class="fas fa-user me-2"></i>Personal Info
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#addresses" data-bs-toggle="tab">
+                                <i class="fas fa-map-marker-alt me-2"></i>Addresses
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#preferences" data-bs-toggle="tab">
+                                <i class="fas fa-cog me-2"></i>Preferences
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#security" data-bs-toggle="tab">
+                                <i class="fas fa-shield-alt me-2"></i>Security
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#wallet" data-bs-toggle="tab">
+                                <i class="fas fa-wallet me-2"></i>Wallet
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="stat-card">
+                    <h3 id="totalOrders">0</h3>
+                    <p class="mb-0">Total Orders</p>
+                </div>
+                <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <h3 id="totalSpent">₹0</h3>
+                    <p class="mb-0">Total Spent</p>
+                </div>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-lg-9">
+                <div class="tab-content">
+                    <!-- Personal Info Tab -->
+                    <div class="tab-pane fade show active" id="personal">
+                        <div class="profile-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold">Personal Information</h4>
+                                <button class="btn btn-outline-primary" onclick="enableEditing()" id="editBtn">
+                                    <i class="fas fa-edit me-2"></i>Edit Profile
+                                </button>
+                            </div>
+                            
+                            <form id="profileForm">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">First Name</label>
+                                            <input type="text" class="form-control" name="firstName" id="firstName" disabled required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Last Name</label>
+                                            <input type="text" class="form-control" name="lastName" id="lastName" disabled required>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Email Address</label>
+                                            <input type="email" class="form-control" id="email" disabled>
+                                            <div class="form-text">Email cannot be changed</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Phone Number</label>
+                                            <input type="tel" class="form-control" name="phone" id="phone" disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Date of Birth</label>
+                                            <input type="date" class="form-control" name="dateOfBirth" id="dateOfBirth" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="mb-3">
+                                            <label class="form-label fw-bold">Gender</label>
+                                            <select class="form-select" name="gender" id="gender" disabled>
+                                                <option value="">Select Gender</option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                                <option value="other">Other</option>
+                                                <option value="prefer-not-to-say">Prefer not to say</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="mt-4" id="formActions" style="display: none;">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save me-2"></i>Save Changes
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary" onclick="cancelEditing()">
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Addresses Tab -->
+                    <div class="tab-pane fade" id="addresses">
+                        <div class="profile-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold">Saved Addresses</h4>
+                                <button class="btn btn-primary" onclick="showAddAddressModal()">
+                                    <i class="fas fa-plus me-2"></i>Add New Address
+                                </button>
+                            </div>
+                            
+                            <div id="addressesList">
+                                <!-- Addresses will be loaded here -->
+                            </div>
+                            
+                            <div class="text-center py-4" id="noAddresses" style="display: none;">
+                                <i class="fas fa-map-marker-alt fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No addresses saved</h5>
+                                <p class="text-muted">Add your first address to get started with deliveries</p>
+                                <button class="btn btn-primary" onclick="showAddAddressModal()">
+                                    <i class="fas fa-plus me-2"></i>Add Address
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Preferences Tab -->
+                    <div class="tab-pane fade" id="preferences">
+                        <div class="profile-card">
+                            <h4 class="fw-bold mb-4">Preferences</h4>
+                            
+                            <h6 class="fw-bold mb-3">Notification Settings</h6>
+                            <div class="mb-4">
+                                <div class="preference-item">
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Email Notifications</h6>
+                                        <p class="text-muted mb-0">Receive order updates and promotions via email</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <div>
+                                        <h6 class="fw-bold mb-1">SMS Notifications</h6>
+                                        <p class="text-muted mb-0">Receive order updates via SMS</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="smsNotifications" checked>
+                                    </div>
+                                </div>
+                                <div class="preference-item">
+                                    <div>
+                                        <h6 class="fw-bold mb-1">Push Notifications</h6>
+                                        <p class="text-muted mb-0">Receive push notifications on your device</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6 class="fw-bold mb-3">Dietary Preferences</h6>
+                            <div class="mb-4">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="vegetarian">
+                                            <label class="form-check-label" for="vegetarian">Vegetarian</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="vegan">
+                                            <label class="form-check-label" for="vegan">Vegan</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="glutenFree">
+                                            <label class="form-check-label" for="glutenFree">Gluten-Free</label>
+                                        </div>
+                                        <div class="form-check mb-3">
+                                            <input class="form-check-input" type="checkbox" id="dairyFree">
+                                            <label class="form-check-label" for="dairyFree">Dairy-Free</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <h6 class="fw-bold mb-3">Favorite Cuisines</h6>
+                            <div class="mb-4">
+                                <select class="form-select" id="favoriteCuisines" multiple>
+                                    <option value="indian">Indian</option>
+                                    <option value="chinese">Chinese</option>
+                                    <option value="italian">Italian</option>
+                                    <option value="mexican">Mexican</option>
+                                    <option value="thai">Thai</option>
+                                    <option value="american">American</option>
+                                    <option value="mediterranean">Mediterranean</option>
+                                </select>
+                                <div class="form-text">Hold Ctrl/Cmd to select multiple cuisines</div>
+                            </div>
+                            
+                            <button class="btn btn-primary" onclick="savePreferences()">
+                                <i class="fas fa-save me-2"></i>Save Preferences
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Security Tab -->
+                    <div class="tab-pane fade" id="security">
+                        <div class="profile-card">
+                            <h4 class="fw-bold mb-4">Security Settings</h4>
+                            
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3">Change Password</h6>
+                                <form id="passwordForm">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="mb-3">
+                                                <label class="form-label">Current Password</label>
+                                                <input type="password" class="form-control" name="currentPassword" required>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">New Password</label>
+                                                <input type="password" class="form-control" name="newPassword" required minlength="6">
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="confirmPassword" required>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-key me-2"></i>Change Password
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div class="mb-4">
+                                <h6 class="fw-bold mb-3">Two-Factor Authentication</h6>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="fw-bold mb-1">2FA Status</h6>
+                                        <p class="text-muted mb-0">Add an extra layer of security to your account</p>
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                        <label class="form-check-label" for="twoFactorAuth">Enable 2FA</label>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <hr>
+                            
+                            <div>
+                                <h6 class="fw-bold mb-3">Login Activity</h6>
+                                <div class="table-responsive">
+                                    <table class="table table-sm">
+                                        <thead>
+                                            <tr>
+                                                <th>Device</th>
+                                                <th>Location</th>
+                                                <th>IP Address</th>
+                                                <th>Last Active</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="loginActivity">
+                                            <!-- Login activity will be loaded here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Wallet Tab -->
+                    <div class="tab-pane fade" id="wallet">
+                        <div class="profile-card">
+                            <div class="d-flex justify-content-between align-items-center mb-4">
+                                <h4 class="fw-bold">SmartEats Wallet</h4>
+                                <button class="btn btn-primary" onclick="showAddMoneyModal()">
+                                    <i class="fas fa-plus me-2"></i>Add Money
+                                </button>
+                            </div>
+                            
+                            <div class="stat-card text-center mb-4" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                                <h3 id="walletBalance">₹0.00</h3>
+                                <p class="mb-0">Current Balance</p>
+                            </div>
+                            
+                            <h6 class="fw-bold mb-3">Recent Transactions</h6>
+                            <div id="walletTransactions">
+                                <!-- Transactions will be loaded here -->
+                            </div>
+                            
+                            <div class="text-center py-4" id="noTransactions" style="display: none;">
+                                <i class="fas fa-receipt fa-3x text-muted mb-3"></i>
+                                <h5 class="text-muted">No transactions yet</h5>
+                                <p class="text-muted">Your transaction history will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Address Modal -->
+    <div class="modal fade" id="addAddressModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addressForm">
+                        <div class="mb-3">
+                            <label class="form-label">Address Type</label>
+                            <select class="form-select" name="type" required>
+                                <option value="home">Home</option>
+                                <option value="work">Work</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-control" name="city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pincode</label>
+                                <input type="text" class="form-control" name="pincode" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Landmark (Optional)</label>
+                            <input type="text" class="form-control" name="landmark">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="isDefault" id="setAsDefault">
+                            <label class="form-check-label" for="setAsDefault">Set as default address</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAddress()">Save Address</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Money Modal -->
+    <div class="modal fade" id="addMoneyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Money to Wallet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addMoneyForm">
+                        <div class="mb-3">
+                            <label class="form-label">Amount</label>
+                            <input type="number" class="form-control" name="amount" min="10" max="10000" step="10" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Payment Method</label>
+                            <select class="form-select" name="paymentMethod" required>
+                                <option value="card">Credit/Debit Card</option>
+                                <option value="upi">UPI</option>
+                                <option value="netbanking">Net Banking</option>
+                            </select>
+                        </div>
+                        <div class="alert alert-info">
+                            <small>
+                                <i class="fas fa-info-circle me-2"></i>
+                                Minimum amount: ₹10, Maximum amount: ₹10,000
+                            </small>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="addMoneyToWallet()">Add Money</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        let userData = null;
+        let addresses = [];
+        let walletTransactions = [];
+
+        // Initialize profile page
+        async function initProfile() {
+            if (!smartEats.currentUser) {
+                window.location.href = 'index.html';
+                return;
+            }
+
+            await loadUserProfile();
+            await loadUserStatistics();
+            await loadAddresses();
+            await loadWalletData();
+            setupEventListeners();
+        }
+
+        // Load user profile
+        async function loadUserProfile() {
+            try {
+                const response = await smartEats.apiCall('/users/profile');
+                if (response.ok) {
+                    const data = await response.json();
+                    userData = data.user;
+                    updateProfileUI();
+                } else {
+                    throw new Error('Failed to load profile');
+                }
+            } catch (error) {
+                console.error('Error loading profile:', error);
+                // For demo, use current user data
+                userData = smartEats.currentUser;
+                updateProfileUI();
+            }
+        }
+
+        // Update profile UI
+        function updateProfileUI() {
+            if (!userData) return;
+
+            // Update header
+            document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
+            document.getElementById('userEmail').textContent = userData.email;
+            document.getElementById('userAvatar').src = userData.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80';
+
+            // Update form fields
+            document.getElementById('firstName').value = userData.firstName || '';
+            document.getElementById('lastName').value = userData.lastName || '';
+            document.getElementById('email').value = userData.email || '';
+            document.getElementById('phone').value = userData.phone || '';
+            document.getElementById('dateOfBirth').value = userData.dateOfBirth ? userData.dateOfBirth.split('T')[0] : '';
+            document.getElementById('gender').value = userData.gender || '';
+
+            // Update preferences
+            if (userData.preferences) {
+                document.getElementById('emailNotifications').checked = userData.preferences.notifications?.email !== false;
+                document.getElementById('smsNotifications').checked = userData.preferences.notifications?.sms !== false;
+                document.getElementById('pushNotifications').checked = userData.preferences.notifications?.push !== false;
+                
+                // Dietary preferences
+                if (userData.preferences.dietaryPreferences) {
+                    document.getElementById('vegetarian').checked = userData.preferences.dietaryPreferences.includes('vegetarian');
+                    document.getElementById('vegan').checked = userData.preferences.dietaryPreferences.includes('vegan');
+                    document.getElementById('glutenFree').checked = userData.preferences.dietaryPreferences.includes('glutenFree');
+                    document.getElementById('dairyFree').checked = userData.preferences.dietaryPreferences.includes('dairyFree');
+                }
+
+                // Favorite cuisines
+                if (userData.preferences.favoriteCuisines) {
+                    const select = document.getElementById('favoriteCuisines');
+                    Array.from(select.options).forEach(option => {
+                        option.selected = userData.preferences.favoriteCuisines.includes(option.value);
+                    });
+                }
+            }
+        }
+
+        // Load user statistics
+        async function loadUserStatistics() {
+            try {
+                const response = await smartEats.apiCall('/users/statistics');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('totalOrders').textContent = data.totalOrders || 0;
+                    document.getElementById('totalSpent').textContent = `₹${(data.totalSpent || 0).toFixed(2)}`;
+                }
+            } catch (error) {
+                console.error('Error loading statistics:', error);
+                // Set demo values
+                document.getElementById('totalOrders').textContent = '12';
+                document.getElementById('totalSpent').textContent = '₹4,567.89';
+            }
+        }
+
+        // Load addresses
+        async function loadAddresses() {
+            try {
+                // Addresses are part of user profile
+                addresses = userData.addresses || [];
+                displayAddresses();
+            } catch (error) {
+                console.error('Error loading addresses:', error);
+                addresses = [];
+            }
+        }
+
+        // Display addresses
+        function displayAddresses() {
+            const container = document.getElementById('addressesList');
+            const noAddresses = document.getElementById('noAddresses');
+
+            if (addresses.length === 0) {
+                container.style.display = 'none';
+                noAddresses.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            noAddresses.style.display = 'none';
+
+            container.innerHTML = addresses.map((address, index) => `
+                <div class="address-card ${address.isDefault ? 'default' : ''}">
+                    <div class="address-actions">
+                        <button class="btn btn-sm btn-outline-primary me-1" onclick="editAddress(${index})">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger" onclick="deleteAddress('${address._id}')">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                    
+                    <h6 class="fw-bold mb-2">
+                        ${address.type === 'home' ? '🏠' : address.type === 'work' ? '🏢' : '📍'} 
+                        ${address.type.charAt(0).toUpperCase() + address.type.slice(1)}
+                        ${address.isDefault ? '<span class="badge bg-primary ms-2">Default</span>' : ''}
+                    </h6>
+                    
+                    <p class="mb-1"><strong>${address.fullName}</strong></p>
+                    <p class="mb-1">${address.address}</p>
+                    <p class="mb-1">${address.city}, ${address.pincode}</p>
+                    ${address.landmark ? `<p class="mb-1">Landmark: ${address.landmark}</p>` : ''}
+                    <p class="mb-0">Phone: ${address.phone}</p>
+                    
+                    ${!address.isDefault ? `
+                        <div class="mt-3">
+                            <button class="btn btn-sm btn-outline-secondary" onclick="setDefaultAddress('${address._id}')">
+                                Set as Default
+                            </button>
+                        </div>
+                    ` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Load wallet data
+        async function loadWalletData() {
+            try {
+                const response = await smartEats.apiCall('/payments/wallet');
+                if (response.ok) {
+                    const data = await response.json();
+                    document.getElementById('walletBalance').textContent = `₹${(data.balance || 0).toFixed(2)}`;
+                    walletTransactions = data.transactions || [];
+                    displayWalletTransactions();
+                }
+            } catch (error) {
+                console.error('Error loading wallet data:', error);
+                // Demo data
+                document.getElementById('walletBalance').textContent = '₹1,234.56';
+                walletTransactions = [
+                    { type: 'wallet_topup', amount: 1000, status: 'succeeded', createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString() },
+                    { type: 'order_payment', amount: -365.44, order: { orderNumber: 'SE123456789' }, status: 'succeeded', createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString() }
+                ];
+                displayWalletTransactions();
+            }
+        }
+
+        // Display wallet transactions
+        function displayWalletTransactions() {
+            const container = document.getElementById('walletTransactions');
+            const noTransactions = document.getElementById('noTransactions');
+
+            if (walletTransactions.length === 0) {
+                container.style.display = 'none';
+                noTransactions.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            noTransactions.style.display = 'none';
+
+            container.innerHTML = walletTransactions.map(transaction => `
+                <div class="preference-item">
+                    <div>
+                        <h6 class="fw-bold mb-1">${getTransactionDescription(transaction)}</h6>
+                        <p class="text-muted mb-0">${formatDateTime(transaction.createdAt)}</p>
+                        <span class="badge ${transaction.status === 'succeeded' ? 'bg-success' : 'bg-warning'}">
+                            ${transaction.status}
+                        </span>
+                    </div>
+                    <div class="text-end">
+                        <h6 class="fw-bold ${transaction.amount > 0 ? 'text-success' : 'text-danger'}">
+                            ${transaction.amount > 0 ? '+' : ''}₹${Math.abs(transaction.amount).toFixed(2)}
+                        </h6>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Profile editing functions
+        function enableEditing() {
+            document.querySelectorAll('#profileForm input, #profileForm select').forEach(el => {
+                if (el.id !== 'email') {
+                    el.disabled = false;
+                }
+            });
+            document.getElementById('editBtn').style.display = 'none';
+            document.getElementById('formActions').style.display = 'block';
+        }
+
+        function cancelEditing() {
+            document.querySelectorAll('#profileForm input, #profileForm select').forEach(el => {
+                el.disabled = true;
+            });
+            document.getElementById('editBtn').style.display = 'block';
+            document.getElementById('formActions').style.display = 'none';
+            updateProfileUI(); // Reset form to original values
+        }
+
+        // Save profile
+        document.getElementById('profileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            try {
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+                
+                const response = await smartEats.apiCall('/users/profile', {
+                    method: 'PUT',
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    userData = result.user;
+                    smartEats.currentUser = result.user;
+                    smartEats.showToast('Profile updated successfully', 'success');
+                    cancelEditing();
+                    updateProfileUI();
+                }
+            } catch (error) {
+                console.error('Error updating profile:', error);
+                smartEats.showToast('Error updating profile', 'error');
+            }
+        });
+
+        // Address management
+        function showAddAddressModal() {
+            document.getElementById('addressForm').reset();
+            const modal = new bootstrap.Modal(document.getElementById('addAddressModal'));
+            modal.show();
+        }
+
+        async function saveAddress() {
+            try {
+                const form = document.getElementById('addressForm');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                data.isDefault = document.getElementById('setAsDefault').checked;
+
+                const response = await smartEats.apiCall('/users/address', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    addresses = result.addresses;
+                    displayAddresses();
+                    bootstrap.Modal.getInstance(document.getElementById('addAddressModal')).hide();
+                    smartEats.showToast('Address added successfully', 'success');
+                }
+            } catch (error) {
+                console.error('Error saving address:', error);
+                smartEats.showToast('Error saving address', 'error');
+            }
+        }
+
+        async function setDefaultAddress(addressId) {
+            try {
+                // Update all addresses
+                const updatedAddresses = addresses.map(addr => ({
+                    ...addr,
+                    isDefault: addr._id === addressId
+                }));
+
+                const response = await smartEats.apiCall('/users/address', {
+                    method: 'PUT',
+                    body: JSON.stringify({ addresses: updatedAddresses })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    addresses = result.addresses;
+                    displayAddresses();
+                    smartEats.showToast('Default address updated', 'success');
+                }
+            } catch (error) {
+                console.error('Error setting default address:', error);
+                smartEats.showToast('Error updating default address', 'error');
+            }
+        }
+
+        async function deleteAddress(addressId) {
+            if (confirm('Are you sure you want to delete this address?')) {
+                try {
+                    const response = await smartEats.apiCall(`/users/address/${addressId}`, {
+                        method: 'DELETE'
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        addresses = result.addresses;
+                        displayAddresses();
+                        smartEats.showToast('Address deleted', 'success');
+                    }
+                } catch (error) {
+                    console.error('Error deleting address:', error);
+                    smartEats.showToast('Error deleting address', 'error');
+                }
+            }
+        }
+
+        // Wallet functions
+        function showAddMoneyModal() {
+            document.getElementById('addMoneyForm').reset();
+            const modal = new bootstrap.Modal(document.getElementById('addMoneyModal'));
+            modal.show();
+        }
+
+        async function addMoneyToWallet() {
+            try {
+                const form = document.getElementById('addMoneyForm');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+                data.amount = parseFloat(data.amount);
+
+                const response = await smartEats.apiCall('/payments/wallet/topup', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    bootstrap.Modal.getInstance(document.getElementById('addMoneyModal')).hide();
+                    smartEats.showToast('Money added to wallet successfully', 'success');
+                    await loadWalletData();
+                }
+            } catch (error) {
+                console.error('Error adding money to wallet:', error);
+                smartEats.showToast('Error adding money to wallet', 'error');
+            }
+        }
+
+        // Preferences
+        async function savePreferences() {
+            try {
+                const preferences = {
+                    notifications: {
+                        email: document.getElementById('emailNotifications').checked,
+                        sms: document.getElementById('smsNotifications').checked,
+                        push: document.getElementById('pushNotifications').checked
+                    },
+                    dietaryPreferences: [],
+                    favoriteCuisines: Array.from(document.getElementById('favoriteCuisines').selectedOptions).map(opt => opt.value)
+                };
+
+                // Add dietary preferences
+                if (document.getElementById('vegetarian').checked) preferences.dietaryPreferences.push('vegetarian');
+                if (document.getElementById('vegan').checked) preferences.dietaryPreferences.push('vegan');
+                if (document.getElementById('glutenFree').checked) preferences.dietaryPreferences.push('glutenFree');
+                if (document.getElementById('dairyFree').checked) preferences.dietaryPreferences.push('dairyFree');
+
+                const response = await smartEats.apiCall('/users/profile', {
+                    method: 'PUT',
+                    body: JSON.stringify({ preferences })
+                });
+
+                if (response.ok) {
+                    smartEats.showToast('Preferences saved successfully', 'success');
+                }
+            } catch (error) {
+                console.error('Error saving preferences:', error);
+                smartEats.showToast('Error saving preferences', 'error');
+            }
+        }
+
+        // Utility functions
+        function getTransactionDescription(transaction) {
+            if (transaction.type === 'wallet_topup') {
+                return 'Wallet Top-up';
+            } else if (transaction.type === 'order_payment') {
+                return `Order Payment - ${transaction.order?.orderNumber || 'Order'}`;
+            }
+            return 'Transaction';
+        }
+
+        function formatDateTime(dateString) {
+            return new Date(dateString).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function setupEventListeners() {
+            // Password form
+            document.getElementById('passwordForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const formData = new FormData(e.target);
+                const data = Object.fromEntries(formData.entries());
+
+                if (data.newPassword !== data.confirmPassword) {
+                    smartEats.showToast('New passwords do not match', 'error');
+                    return;
+                }
+
+                try {
+                    const response = await smartEats.apiCall('/auth/change-password', {
+                        method: 'POST',
+                        body: JSON.stringify(data)
+                    });
+
+                    if (response.ok) {
+                        smartEats.showToast('Password changed successfully', 'success');
+                        e.target.reset();
+                    }
+                } catch (error) {
+                    console.error('Error changing password:', error);
+                    smartEats.showToast('Error changing password', 'error');
+                }
+            });
+
+            // Avatar upload
+            window.uploadAvatar = function(event) {
+                const file = event.target.files[0];
+                if (file) {
+                    // In production, you would upload to your server
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        document.getElementById('userAvatar').src = e.target.result;
+                        smartEats.showToast('Profile picture updated', 'success');
+                    };
+                    reader.readAsDataURL(file);
+                }
+            };
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initProfile();
+        });
+    </script>
+</body>
+</html>

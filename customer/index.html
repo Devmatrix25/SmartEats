@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEats - Food Delivery</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Base Styles -->
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" opacity="0.1"><polygon fill="white" points="0,1000 1000,0 1000,1000"/></svg>');
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--light-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            color: white;
+        }
+        
+        .auth-section {
+            background: var(--bg-secondary);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        .auth-tabs .nav-link {
+            border: none;
+            padding: 1rem 2rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+        }
+        
+        .auth-tabs .nav-link.active {
+            background: transparent;
+            color: var(--primary-orange);
+            border-bottom: 3px solid var(--primary-orange);
+        }
+        
+        .restaurant-card {
+            border: none;
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .restaurant-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .restaurant-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .rating-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: rgba(255,255,255,0.95);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">Delicious food delivered to your doorstep</h1>
+                    <p class="lead mb-4">Order from your favorite restaurants and get it delivered in minutes. Fresh, hot, and exactly how you like it.</p>
+                    
+                    <!-- Search Bar -->
+                    <div class="search-box mb-4">
+                        <div class="input-group input-group-lg">
+                            <input type="text" class="form-control" placeholder="Search for restaurants or dishes..." id="searchInput">
+                            <button class="btn btn-light" type="button" id="searchBtn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="restaurants.html" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-utensils me-2"></i>Order Now
+                        </a>
+                        <a href="#how-it-works" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-play-circle me-2"></i>How It Works
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="https://images.pexels.com/photos/260922/pexels-photo-260922.jpeg" 
+                         alt="Delicious Food" 
+                         class="img-fluid rounded-3 shadow-lg" 
+                         style="max-height: 500px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section id="how-it-works" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">How SmartEats Works</h2>
+                <p class="text-muted">Get your favorite food in 4 simple steps</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-3">
+                    <div class="feature-card bg-white">
+                        <div class="feature-icon">
+                            <i class="fas fa-search-location"></i>
+                        </div>
+                        <h5>Search & Choose</h5>
+                        <p class="text-muted">Browse through hundreds of restaurants and menus</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card bg-white">
+                        <div class="feature-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h5>Order Food</h5>
+                        <p class="text-muted">Add items to cart and proceed to checkout</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card bg-white">
+                        <div class="feature-icon">
+                            <i class="fas fa-motorcycle"></i>
+                        </div>
+                        <h5>Track Delivery</h5>
+                        <p class="text-muted">Real-time tracking of your order and delivery partner</p>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="feature-card bg-white">
+                        <div class="feature-icon">
+                            <i class="fas fa-concierge-bell"></i>
+                        </div>
+                        <h5>Enjoy Food</h5>
+                        <p class="text-muted">Receive your food hot and fresh at your doorstep</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Popular Restaurants -->
+    <section class="py-5">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2 class="fw-bold">Popular Restaurants</h2>
+                <a href="restaurants.html" class="btn btn-outline-primary">View All</a>
+            </div>
+            
+            <div class="row g-4" id="popularRestaurants">
+                <!-- Restaurants will be loaded dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="auth-section bg-white">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold">Join SmartEats Today</h3>
+                            <p class="text-muted">Sign up to get started with food delivery</p>
+                        </div>
+                        
+                        <ul class="nav nav-pills nav-fill auth-tabs mb-4" id="authTabs">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-bs-toggle="pill" href="#login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-bs-toggle="pill" href="#signup">Sign Up</a>
+                            </li>
+                        </ul>
+                        
+                        <div class="tab-content">
+                            <!-- Login Tab -->
+                            <div class="tab-pane fade show active" id="login">
+                                <form id="loginForm">
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required>
+                                    </div>
+                                    <div class="mb-3 form-check">
+                                        <input type="checkbox" class="form-check-input" name="remember">
+                                        <label class="form-check-label">Remember me</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-2">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Login
+                                    </button>
+                                </form>
+                                
+                                <div class="text-center mt-3">
+                                    <p class="text-muted">Or login with</p>
+                                    <div class="d-flex gap-3 justify-content-center">
+                                        <button class="btn btn-outline-danger" onclick="loginWithGoogle()">
+                                            <i class="fab fa-google me-2"></i>Google
+                                        </button>
+                                        <button class="btn btn-outline-primary" onclick="loginWithOTP()">
+                                            <i class="fas fa-mobile-alt me-2"></i>OTP
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Signup Tab -->
+                            <div class="tab-pane fade" id="signup">
+                                <form id="signupForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">First Name</label>
+                                            <input type="text" class="form-control" name="firstName" required>
+                                        </div>
+                                        <div class="col-md-6 mb-3">
+                                            <label class="form-label">Last Name</label>
+                                            <input type="text" class="form-control" name="lastName" required>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Email</label>
+                                        <input type="email" class="form-control" name="email" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Phone</label>
+                                        <input type="tel" class="form-control" name="phone" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password</label>
+                                        <input type="password" class="form-control" name="password" required>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Confirm Password</label>
+                                        <input type="password" class="form-control" name="confirmPassword" required>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary w-100 py-2">
+                                        <i class="fas fa-user-plus me-2"></i>Create Account
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../src/utils/about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="../src/utils/help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="../src/utils/privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="../src/utils/terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Socket.IO -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Base JS -->
+    <script src="./src/base.js"></script>
+    <!-- Components -->
+    <script src="./src/components/navbar.js"></script>
+
+       <script>
+    // Global configuration
+    const API_BASE_URL = 'https://smarteats-09nh.onrender.com/api';
+    
+    // Utility functions
+    const smartEats = {
+        // API call wrapper
+        async apiCall(endpoint, options = {}) {
+            const url = `${API_BASE_URL}${endpoint}`;
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                },
+                ...options
+            };
+
+            // Add authorization header if token exists
+            const token = localStorage.getItem('accessToken');
+            if (token) {
+                config.headers.Authorization = `Bearer ${token}`;
+            }
+
+            try {
+                const response = await fetch(url, config);
+                
+                // Handle token expiration
+                if (response.status === 401) {
+                    const refreshSuccess = await this.refreshToken();
+                    if (refreshSuccess) {
+                        // Retry the original request with new token
+                        return this.apiCall(endpoint, options);
+                    } else {
+                        this.logout();
+                        throw new Error('Authentication failed');
+                    }
+                }
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({}));
+                    throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
+                }
+
+                return response;
+            } catch (error) {
+                console.error('API call failed:', error);
+                throw error;
+            }
+        },
+
+        // Refresh token
+        async refreshToken() {
+            try {
+                const refreshToken = localStorage.getItem('refreshToken');
+                if (!refreshToken) {
+                    return false;
+                }
+
+                const response = await fetch(`${API_BASE_URL}/auth/refresh`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ refreshToken })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    localStorage.setItem('accessToken', data.accessToken);
+                    return true;
+                }
+            } catch (error) {
+                console.error('Token refresh failed:', error);
+            }
+            
+            return false;
+        },
+
+        // Form handling
+        handleFormSubmit(form, endpoint, method, onSuccess) {
+            if (!form) return;
+
+            form.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitButton = form.querySelector('button[type="submit"]');
+                const originalText = submitButton.innerHTML;
+                
+                try {
+                    // Show loading state
+                    submitButton.disabled = true;
+                    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+
+                    const formData = new FormData(form);
+                    const data = Object.fromEntries(formData.entries());
+
+                    const response = await this.apiCall(endpoint, {
+                        method: method,
+                        body: JSON.stringify(data)
+                    });
+
+                    const result = await response.json();
+                    
+                    if (onSuccess) {
+                        onSuccess(result);
+                    }
+                    
+                    this.showToast(result.message || 'Operation completed successfully', 'success');
+                    
+                } catch (error) {
+                    console.error('Form submission error:', error);
+                    this.showToast(error.message || 'An error occurred', 'error');
+                } finally {
+                    // Restore button state
+                    submitButton.disabled = false;
+                    submitButton.innerHTML = originalText;
+                }
+            });
+        },
+
+        // Show toast notifications
+        showToast(message, type = 'info') {
+            // Remove existing toasts
+            const existingToasts = document.querySelectorAll('.custom-toast');
+            existingToasts.forEach(toast => toast.remove());
+
+            const toast = document.createElement('div');
+            toast.className = `custom-toast position-fixed top-0 end-0 m-3 alert alert-${type === 'error' ? 'danger' : type} alert-dismissible fade show`;
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.remove();
+                }
+            }, 5000);
+        },
+
+        // Format currency
+        formatCurrency(amount) {
+            return new Intl.NumberFormat('en-US', {
+                style: 'currency',
+                currency: 'USD'
+            }).format(amount);
+        },
+
+        // Logout
+        logout() {
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+            localStorage.removeItem('user');
+            window.location.href = './index.html';
+        },
+
+        // Get current user
+        get currentUser() {
+            const userData = localStorage.getItem('user');
+            return userData ? JSON.parse(userData) : null;
+        },
+
+        // Set current user
+        set currentUser(user) {
+            localStorage.setItem('user', JSON.stringify(user));
+        }
+    };
+
+    // Load popular restaurants
+    async function loadPopularRestaurants() {
+        try {
+            const response = await smartEats.apiCall('/restaurants');
+            const restaurants = await response.json();
+            
+            const container = document.getElementById('popularRestaurants');
+            if (container) {
+                container.innerHTML = restaurants.map(restaurant => `
+                    <div class="col-md-3">
+                        <div class="restaurant-card card h-100" onclick="viewRestaurant('${restaurant._id}')">
+                            <div class="restaurant-image" style="background-image: url('${restaurant.image || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80'}')">
+                                <span class="rating-badge">
+                                    <i class="fas fa-star text-warning me-1"></i>${restaurant.rating || '4.5'}
+                                </span>
+                            </div>
+                            <div class="card-body">
+                                <h6 class="card-title">${restaurant.name}</h6>
+                                <p class="card-text text-muted small">${restaurant.cuisine || 'Various Cuisine'}</p>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="badge bg-light text-dark">
+                                        <i class="fas fa-clock me-1"></i>${restaurant.deliveryTime || '30'} min
+                                    </span>
+                                    <span class="text-muted small">${smartEats.formatCurrency(restaurant.deliveryFee || 2.99)} delivery</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        } catch (error) {
+            console.error('Error loading restaurants:', error);
+            const container = document.getElementById('popularRestaurants');
+            if (container) {
+                container.innerHTML = `
+                    <div class="col-12 text-center">
+                        <p class="text-muted">Unable to load restaurants. Please try again later.</p>
+                    </div>
+                `;
+            }
+        }
+    }
+
+    function viewRestaurant(restaurantId) {
+        window.location.href = `restaurant.html?id=${restaurantId}`;
+    }
+
+    // Google OAuth
+    async function loginWithGoogle() {
+        try {
+            // Load Google API
+            await new Promise((resolve, reject) => {
+                const script = document.createElement('script');
+                script.src = 'https://accounts.google.com/gsi/client';
+                script.onload = resolve;
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+
+            // Initialize Google Identity Services
+            google.accounts.id.initialize({
+                client_id: 'YOUR_GOOGLE_CLIENT_ID', // Replace with your actual client ID
+                callback: handleGoogleCredentialResponse
+            });
+
+            // Display the Google One Tap UI
+            google.accounts.id.prompt((notification) => {
+                if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+                    // Fallback to regular OAuth flow
+                    window.location.href = `${API_BASE_URL}/auth/google`;
+                }
+            });
+
+        } catch (error) {
+            console.error('Google OAuth failed:', error);
+            smartEats.showToast('Google authentication failed', 'error');
+        }
+    }
+
+    async function handleGoogleCredentialResponse(response) {
+        try {
+            const submitButton = document.querySelector('#loginForm button[type="submit"]');
+            const originalText = submitButton.innerHTML;
+            
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Signing in with Google...';
+
+            const authResponse = await smartEats.apiCall('/auth/google', {
+                method: 'POST',
+                body: JSON.stringify({ token: response.credential })
+            });
+
+            const data = await authResponse.json();
+            
+            localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('refreshToken', data.refreshToken);
+            smartEats.currentUser = data.user;
+            
+            smartEats.showToast('Google login successful!', 'success');
+            setTimeout(() => {
+                window.location.href = 'restaurants.html';
+            }, 1000);
+
+        } catch (error) {
+            console.error('Google login error:', error);
+            smartEats.showToast('Google login failed', 'error');
+        }
+    }
+
+    // OTP Login
+    async function loginWithOTP() {
+        const email = prompt('Enter your email for OTP:');
+        if (!email) return;
+
+        if (!validateEmail(email)) {
+            smartEats.showToast('Please enter a valid email address', 'error');
+            return;
+        }
+
+        try {
+            const response = await smartEats.apiCall('/auth/send-otp', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    email: email, 
+                    type: 'login' 
+                })
+            });
+
+            const result = await response.json();
+            smartEats.showToast('OTP sent to your email!', 'success');
+
+            const otp = prompt('Enter the 6-digit OTP sent to your email:');
+            if (!otp) return;
+
+            // Verify OTP
+            const verifyResponse = await smartEats.apiCall('/auth/verify-otp', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    email: email, 
+                    otp: otp 
+                })
+            });
+
+            const verifyData = await verifyResponse.json();
+            
+            localStorage.setItem('accessToken', verifyData.accessToken);
+            localStorage.setItem('refreshToken', verifyData.refreshToken);
+            smartEats.currentUser = verifyData.user;
+            
+            smartEats.showToast('OTP verification successful!', 'success');
+            setTimeout(() => {
+                window.location.href = 'restaurants.html';
+            }, 1000);
+
+        } catch (error) {
+            console.error('OTP login error:', error);
+            smartEats.showToast(error.message || 'OTP login failed', 'error');
+        }
+    }
+
+    // Email validation
+    function validateEmail(email) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return emailRegex.test(email);
+    }
+
+    // Search functionality
+    function setupSearch() {
+        const searchInput = document.getElementById('searchInput');
+        const searchBtn = document.getElementById('searchBtn');
+
+        if (searchInput && searchBtn) {
+            const performSearch = () => {
+                const query = searchInput.value.trim();
+                if (query) {
+                    window.location.href = `restaurants.html?search=${encodeURIComponent(query)}`;
+                }
+            };
+
+            searchBtn.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+    }
+
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check authentication status
+        const currentUser = smartEats.currentUser;
+        const accessToken = localStorage.getItem('accessToken');
+
+        if (currentUser && accessToken) {
+            // User is logged in, redirect to restaurants
+            window.location.href = 'restaurants.html';
+            return;
+        }
+
+        // Set up form handlers
+        smartEats.handleFormSubmit(
+            document.getElementById('loginForm'),
+            '/auth/login',
+            'POST',
+            (data) => {
+                localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('refreshToken', data.refreshToken);
+                smartEats.currentUser = data.user;
+                smartEats.showToast('Login successful!', 'success');
+                setTimeout(() => {
+                    window.location.href = 'restaurants.html';
+                }, 1000);
+            }
+        );
+
+        smartEats.handleFormSubmit(
+            document.getElementById('signupForm'),
+            '/auth/register',
+            'POST',
+            (data) => {
+                smartEats.showToast('Account created successfully! Please login.', 'success');
+                // Switch to login tab
+                const loginTab = document.querySelector('[href="#login"]');
+                if (loginTab) {
+                    loginTab.click();
+                }
+                // Clear signup form
+                document.getElementById('signupForm').reset();
+            }
+        );
+
+        // Load initial data
+        loadPopularRestaurants();
+        setupSearch();
+
+        // Add password confirmation validation
+        const signupForm = document.getElementById('signupForm');
+        if (signupForm) {
+            const passwordField = signupForm.querySelector('input[name="password"]');
+            const confirmPasswordField = signupForm.querySelector('input[name="confirmPassword"]');
+
+            const validatePasswordMatch = () => {
+                if (passwordField.value !== confirmPasswordField.value) {
+                    confirmPasswordField.setCustomValidity('Passwords do not match');
+                } else {
+                    confirmPasswordField.setCustomValidity('');
+                }
+            };
+
+            passwordField.addEventListener('input', validatePasswordMatch);
+            confirmPasswordField.addEventListener('input', validatePasswordMatch);
+        }
+    });
+
+    // Make functions globally available
+    window.smartEats = smartEats;
+    window.loginWithGoogle = loginWithGoogle;
+    window.loginWithOTP = loginWithOTP;
+    window.viewRestaurant = viewRestaurant;
+</script>
+</body>
+</html>

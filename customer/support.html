@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .support-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .ticket-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .ticket-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--primary-orange);
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .message-bubble {
+            max-width: 70%;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+        
+        .message-user {
+            background: var(--primary-orange);
+            color: white;
+            margin-left: auto;
+        }
+        
+        .message-support {
+            background: var(--light-grey);
+            color: var(--text-primary);
+        }
+        
+        .contact-method {
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .contact-method:hover {
+            border-color: var(--primary-orange);
+            transform: translateY(-2px);
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="fw-bold mb-1">Help & Support</h2>
+                        <p class="text-muted mb-0">We're here to help you with any issues</p>
+                    </div>
+                    <button class="btn btn-primary" onclick="showNewTicketModal()">
+                        <i class="fas fa-plus me-2"></i>New Support Ticket
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <!-- Main Content -->
+            <div class="col-lg-8">
+                <!-- Quick Help -->
+                <div class="support-card">
+                    <h4 class="fw-bold mb-4">Quick Help</h4>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="contact-method" onclick="contactSupport('phone')">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <h6 class="fw-bold">Call Us</h6>
+                                <p class="text-muted mb-0">+1 (555) 123-4567</p>
+                                <small class="text-muted">Available 24/7</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="contact-method" onclick="contactSupport('email')">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <h6 class="fw-bold">Email Us</h6>
+                                <p class="text-muted mb-0">support@smarteats.com</p>
+                                <small class="text-muted">Response within 2 hours</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="contact-method" onclick="contactSupport('chat')">
+                                <div class="contact-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h6 class="fw-bold">Live Chat</h6>
+                                <p class="text-muted mb-0">Chat with our team</p>
+                                <small class="text-muted">Available 9 AM - 9 PM</small>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="contact-method" onclick="showFAQ()">
+                                <div class="contact-icon">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <h6 class="fw-bold">FAQ</h6>
+                                <p class="text-muted mb-0">Find quick answers</p>
+                                <small class="text-muted">Common questions</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Section -->
+                <div class="support-card" id="faqSection">
+                    <h4 class="fw-bold mb-4">Frequently Asked Questions</h4>
+                    <div id="faqList">
+                        <!-- FAQ items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- My Tickets -->
+                <div class="support-card" id="ticketsSection">
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold">My Support Tickets</h4>
+                        <div class="d-flex gap-2">
+                            <select class="form-select" id="ticketFilter" onchange="filterTickets(this.value)">
+                                <option value="all">All Tickets</option>
+                                <option value="open">Open</option>
+                                <option value="in_progress">In Progress</option>
+                                <option value="resolved">Resolved</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div id="ticketsList">
+                        <!-- Tickets will be loaded here -->
+                    </div>
+                    
+                    <div class="text-center py-4" id="noTickets" style="display: none;">
+                        <i class="fas fa-ticket-alt fa-3x text-muted mb-3"></i>
+                        <h5 class="text-muted">No support tickets</h5>
+                        <p class="text-muted mb-4">You haven't created any support tickets yet</p>
+                        <button class="btn btn-primary" onclick="showNewTicketModal()">
+                            <i class="fas fa-plus me-2"></i>Create First Ticket
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <!-- Support Resources -->
+                <div class="support-card">
+                    <h5 class="fw-bold mb-3">Support Resources</h5>
+                    <div class="list-group list-group-flush">
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="fas fa-book me-2 text-primary"></i>
+                                User Guide
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="fas fa-shipping-fast me-2 text-primary"></i>
+                                Delivery Help
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="fas fa-credit-card me-2 text-primary"></i>
+                                Payment Issues
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="fas fa-utensils me-2 text-primary"></i>
+                                Restaurant Issues
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                            <span>
+                                <i class="fas fa-user-shield me-2 text-primary"></i>
+                                Account Security
+                            </span>
+                            <i class="fas fa-chevron-right text-muted"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Support Hours -->
+                <div class="support-card">
+                    <h5 class="fw-bold mb-3">Support Hours</h5>
+                    <div class="mb-3">
+                        <strong>Phone Support:</strong><br>
+                        <span class="text-muted">24/7</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Live Chat:</strong><br>
+                        <span class="text-muted">9:00 AM - 9:00 PM (IST)</span>
+                    </div>
+                    <div class="mb-3">
+                        <strong>Email Support:</strong><br>
+                        <span class="text-muted">24/7 (Response within 2 hours)</span>
+                    </div>
+                    <div>
+                        <strong>Emergency:</strong><br>
+                        <span class="text-muted">+1 (555) 911-HELP</span>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="support-card">
+                    <h5 class="fw-bold mb-3">Quick Actions</h5>
+                    <div class="d-grid gap-2">
+                        <button class="btn btn-outline-primary" onclick="trackOrderFromSupport()">
+                            <i class="fas fa-truck me-2"></i>Track My Order
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="viewOrderHistory()">
+                            <i class="fas fa-history me-2"></i>View Order History
+                        </button>
+                        <button class="btn btn-outline-primary" onclick="requestRefund()">
+                            <i class="fas fa-undo me-2"></i>Request Refund
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Ticket Modal -->
+    <div class="modal fade" id="newTicketModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create Support Ticket</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="ticketForm">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" name="category" required>
+                                        <option value="">Select Category</option>
+                                        <option value="order_issue">Order Issue</option>
+                                        <option value="payment_issue">Payment Issue</option>
+                                        <option value="technical_issue">Technical Issue</option>
+                                        <option value="account_issue">Account Issue</option>
+                                        <option value="refund_request">Refund Request</option>
+                                        <option value="suggestion">Suggestion</option>
+                                        <option value="complaint">Complaint</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Priority</label>
+                                    <select class="form-select" name="priority" required>
+                                        <option value="medium">Medium</option>
+                                        <option value="low">Low</option>
+                                        <option value="high">High</option>
+                                        <option value="urgent">Urgent</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Subject</label>
+                            <input type="text" class="form-control" name="subject" placeholder="Brief description of your issue" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Order Number (if related to order)</label>
+                            <input type="text" class="form-control" name="orderId" placeholder="e.g., SE123456789">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" name="message" rows="5" placeholder="Please provide detailed information about your issue..." required></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label">Attachments (Optional)</label>
+                            <input type="file" class="form-control" multiple accept="image/*,.pdf,.doc,.docx">
+                            <div class="form-text">You can attach screenshots or documents to help us understand your issue better</div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="createTicket()">Create Ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ticket Details Modal -->
+    <div class="modal fade" id="ticketDetailsModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Ticket #<span id="ticketNumber"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="ticketDetailsContent">
+                        <!-- Ticket details will be loaded here -->
+                    </div>
+                    
+                    <!-- Message Area -->
+                    <div id="messageArea" style="display: none;">
+                        <hr>
+                        <h6 class="fw-bold mb-3">Add Message</h6>
+                        <form id="messageForm">
+                            <div class="mb-3">
+                                <textarea class="form-control" id="messageText" rows="3" placeholder="Type your message here..."></textarea>
+                            </div>
+                            <button type="button" class="btn btn-primary" onclick="sendMessage()">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-outline-primary" onclick="showMessageArea()" id="replyBtn">Reply</button>
+                    <button type="button" class="btn btn-outline-danger" onclick="closeTicket()" id="closeTicketBtn">Close Ticket</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../src/utils/about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="../src/utils/help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="../src/utils/privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="../src/utils/terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        let supportTickets = [];
+        let currentTicket = null;
+        let faqData = [];
+
+        // Initialize support page
+        async function initSupport() {
+            await loadFAQ();
+            await loadTickets();
+            setupEventListeners();
+        }
+
+        // Load FAQ data
+        async function loadFAQ() {
+            try {
+                const response = await smartEats.apiCall('/support/faq');
+                if (response.ok) {
+                    faqData = await response.json();
+                    displayFAQ();
+                } else {
+                    throw new Error('Failed to load FAQ');
+                }
+            } catch (error) {
+                console.error('Error loading FAQ:', error);
+                // Load demo FAQ data
+                loadDemoFAQ();
+            }
+        }
+
+        // Display FAQ
+        function displayFAQ() {
+            const container = document.getElementById('faqList');
+            container.innerHTML = '';
+
+            faqData.forEach(category => {
+                const categoryHTML = `
+                    <h6 class="fw-bold mt-4 mb-3">${category.title}</h6>
+                    ${category.questions.map((faq, index) => `
+                        <div class="faq-item" onclick="toggleFAQ(${category.category}, ${index})">
+                            <div class="faq-question">
+                                <span>${faq.question}</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                            <div class="faq-answer">
+                                ${faq.answer}
+                            </div>
+                        </div>
+                    `).join('')}
+                `;
+                container.innerHTML += categoryHTML;
+            });
+        }
+
+        // Toggle FAQ item
+        function toggleFAQ(categoryIndex, faqIndex) {
+            const faqItem = document.querySelectorAll('.faq-item')[getFAQIndex(categoryIndex, faqIndex)];
+            faqItem.classList.toggle('active');
+            
+            const icon = faqItem.querySelector('.faq-question i');
+            if (faqItem.classList.contains('active')) {
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+
+        // Helper function to get FAQ index
+        function getFAQIndex(categoryIndex, faqIndex) {
+            let index = 0;
+            for (let i = 0; i < categoryIndex; i++) {
+                index += faqData[i].questions.length;
+            }
+            return index + faqIndex;
+        }
+
+        // Load support tickets
+        async function loadTickets() {
+            try {
+                const response = await smartEats.apiCall('/support/tickets');
+                if (response.ok) {
+                    const data = await response.json();
+                    supportTickets = data.tickets || [];
+                    displayTickets();
+                } else {
+                    throw new Error('Failed to load tickets');
+                }
+            } catch (error) {
+                console.error('Error loading tickets:', error);
+                // Load demo tickets
+                loadDemoTickets();
+            }
+        }
+
+        // Display tickets
+        function displayTickets() {
+            const container = document.getElementById('ticketsList');
+            const noTickets = document.getElementById('noTickets');
+
+            if (supportTickets.length === 0) {
+                container.style.display = 'none';
+                noTickets.style.display = 'block';
+                return;
+            }
+
+            container.style.display = 'block';
+            noTickets.style.display = 'none';
+
+            container.innerHTML = supportTickets.map(ticket => `
+                <div class="ticket-card" onclick="viewTicketDetails('${ticket._id}')">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div>
+                            <h6 class="fw-bold mb-1">${ticket.subject}</h6>
+                            <p class="text-muted small mb-1">${ticket.ticketNumber} • ${formatCategory(ticket.category)}</p>
+                        </div>
+                        <span class="status-badge ${getTicketStatusClass(ticket.status)}">
+                            ${formatStatus(ticket.status)}
+                        </span>
+                    </div>
+                    <p class="text-muted small mb-2">${ticket.messages?.[0]?.message?.substring(0, 100)}...</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <small class="text-muted">Created: ${formatDate(ticket.createdAt)}</small>
+                        <small class="text-muted">Last updated: ${formatDate(ticket.updatedAt)}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter tickets
+        function filterTickets(filter) {
+            // This would typically call the API with filter parameter
+            // For demo, we'll just reload all tickets
+            loadTickets();
+        }
+
+        // Show new ticket modal
+        function showNewTicketModal() {
+            document.getElementById('ticketForm').reset();
+            const modal = new bootstrap.Modal(document.getElementById('newTicketModal'));
+            modal.show();
+        }
+
+        // Create new ticket
+        async function createTicket() {
+            try {
+                const form = document.getElementById('ticketForm');
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                const response = await smartEats.apiCall('/support/tickets', {
+                    method: 'POST',
+                    body: JSON.stringify(data)
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    bootstrap.Modal.getInstance(document.getElementById('newTicketModal')).hide();
+                    smartEats.showToast('Support ticket created successfully', 'success');
+                    await loadTickets();
+                }
+            } catch (error) {
+                console.error('Error creating ticket:', error);
+                smartEats.showToast('Error creating support ticket', 'error');
+            }
+        }
+
+        // View ticket details
+        async function viewTicketDetails(ticketId) {
+            try {
+                const response = await smartEats.apiCall(`/support/tickets/${ticketId}`);
+                if (response.ok) {
+                    currentTicket = await response.json();
+                    showTicketDetailsModal();
+                }
+            } catch (error) {
+                console.error('Error loading ticket details:', error);
+                smartEats.showToast('Error loading ticket details', 'error');
+            }
+        }
+
+        // Show ticket details modal
+        function showTicketDetailsModal() {
+            if (!currentTicket) return;
+
+            document.getElementById('ticketNumber').textContent = currentTicket.ticketNumber;
+            
+            const content = document.getElementById('ticketDetailsContent');
+            content.innerHTML = `
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <h6>Ticket Information</h6>
+                        <p><strong>Subject:</strong> ${currentTicket.subject}</p>
+                        <p><strong>Category:</strong> ${formatCategory(currentTicket.category)}</p>
+                        <p><strong>Priority:</strong> <span class="badge ${getPriorityBadgeClass(currentTicket.priority)}">${currentTicket.priority}</span></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h6>Status</h6>
+                        <p><strong>Status:</strong> <span class="status-badge ${getTicketStatusClass(currentTicket.status)}">${formatStatus(currentTicket.status)}</span></p>
+                        <p><strong>Created:</strong> ${formatDateTime(currentTicket.createdAt)}</p>
+                        ${currentTicket.resolvedAt ? `<p><strong>Resolved:</strong> ${formatDateTime(currentTicket.resolvedAt)}</p>` : ''}
+                    </div>
+                </div>
+                
+                ${currentTicket.order ? `
+                    <div class="mb-4">
+                        <h6>Related Order</h6>
+                        <p><strong>Order Number:</strong> ${currentTicket.order.orderNumber}</p>
+                    </div>
+                ` : ''}
+                
+                <h6 class="mb-3">Conversation</h6>
+                <div id="ticketMessages">
+                    ${currentTicket.messages?.map(message => `
+                        <div class="message-bubble ${message.sender === 'user' ? 'message-user' : 'message-support'}">
+                            <div class="mb-1">
+                                <strong>${message.sender === 'user' ? 'You' : 'Support Agent'}</strong>
+                                <small class="float-end">${formatTime(message.timestamp)}</small>
+                            </div>
+                            <div>${message.message}</div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            // Update action buttons
+            const replyBtn = document.getElementById('replyBtn');
+            const closeBtn = document.getElementById('closeTicketBtn');
+            const messageArea = document.getElementById('messageArea');
+
+            replyBtn.style.display = currentTicket.status !== 'closed' ? 'inline-block' : 'none';
+            closeBtn.style.display = currentTicket.status !== 'closed' ? 'inline-block' : 'none';
+            messageArea.style.display = 'none';
+
+            const modal = new bootstrap.Modal(document.getElementById('ticketDetailsModal'));
+            modal.show();
+        }
+
+        // Show message area
+        function showMessageArea() {
+            document.getElementById('messageArea').style.display = 'block';
+            document.getElementById('messageText').focus();
+        }
+
+        // Send message
+        async function sendMessage() {
+            const message = document.getElementById('messageText').value.trim();
+            if (!message) {
+                smartEats.showToast('Please enter a message', 'warning');
+                return;
+            }
+
+            try {
+                const response = await smartEats.apiCall(`/support/tickets/${currentTicket._id}/messages`, {
+                    method: 'POST',
+                    body: JSON.stringify({ message })
+                });
+
+                if (response.ok) {
+                    const result = await response.json();
+                    currentTicket = result.ticket;
+                    showTicketDetailsModal();
+                    document.getElementById('messageText').value = '';
+                    smartEats.showToast('Message sent successfully', 'success');
+                }
+            } catch (error) {
+                console.error('Error sending message:', error);
+                smartEats.showToast('Error sending message', 'error');
+            }
+        }
+
+        // Close ticket
+        async function closeTicket() {
+            if (confirm('Are you sure you want to close this ticket?')) {
+                try {
+                    const response = await smartEats.apiCall(`/support/tickets/${currentTicket._id}/close`, {
+                        method: 'POST'
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        currentTicket = result.ticket;
+                        showTicketDetailsModal();
+                        await loadTickets();
+                        smartEats.showToast('Ticket closed successfully', 'success');
+                    }
+                } catch (error) {
+                    console.error('Error closing ticket:', error);
+                    smartEats.showToast('Error closing ticket', 'error');
+                }
+            }
+        }
+
+        // Contact support methods
+        function contactSupport(method) {
+            switch(method) {
+                case 'phone':
+                    window.open('tel:+15551234567', '_self');
+                    break;
+                case 'email':
+                    window.open('mailto:support@smarteats.com', '_self');
+                    break;
+                case 'chat':
+                    smartEats.showToast('Live chat will open in a new window', 'info');
+                    // In production, this would open a chat widget
+                    break;
+            }
+        }
+
+        // Quick actions
+        function trackOrderFromSupport() {
+            window.location.href = 'track-order.html';
+        }
+
+        function viewOrderHistory() {
+            window.location.href = 'order-history.html';
+        }
+
+        function requestRefund() {
+            smartEats.showToast('Redirecting to refund request page...', 'info');
+            // This would typically redirect to a refund request page
+        }
+
+        function showFAQ() {
+            document.getElementById('faqSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Utility functions
+        function formatCategory(category) {
+            const categories = {
+                order_issue: 'Order Issue',
+                payment_issue: 'Payment Issue',
+                technical_issue: 'Technical Issue',
+                account_issue: 'Account Issue',
+                refund_request: 'Refund Request',
+                suggestion: 'Suggestion',
+                complaint: 'Complaint',
+                other: 'Other'
+            };
+            return categories[category] || category;
+        }
+
+        function formatStatus(status) {
+            const statuses = {
+                open: 'Open',
+                in_progress: 'In Progress',
+                waiting_customer: 'Waiting for Customer',
+                resolved: 'Resolved',
+                closed: 'Closed'
+            };
+            return statuses[status] || status;
+        }
+
+        function getTicketStatusClass(status) {
+            const classes = {
+                open: 'bg-warning',
+                in_progress: 'bg-primary',
+                waiting_customer: 'bg-info',
+                resolved: 'bg-success',
+                closed: 'bg-secondary'
+            };
+            return classes[status] || 'bg-light text-dark';
+        }
+
+        function getPriorityBadgeClass(priority) {
+            const classes = {
+                low: 'bg-secondary',
+                medium: 'bg-info',
+                high: 'bg-warning',
+                urgent: 'bg-danger'
+            };
+            return classes[priority] || 'bg-light text-dark';
+        }
+
+        function formatDate(dateString) {
+            return new Date(dateString).toLocaleDateString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        function formatDateTime(dateString) {
+            return new Date(dateString).toLocaleString('en-US', {
+                year: 'numeric',
+                month: 'short',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        function formatTime(dateString) {
+            return new Date(dateString).toLocaleTimeString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // Demo data functions
+        function loadDemoFAQ() {
+            faqData = [
+                {
+                    category: 'ordering',
+                    title: 'Ordering & Payment',
+                    questions: [
+                        {
+                            question: 'How do I place an order?',
+                            answer: 'Browse restaurants, select items, add to cart, and proceed to checkout. You can pay online or choose cash on delivery.'
+                        },
+                        {
+                            question: 'What payment methods are accepted?',
+                            answer: 'We accept credit/debit cards, UPI, net banking, SmartEats Wallet, and cash on delivery.'
+                        }
+                    ]
+                },
+                {
+                    category: 'delivery',
+                    title: 'Delivery & Tracking',
+                    questions: [
+                        {
+                            question: 'How long does delivery take?',
+                            answer: 'Delivery typically takes 30-45 minutes depending on restaurant preparation time and distance.'
+                        },
+                        {
+                            question: 'Can I track my order?',
+                            answer: 'Yes, you can track your order in real-time from the track order page.'
+                        }
+                    ]
+                }
+            ];
+            displayFAQ();
+        }
+
+        function loadDemoTickets() {
+            supportTickets = [
+                {
+                    _id: '1',
+                    ticketNumber: 'TKT123456789',
+                    subject: 'Order not delivered',
+                    category: 'order_issue',
+                    priority: 'high',
+                    status: 'open',
+                    messages: [
+                        {
+                            sender: 'user',
+                            message: 'My order was supposed to be delivered an hour ago but I haven\'t received it yet.',
+                            timestamp: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                        }
+                    ],
+                    createdAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(),
+                    updatedAt: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString()
+                },
+                {
+                    _id: '2',
+                    ticketNumber: 'TKT987654321',
+                    subject: 'Payment failed but amount deducted',
+                    category: 'payment_issue',
+                    priority: 'urgent',
+                    status: 'in_progress',
+                    messages: [
+                        {
+                            sender: 'user',
+                            message: 'My payment failed but the amount was deducted from my account. Please help.',
+                            timestamp: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString()
+                        },
+                        {
+                            sender: 'support',
+                            message: 'We\'re looking into this issue and will process your refund within 24 hours.',
+                            timestamp: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString()
+                        }
+                    ],
+                    createdAt: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
+                    updatedAt: new Date(Date.now() - 12 * 60 * 60 * 1000).toISOString()
+                }
+            ];
+            displayTickets();
+        }
+
+        function setupEventListeners() {
+            // Add any additional event listeners here
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initSupport();
+        });
+    </script>
+</body>
+</html>

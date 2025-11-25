@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Your Order - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .tracking-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--primary-orange);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.4rem;
+            top: 0.5rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-orange);
+            border: 3px solid white;
+            box-shadow: 0 0 0 2px var(--primary-orange);
+        }
+        
+        .timeline-item.completed::before {
+            background: var(--success-green);
+            box-shadow: 0 0 0 2px var(--success-green);
+        }
+        
+        .timeline-item.current::before {
+            background: white;
+            box-shadow: 0 0 0 2px var(--primary-orange);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .driver-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+        }
+        
+        .map-container {
+            height: 200px;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        .order-item-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="container py-4">
+        <!-- Header -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h2 class="fw-bold mb-1">Track Your Order</h2>
+                        <p class="text-muted mb-0">Real-time updates on your food delivery</p>
+                    </div>
+                    <a href="order-history.html" class="btn btn-outline-primary">
+                        <i class="fas fa-history me-2"></i>Order History
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Search -->
+        <div class="tracking-card mb-4" id="orderSearchSection">
+            <h5 class="fw-bold mb-3">Find Your Order</h5>
+            <div class="row">
+                <div class="col-md-8">
+                    <input type="text" class="form-control form-control-lg" 
+                           placeholder="Enter Order Number (e.g., SE123456789)" 
+                           id="orderSearchInput">
+                </div>
+                <div class="col-md-4">
+                    <button class="btn btn-primary btn-lg w-100" onclick="trackOrder()">
+                        <i class="fas fa-search me-2"></i>Track Order
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Order Tracking -->
+        <div id="orderTrackingSection" style="display: none;">
+            <!-- Order Summary -->
+            <div class="tracking-card">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <h4 class="fw-bold mb-2" id="orderNumber">Order #SE123456789</h4>
+                        <p class="text-muted mb-2" id="restaurantName">Restaurant Name</p>
+                        <p class="mb-0" id="deliveryAddress">Delivery Address</p>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <span class="status-badge bg-primary" id="orderStatus">Preparing</span>
+                        <p class="text-muted mt-2 mb-0" id="estimatedDelivery">Estimated delivery: 30-40 min</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tracking Timeline -->
+            <div class="tracking-card">
+                <h5 class="fw-bold mb-4">Order Status</h5>
+                <div class="timeline" id="orderTimeline">
+                    <!-- Timeline will be loaded here -->
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Driver Info & Map -->
+                <div class="col-lg-8">
+                    <div class="tracking-card">
+                        <h5 class="fw-bold mb-3">Delivery Partner</h5>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="driver-card">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img id="driverAvatar" src="" alt="Driver" class="rounded-circle me-3" width="60" height="60">
+                                        <div>
+                                            <h6 class="fw-bold mb-1" id="driverName">Driver Name</h6>
+                                            <p class="mb-0 small" id="driverRating">
+                                                <i class="fas fa-star text-warning me-1"></i>4.8
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <div>
+                                            <small>Vehicle</small>
+                                            <p class="fw-bold mb-0" id="driverVehicle">Motorcycle</p>
+                                        </div>
+                                        <div>
+                                            <small>Contact</small>
+                                            <p class="fw-bold mb-0" id="driverPhone">+91 XXXXX XXXXX</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="map-container">
+                                    <div class="text-center">
+                                        <i class="fas fa-map-marker-alt fa-2x mb-2"></i>
+                                        <p>Live Tracking Map</p>
+                                        <small>Driver is on the way to your location</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Order Details -->
+                <div class="col-lg-4">
+                    <div class="tracking-card">
+                        <h5 class="fw-bold mb-3">Order Details</h5>
+                        <div id="orderItems">
+                            <!-- Order items will be loaded here -->
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Items Total</span>
+                            <span id="itemsTotal">₹0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Delivery Fee</span>
+                            <span id="deliveryFee">₹0.00</span>
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span>Taxes</span>
+                            <span id="taxAmount">₹0.00</span>
+                        </div>
+                        <hr>
+                        <div class="d-flex justify-content-between fw-bold">
+                            <span>Total Amount</span>
+                            <span id="totalAmount">₹0.00</span>
+                        </div>
+                    </div>
+
+                    <!-- Support -->
+                    <div class="tracking-card">
+                        <h6 class="fw-bold mb-3">Need Help?</h6>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-outline-primary" onclick="contactDriver()">
+                                <i class="fas fa-phone me-2"></i>Call Driver
+                            </button>
+                            <button class="btn btn-outline-secondary" onclick="contactSupport()">
+                                <i class="fas fa-headset me-2"></i>Contact Support
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- No Order Found -->
+        <div class="tracking-card text-center" id="noOrderSection" style="display: none;">
+            <div class="py-5">
+                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                <h4 class="fw-bold text-muted mb-3">Order Not Found</h4>
+                <p class="text-muted mb-4">We couldn't find an order with that number. Please check your order number and try again.</p>
+                <button class="btn btn-primary" onclick="showSearchSection()">
+                    <i class="fas fa-search me-2"></i>Try Another Order
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../src/utils/about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="../src/utils/help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="../src/utils/privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="../src/utils/terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        let currentOrder = null;
+        let trackingInterval = null;
+
+        // Track order by order number
+        async function trackOrder() {
+            const orderNumber = document.getElementById('orderSearchInput').value.trim();
+            
+            if (!orderNumber) {
+                smartEats.showToast('Please enter an order number', 'warning');
+                return;
+            }
+
+            try {
+                const response = await smartEats.apiCall(`/orders/search?orderNumber=${orderNumber}`);
+                if (response.ok) {
+                    const order = await response.json();
+                    currentOrder = order;
+                    displayOrderTracking(order);
+                    startRealTimeTracking(order._id);
+                } else {
+                    showNoOrderFound();
+                }
+            } catch (error) {
+                console.error('Error tracking order:', error);
+                // For demo, create mock order data
+                createMockOrderData(orderNumber);
+            }
+        }
+
+        // Display order tracking information
+        function displayOrderTracking(order) {
+            document.getElementById('orderSearchSection').style.display = 'none';
+            document.getElementById('noOrderSection').style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'block';
+
+            // Update order info
+            document.getElementById('orderNumber').textContent = `Order #${order.orderNumber}`;
+            document.getElementById('restaurantName').textContent = order.restaurant?.name || 'Restaurant';
+            document.getElementById('deliveryAddress').textContent = order.deliveryAddress?.address || 'Delivery address';
+            document.getElementById('orderStatus').textContent = formatStatus(order.status);
+            document.getElementById('orderStatus').className = `status-badge ${getStatusBadgeClass(order.status)}`;
+            
+            // Update estimated delivery
+            const estimatedTime = calculateEstimatedDelivery(order);
+            document.getElementById('estimatedDelivery').textContent = `Estimated delivery: ${estimatedTime}`;
+
+            // Update timeline
+            updateOrderTimeline(order);
+
+            // Update driver info
+            if (order.driver) {
+                document.getElementById('driverName').textContent = `${order.driver.firstName} ${order.driver.lastName}`;
+                document.getElementById('driverRating').innerHTML = `<i class="fas fa-star text-warning me-1"></i>${order.driver.rating || '4.8'}`;
+                document.getElementById('driverPhone').textContent = order.driver.phone || '+91 XXXXX XXXXX';
+                document.getElementById('driverAvatar').src = order.driver.avatar || 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80';
+            }
+
+            // Update order items and pricing
+            updateOrderItems(order);
+        }
+
+        // Update order timeline
+        function updateOrderTimeline(order) {
+            const timeline = document.getElementById('orderTimeline');
+            const statusTimeline = generateStatusTimeline(order);
+            
+            timeline.innerHTML = statusTimeline.map(item => `
+                <div class="timeline-item ${item.completed ? 'completed' : ''} ${item.current ? 'current' : ''}">
+                    <h6 class="fw-bold mb-1">${item.title}</h6>
+                    <p class="text-muted mb-1">${item.description}</p>
+                    ${item.timestamp ? `<small class="text-muted">${formatDateTime(item.timestamp)}</small>` : ''}
+                </div>
+            `).join('');
+        }
+
+        // Generate status timeline based on order status
+        function generateStatusTimeline(order) {
+            const timeline = [];
+            const statusOrder = [
+                { status: 'ordered', title: 'Order Placed', description: 'We have received your order' },
+                { status: 'confirmed', title: 'Order Confirmed', description: 'Restaurant has accepted your order' },
+                { status: 'preparing', title: 'Preparing Food', description: 'Restaurant is preparing your food' },
+                { status: 'ready', title: 'Ready for Pickup', description: 'Your order is ready' },
+                { status: 'picked_up', title: 'Picked Up', description: 'Driver has picked up your order' },
+                { status: 'on_the_way', title: 'On the Way', description: 'Driver is delivering your order' },
+                { status: 'delivered', title: 'Delivered', description: 'Order has been delivered' }
+            ];
+
+            const currentStatusIndex = statusOrder.findIndex(item => item.status === order.status);
+            
+            statusOrder.forEach((item, index) => {
+                const completed = index <= currentStatusIndex;
+                const current = index === currentStatusIndex;
+                
+                timeline.push({
+                    ...item,
+                    completed,
+                    current,
+                    timestamp: getStatusTimestamp(order, item.status)
+                });
+            });
+
+            return timeline;
+        }
+
+        // Get timestamp for specific status
+        function getStatusTimestamp(order, status) {
+            const timestamps = {
+                ordered: order.createdAt,
+                confirmed: order.acceptedAt,
+                preparing: order.preparedAt,
+                ready: order.readyAt,
+                picked_up: order.pickedUpAt,
+                on_the_way: order.onTheWayAt,
+                delivered: order.deliveredAt
+            };
+            
+            return timestamps[status];
+        }
+
+        // Update order items display
+        function updateOrderItems(order) {
+            const container = document.getElementById('orderItems');
+            const items = order.items || [];
+            
+            container.innerHTML = items.map(item => `
+                <div class="order-item-card">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="fw-bold mb-1">${item.name}</h6>
+                            <p class="text-muted small mb-1">Quantity: ${item.quantity}</p>
+                            ${item.specialInstructions ? `<p class="text-muted small mb-0">Note: ${item.specialInstructions}</p>` : ''}
+                        </div>
+                        <span class="fw-bold">₹${(item.price * item.quantity).toFixed(2)}</span>
+                    </div>
+                </div>
+            `).join('');
+
+            // Update pricing
+            document.getElementById('itemsTotal').textContent = `₹${order.subtotal?.toFixed(2) || '0.00'}`;
+            document.getElementById('deliveryFee').textContent = `₹${order.deliveryFee?.toFixed(2) || '0.00'}`;
+            document.getElementById('taxAmount').textContent = `₹${order.tax?.toFixed(2) || '0.00'}`;
+            document.getElementById('totalAmount').textContent = `₹${order.totalAmount?.toFixed(2) || '0.00'}`;
+        }
+
+        // Start real-time tracking
+        function startRealTimeTracking(orderId) {
+            if (trackingInterval) {
+                clearInterval(trackingInterval);
+            }
+
+            // Simulate real-time updates
+            trackingInterval = setInterval(async () => {
+                try {
+                    const response = await smartEats.apiCall(`/orders/${orderId}/track`);
+                    if (response.ok) {
+                        const trackingData = await response.json();
+                        updateLiveTracking(trackingData);
+                    }
+                } catch (error) {
+                    console.error('Error updating tracking:', error);
+                }
+            }, 10000); // Update every 10 seconds
+        }
+
+        // Update live tracking data
+        function updateLiveTracking(trackingData) {
+            if (trackingData.order.status !== currentOrder.status) {
+                currentOrder.status = trackingData.order.status;
+                updateOrderTimeline(currentOrder);
+                document.getElementById('orderStatus').textContent = formatStatus(currentOrder.status);
+                document.getElementById('orderStatus').className = `status-badge ${getStatusBadgeClass(currentOrder.status)}`;
+                
+                if (currentOrder.status === 'delivered') {
+                    clearInterval(trackingInterval);
+                    smartEats.showToast('Your order has been delivered! Enjoy your meal!', 'success');
+                }
+            }
+        }
+
+        // Calculate estimated delivery time
+        function calculateEstimatedDelivery(order) {
+            const orderTime = new Date(order.createdAt);
+            const deliveryTime = new Date(orderTime.getTime() + 45 * 60000); // Add 45 minutes
+            return deliveryTime.toLocaleTimeString('en-US', { 
+                hour: '2-digit', 
+                minute: '2-digit' 
+            });
+        }
+
+        // Utility functions
+        function formatStatus(status) {
+            const statusMap = {
+                pending: 'Pending',
+                confirmed: 'Confirmed',
+                preparing: 'Preparing',
+                ready: 'Ready',
+                picked_up: 'Picked Up',
+                on_the_way: 'On the Way',
+                delivered: 'Delivered',
+                cancelled: 'Cancelled'
+            };
+            return statusMap[status] || status;
+        }
+
+        function getStatusBadgeClass(status) {
+            const classes = {
+                pending: 'bg-warning',
+                confirmed: 'bg-info',
+                preparing: 'bg-primary',
+                ready: 'bg-success',
+                picked_up: 'bg-success',
+                on_the_way: 'bg-success',
+                delivered: 'bg-secondary',
+                cancelled: 'bg-danger'
+            };
+            return classes[status] || 'bg-light text-dark';
+        }
+
+        function formatDateTime(dateString) {
+            return new Date(dateString).toLocaleString('en-US', {
+                hour: '2-digit',
+                minute: '2-digit',
+                month: 'short',
+                day: 'numeric'
+            });
+        }
+
+        // Show search section
+        function showSearchSection() {
+            document.getElementById('orderSearchSection').style.display = 'block';
+            document.getElementById('noOrderSection').style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'none';
+            
+            if (trackingInterval) {
+                clearInterval(trackingInterval);
+            }
+        }
+
+        // Show no order found
+        function showNoOrderFound() {
+            document.getElementById('orderSearchSection').style.display = 'none';
+            document.getElementById('orderTrackingSection').style.display = 'none';
+            document.getElementById('noOrderSection').style.display = 'block';
+        }
+
+        // Contact actions
+        function contactDriver() {
+            if (currentOrder?.driver?.phone) {
+                window.open(`tel:${currentOrder.driver.phone}`, '_self');
+            } else {
+                smartEats.showToast('Driver contact information not available', 'info');
+            }
+        }
+
+        function contactSupport() {
+            window.location.href = 'support.html';
+        }
+
+        // Demo function - create mock order data
+        function createMockOrderData(orderNumber) {
+            const mockOrder = {
+                _id: 'mock_order_123',
+                orderNumber: orderNumber,
+                status: 'on_the_way',
+                restaurant: {
+                    name: 'Pizza Palace',
+                    address: '123 Food Street, City'
+                },
+                driver: {
+                    firstName: 'Raj',
+                    lastName: 'Kumar',
+                    phone: '+919876543210',
+                    rating: 4.8,
+                    avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80'
+                },
+                deliveryAddress: {
+                    address: '456 Home Avenue, Apartment 21, City - 560001'
+                },
+                items: [
+                    { name: 'Margherita Pizza', price: 399, quantity: 1, specialInstructions: 'Extra cheese' },
+                    { name: 'Garlic Bread', price: 149, quantity: 2 },
+                    { name: 'Coke', price: 60, quantity: 1 }
+                ],
+                subtotal: 757,
+                deliveryFee: 30,
+                tax: 45.42,
+                totalAmount: 832.42,
+                createdAt: new Date(Date.now() - 25 * 60000).toISOString(),
+                acceptedAt: new Date(Date.now() - 20 * 60000).toISOString(),
+                preparedAt: new Date(Date.now() - 15 * 60000).toISOString(),
+                pickedUpAt: new Date(Date.now() - 5 * 60000).toISOString()
+            };
+
+            currentOrder = mockOrder;
+            displayOrderTracking(mockOrder);
+            startRealTimeTracking(mockOrder._id);
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if order ID is passed in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const orderId = urlParams.get('orderId');
+            const orderNumber = urlParams.get('orderNumber');
+            
+            if (orderId || orderNumber) {
+                document.getElementById('orderSearchInput').value = orderNumber || orderId;
+                trackOrder();
+            }
+        });
+    </script>
+</body>
+</html>

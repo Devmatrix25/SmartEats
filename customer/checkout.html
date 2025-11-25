@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <!-- Stripe.js -->
+    <script src="https://js.stripe.com/v3/"></script>
+    
+    <style>
+        .checkout-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .payment-method {
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .payment-method:hover {
+            border-color: var(--primary-orange);
+        }
+        
+        .payment-method.selected {
+            border-color: var(--primary-orange);
+            background-color: rgba(255, 107, 53, 0.05);
+        }
+        
+        #cardElement {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 1rem;
+        }
+        
+        .order-summary-item {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            padding: 0.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8">
+                <!-- Checkout Progress -->
+                <div class="checkout-section">
+                    <div class="d-flex align-items-center justify-content-between mb-4">
+                        <h4 class="fw-bold mb-0">Checkout</h4>
+                        <div class="text-muted">
+                            <span class="badge bg-primary">1. Cart</span>
+                            <i class="fas fa-chevron-right mx-2"></i>
+                            <span class="badge bg-primary">2. Checkout</span>
+                            <i class="fas fa-chevron-right mx-2"></i>
+                            <span class="badge bg-light text-dark">3. Confirmation</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Delivery Address -->
+                <div class="checkout-section">
+                    <h5 class="fw-bold mb-3">Delivery Address</h5>
+                    <div id="addressSection">
+                        <!-- Address will be loaded here -->
+                    </div>
+                    <button class="btn btn-outline-primary mt-2" onclick="showAddressModal()">
+                        <i class="fas fa-plus me-2"></i>Add New Address
+                    </button>
+                </div>
+
+                <!-- Payment Method -->
+                <div class="checkout-section">
+                    <h5 class="fw-bold mb-3">Payment Method</h5>
+                    <div id="paymentMethods">
+                        <div class="payment-method" data-method="card" onclick="selectPaymentMethod('card')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="cardMethod">
+                                <label class="form-check-label fw-bold" for="cardMethod">
+                                    <i class="fas fa-credit-card me-2"></i>Credit/Debit Card
+                                </label>
+                            </div>
+                            <div id="cardElementContainer" style="display: none;">
+                                <div id="cardElement"></div>
+                                <div id="cardErrors" class="text-danger small mt-2"></div>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-method" data-method="upi" onclick="selectPaymentMethod('upi')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="upiMethod">
+                                <label class="form-check-label fw-bold" for="upiMethod">
+                                    <i class="fas fa-mobile-alt me-2"></i>UPI
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-method" data-method="wallet" onclick="selectPaymentMethod('wallet')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="walletMethod">
+                                <label class="form-check-label fw-bold" for="walletMethod">
+                                    <i class="fas fa-wallet me-2"></i>SmartEats Wallet
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="payment-method" data-method="cod" onclick="selectPaymentMethod('cod')">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="paymentMethod" id="codMethod">
+                                <label class="form-check-label fw-bold" for="codMethod">
+                                    <i class="fas fa-money-bill me-2"></i>Cash on Delivery
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Order Summary -->
+            <div class="col-lg-4">
+                <div class="checkout-section">
+                    <h5 class="fw-bold mb-3">Order Summary</h5>
+                    
+                    <!-- Restaurant Info -->
+                    <div class="mb-3" id="checkoutRestaurantInfo">
+                        <!-- Restaurant info will be loaded here -->
+                    </div>
+                    
+                    <!-- Order Items -->
+                    <div class="mb-3" id="orderItems">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                    
+                    <!-- Price Breakdown -->
+                    <div class="mb-3">
+                        <div class="order-summary-item">
+                            <span>Items Total</span>
+                            <span id="summaryItemsTotal">₹0</span>
+                        </div>
+                        <div class="order-summary-item">
+                            <span>Delivery Fee</span>
+                            <span id="summaryDeliveryFee">₹0</span>
+                        </div>
+                        <div class="order-summary-item" id="summaryDiscountRow" style="display: none;">
+                            <span>Discount</span>
+                            <span class="text-success" id="summaryDiscount">-₹0</span>
+                        </div>
+                        <div class="order-summary-item">
+                            <span>Taxes & Charges</span>
+                            <span id="summaryTax">₹0</span>
+                        </div>
+                        <div class="order-summary-item pt-2">
+                            <strong>Grand Total</strong>
+                            <strong id="summaryGrandTotal">₹0</strong>
+                        </div>
+                    </div>
+                    
+                    <!-- Place Order Button -->
+                    <button class="btn btn-primary w-100 py-3 fw-bold" id="placeOrderBtn" onclick="placeOrder()">
+                        <i class="fas fa-lock me-2"></i>Place Order
+                    </button>
+                    
+                    <!-- Back to Cart -->
+                    <div class="text-center mt-3">
+                        <a href="cart.html" class="text-decoration-none">
+                            <i class="fas fa-arrow-left me-1"></i>Back to Cart
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Address Modal -->
+    <div class="modal fade" id="addressModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add Delivery Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addressForm">
+                        <div class="mb-3">
+                            <label class="form-label">Full Name</label>
+                            <input type="text" class="form-control" name="fullName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Phone Number</label>
+                            <input type="tel" class="form-control" name="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Address</label>
+                            <textarea class="form-control" name="address" rows="3" required></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">City</label>
+                                <input type="text" class="form-control" name="city" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Pincode</label>
+                                <input type="text" class="form-control" name="pincode" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Landmark (Optional)</label>
+                            <input type="text" class="form-control" name="landmark">
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" name="isDefault">
+                            <label class="form-check-label">Set as default address</label>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveAddress()">Save Address</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        let stripe = null;
+        let cardElement = null;
+        let checkoutData = null;
+        let selectedPaymentMethod = null;
+        let selectedAddress = null;
+
+        // Initialize checkout page
+        async function initCheckout() {
+            // Load checkout data
+            const savedCheckout = localStorage.getItem('smarteats_checkout');
+            if (!savedCheckout) {
+                smartEats.showToast('No checkout data found', 'error');
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            checkoutData = JSON.parse(savedCheckout);
+            
+            // Initialize Stripe
+            stripe = Stripe('pk_test_51SVawV4qOcPLnUQquIgN449yFSirO14QEW5f91LKsiNX9z0CJif0Z25b39s2aCuZLJTNVBfC5ADGFO8MGRzSALlC00UlT8YauV'); // Stripe publishable key
+            
+            // Load user addresses
+            await loadUserAddresses();
+            
+            // Update UI
+            updateOrderSummary();
+            updateRestaurantInfo();
+            updateOrderItems();
+            
+            // Setup payment methods
+            setupPaymentMethods();
+        }
+
+        // Load user addresses
+        async function loadUserAddresses() {
+            try {
+                // For demo - use default address
+                // In production, fetch from user profile
+                selectedAddress = smartEats.currentUser?.address || {
+                    fullName: `${smartEats.currentUser?.firstName} ${smartEats.currentUser?.lastName}`,
+                    phone: smartEats.currentUser?.phone,
+                    address: '123 Main Street',
+                    city: 'Your City',
+                    pincode: '123456',
+                    landmark: 'Near Central Park'
+                };
+                
+                updateAddressSection();
+                
+            } catch (error) {
+                console.error('Error loading addresses:', error);
+            }
+        }
+
+        // Update address section
+        function updateAddressSection() {
+            const addressSection = document.getElementById('addressSection');
+            
+            if (selectedAddress) {
+                addressSection.innerHTML = `
+                    <div class="border rounded p-3 bg-light">
+                        <h6 class="fw-bold">${selectedAddress.fullName}</h6>
+                        <p class="mb-1">${selectedAddress.address}</p>
+                        <p class="mb-1">${selectedAddress.city}, ${selectedAddress.pincode}</p>
+                        <p class="mb-1">${selectedAddress.landmark ? `Landmark: ${selectedAddress.landmark}` : ''}</p>
+                        <p class="mb-0">Phone: ${selectedAddress.phone}</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Show address modal
+        function showAddressModal() {
+            const modal = new bootstrap.Modal(document.getElementById('addressModal'));
+            modal.show();
+        }
+
+        // Save address
+        async function saveAddress() {
+            // In production, save to user profile
+            const form = document.getElementById('addressForm');
+            const formData = new FormData(form);
+            
+            selectedAddress = {
+                fullName: formData.get('fullName'),
+                phone: formData.get('phone'),
+                address: formData.get('address'),
+                city: formData.get('city'),
+                pincode: formData.get('pincode'),
+                landmark: formData.get('landmark')
+            };
+            
+            updateAddressSection();
+            
+            const modal = bootstrap.Modal.getInstance(document.getElementById('addressModal'));
+            modal.hide();
+            
+            smartEats.showToast('Address saved successfully', 'success');
+        }
+
+        // Setup payment methods
+        function setupPaymentMethods() {
+            // Initialize Stripe card element
+            const elements = stripe.elements();
+            cardElement = elements.create('card', {
+                style: {
+                    base: {
+                        fontSize: '16px',
+                        color: '#424770',
+                        '::placeholder': {
+                            color: '#aab7c4',
+                        },
+                    },
+                },
+            });
+        }
+
+        // Select payment method
+        function selectPaymentMethod(method) {
+            selectedPaymentMethod = method;
+            
+            // Update UI
+            document.querySelectorAll('.payment-method').forEach(pm => {
+                pm.classList.remove('selected');
+            });
+            document.querySelector(`[data-method="${method}"]`).classList.add('selected');
+            
+            // Show/hide card element
+            const cardElementContainer = document.getElementById('cardElementContainer');
+            if (method === 'card') {
+                cardElementContainer.style.display = 'block';
+                cardElement.mount('#cardElement');
+            } else {
+                cardElementContainer.style.display = 'none';
+            }
+        }
+
+        // Update order summary
+        function updateOrderSummary() {
+            if (!checkoutData || !checkoutData.summary) return;
+            
+            const summary = checkoutData.summary;
+            
+            document.getElementById('summaryItemsTotal').textContent = `₹${summary.itemsTotal.toFixed(2)}`;
+            document.getElementById('summaryDeliveryFee').textContent = `₹${summary.deliveryFee.toFixed(2)}`;
+            document.getElementById('summaryTax').textContent = `₹${summary.tax.toFixed(2)}`;
+            document.getElementById('summaryGrandTotal').textContent = `₹${summary.grandTotal.toFixed(2)}`;
+            
+            if (summary.discount > 0) {
+                document.getElementById('summaryDiscountRow').style.display = 'flex';
+                document.getElementById('summaryDiscount').textContent = `-₹${summary.discount.toFixed(2)}`;
+            }
+        }
+
+        // Update restaurant info
+        function updateRestaurantInfo() {
+            if (!checkoutData || !checkoutData.restaurant) return;
+            
+            const restaurant = checkoutData.restaurant;
+            const container = document.getElementById('checkoutRestaurantInfo');
+            
+            container.innerHTML = `
+                <div class="d-flex align-items-center mb-3 p-3 border rounded bg-light">
+                    <img src="${restaurant.images?.[0] || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80'}" 
+                         alt="${restaurant.name}" 
+                         class="rounded me-3" 
+                         width="60" 
+                         height="60">
+                    <div>
+                        <h6 class="fw-bold mb-1">${restaurant.name}</h6>
+                        <p class="text-muted small mb-0">Delivery in ${restaurant.deliveryInfo?.time || 30} min</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update order items
+        function updateOrderItems() {
+            if (!checkoutData || !checkoutData.cart) return;
+            
+            const container = document.getElementById('orderItems');
+            const items = checkoutData.cart;
+            
+            container.innerHTML = items.map(item => `
+                <div class="d-flex justify-content-between align-items-center mb-2">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-light text-dark me-2">${item.quantity}</span>
+                        <span class="small">${item.name}</span>
+                    </div>
+                    <span class="small">₹${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Place order
+        async function placeOrder() {
+            if (!selectedPaymentMethod) {
+                smartEats.showToast('Please select a payment method', 'warning');
+                return;
+            }
+
+            if (!selectedAddress) {
+                smartEats.showToast('Please select a delivery address', 'warning');
+                return;
+            }
+
+            const placeOrderBtn = document.getElementById('placeOrderBtn');
+            const originalText = placeOrderBtn.innerHTML;
+            
+            try {
+                placeOrderBtn.disabled = true;
+                placeOrderBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+
+                let paymentResult;
+
+                if (selectedPaymentMethod === 'card') {
+                    // Handle card payment with Stripe
+                    const { error, paymentIntent } = await stripe.confirmCardPayment(
+                        checkoutData.paymentIntent.clientSecret,
+                        {
+                            payment_method: {
+                                card: cardElement,
+                                billing_details: {
+                                    name: selectedAddress.fullName,
+                                    phone: selectedAddress.phone,
+                                    address: {
+                                        line1: selectedAddress.address,
+                                        city: selectedAddress.city,
+                                        postal_code: selectedAddress.pincode,
+                                    },
+                                },
+                            },
+                        }
+                    );
+
+                    if (error) {
+                        throw new Error(error.message);
+                    }
+
+                    paymentResult = paymentIntent;
+                } else {
+                    // For other payment methods, confirm directly
+                    const response = await smartEats.apiCall('/payments/confirm', {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            paymentIntentId: checkoutData.paymentIntent.paymentIntentId,
+                            paymentMethod: selectedPaymentMethod
+                        })
+                    });
+
+                    if (!response.ok) {
+                        const error = await response.json();
+                        throw new Error(error.message);
+                    }
+
+                    paymentResult = await response.json();
+                }
+
+                // Order placed successfully
+                smartEats.showToast('Order placed successfully!', 'success');
+                
+                // Clear cart
+                await clearCart();
+                location.reload(true);
+                
+                // Redirect to order confirmation
+                setTimeout(() => {
+                    window.location.href = `order-confirmation.html?orderId=${paymentResult.order._id}`;
+                }, 1500);
+
+            } catch (error) {
+                console.error('Order placement error:', error);
+                smartEats.showToast(error.message || 'Error placing order', 'error');
+            } finally {
+                placeOrderBtn.disabled = false;
+                placeOrderBtn.innerHTML = originalText;
+            }
+        }
+
+        // Clear cart after successful order
+        async function clearCart() {
+            try {
+                await smartEats.apiCall('/cart/clear', {
+                    method: 'DELETE'
+                });
+                localStorage.removeItem('smarteats_checkout');
+            } catch (error) {
+                console.error('Error clearing cart:', error);
+            }
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!smartEats.currentUser) {
+                smartEats.showToast('Please login to continue', 'warning');
+                window.location.href = 'index.html';
+                return;
+            }
+            
+            initCheckout();
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .confirmation-section {
+            background: white;
+            border-radius: 16px;
+            padding: 2.5rem;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+        
+        .success-animation {
+            position: relative;
+            margin: 2rem auto;
+            width: 120px;
+            height: 120px;
+        }
+        
+        .success-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: scaleIn 0.6s ease-out;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.3);
+        }
+        
+        .checkmark {
+            color: white;
+            font-size: 3rem;
+            animation: checkmarkScale 0.4s ease-out 0.3s both;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: var(--primary-orange);
+            border-radius: 50%;
+            animation: confetti 1s ease-out forwards;
+        }
+        
+        .confetti:nth-child(2) { background: #4CAF50; animation-delay: 0.1s; }
+        .confetti:nth-child(3) { background: #2196F3; animation-delay: 0.2s; }
+        .confetti:nth-child(6) { background: #fb09ff; animation-delay: 0.2s; }
+        .confetti:nth-child(4) { background: #FFC107; animation-delay: 0.3s; }
+        .confetti:nth-child(6) { background: #01ffa6; animation-delay: 0.3s; }
+        .confetti:nth-child(5) { background: #9C27B0; animation-delay: 0.4s; }
+        .confetti:nth-child(6) { background: #15ffe0; animation-delay: 0.4s; }
+        .confetti:nth-child(6) { background: #FF5722; animation-delay: 0.5s; }
+        
+        .order-details-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            text-align: left;
+        }
+        
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        
+        .restaurant-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 12px;
+            margin: 1rem 0;
+        }
+        
+        @keyframes scaleIn {
+            from {
+                transform: scale(0);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes checkmarkScale {
+            0% {
+                transform: scale(0);
+            }
+            50% {
+                transform: scale(1.2);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes confetti {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--tx), var(--ty)) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .status-badge {
+            background: #4CAF50;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <!-- Success Animation Section -->
+                <div class="confirmation-section">
+                    <div class="success-animation">
+                        <div class="success-circle">
+                            <i class="fas fa-check checkmark"></i>
+                        </div>
+                        <!-- Confetti elements -->
+                        <div class="confetti" style="--tx: 60px; --ty: -60px;"></div>
+                        <div class="confetti" style="--tx: -60px; --ty: -60px;"></div>
+                        <div class="confetti" style="--tx: 60px; --ty: 60px;"></div>
+                        <div class="confetti" style="--tx: -60px; --ty: 60px;"></div>
+                        <div class="confetti" style="--tx: 80px; --ty: 0px;"></div>
+                        <div class="confetti" style="--tx: -80px; --ty: 0px;"></div>
+                    </div>
+                    
+                    <h1 class="fw-bold mb-3" style="color: #2E7D32;">Order Confirmed!</h1>
+                    <p class="text-muted mb-4">Thank you for your order. We've received your order and will begin preparing it right away.</p>
+                    
+                    <div class="status-badge">
+                        <i class="fas fa-clock me-2"></i>Preparing your food
+                    </div>
+                </div>
+
+                <!-- Order Summary -->
+                <div class="confirmation-section text-start">
+                    <h4 class="fw-bold mb-4">Order Summary</h4>
+                    
+                    <!-- Restaurant Info -->
+                    <div id="confirmationRestaurantInfo">
+                        <!-- Restaurant info will be loaded here -->
+                    </div>
+                    
+                    <!-- Order Details -->
+                    <div class="order-details-card">
+                        <div class="detail-item">
+                            <span class="text-muted">Order Number</span>
+                            <span class="fw-bold" id="orderNumber">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="text-muted">Order Date & Time</span>
+                            <span class="fw-bold" id="orderDateTime">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="text-muted">Estimated Delivery</span>
+                            <span class="fw-bold" id="estimatedDelivery">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="text-muted">Payment Method</span>
+                            <span class="fw-bold" id="paymentMethod">-</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="text-muted">Total Amount</span>
+                            <span class="fw-bold fs-5" id="totalAmount">-</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Order Items -->
+                    <h6 class="fw-bold mt-4 mb-3">Items Ordered</h6>
+                    <div id="orderItemsList">
+                        <!-- Order items will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Delivery Address -->
+                <div class="confirmation-section text-start">
+                    <h5 class="fw-bold mb-3">Delivery Address</h5>
+                    <div id="deliveryAddress">
+                        <!-- Address will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="confirmation-section">
+                    <div class="action-buttons">
+                        <button class="btn btn-outline-primary px-4" onclick="trackOrder()">
+                            <i class="fas fa-map-marker-alt me-2"></i>Track Order
+                        </button>
+                        <button class="btn btn-primary px-4" onclick="goToHome()">
+                            <i class="fas fa-home me-2"></i>Back to Home
+                        </button>
+                    </div>
+                    
+                    <p class="text-muted mt-4 small">
+                        Need help? <a href="contact.html" class="text-decoration-none">Contact Support</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        let orderData = null;
+
+        // Initialize confirmation page
+        function initConfirmation() {
+            // Load order data from localStorage
+            const savedOrder = localStorage.getItem('smarteats_order_confirmation');
+            
+            if (!savedOrder) {
+                // If no order data, redirect to home
+                smartEats.showToast('No order data found', 'error');
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 2000);
+                return;
+            }
+
+            orderData = JSON.parse(savedOrder);
+            updateConfirmationUI();
+            
+            // Clean up localStorage
+            localStorage.removeItem('smarteats_order_confirmation');
+        }
+
+        // Update confirmation UI with order data
+        function updateConfirmationUI() {
+            if (!orderData) return;
+
+            // Update basic order info
+            document.getElementById('orderNumber').textContent = orderData.orderNumber;
+            document.getElementById('orderDateTime').textContent = new Date().toLocaleString();
+            document.getElementById('estimatedDelivery').textContent = orderData.estimatedDelivery?.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'}) || '30-40 min';
+            document.getElementById('paymentMethod').textContent = formatPaymentMethod(orderData.paymentMethod);
+            document.getElementById('totalAmount').textContent = `₹${orderData.totalAmount?.toFixed(2) || '0.00'}`;
+
+            // Update restaurant info
+            updateRestaurantInfo();
+            
+            // Update order items
+            updateOrderItems();
+            
+            // Update delivery address
+            updateDeliveryAddress();
+        }
+
+        // Format payment method for display
+        function formatPaymentMethod(method) {
+            const methods = {
+                'card': 'Credit/Debit Card',
+                'upi': 'UPI Payment',
+                'wallet': 'SmartEats Wallet',
+                'cod': 'Cash on Delivery'
+            };
+            return methods[method] || method;
+        }
+
+        // Update restaurant info
+        function updateRestaurantInfo() {
+            if (!orderData || !orderData.restaurant) return;
+            
+            const container = document.getElementById('confirmationRestaurantInfo');
+            const restaurant = orderData.restaurant;
+            
+            container.innerHTML = `
+                <div class="restaurant-info">
+                    <img src="${restaurant.images?.[0] || 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&auto=format&fit=crop&w=100&q=80'}" 
+                         alt="${restaurant.name}" 
+                         class="rounded" 
+                         width="80" 
+                         height="80">
+                    <div>
+                        <h5 class="fw-bold mb-1">${restaurant.name}</h5>
+                        <p class="text-muted mb-1">Preparing your order</p>
+                        <p class="text-muted small mb-0">Delivery in ${restaurant.deliveryInfo?.time || 30} minutes</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Update order items
+        function updateOrderItems() {
+            if (!orderData || !orderData.items) return;
+            
+            const container = document.getElementById('orderItemsList');
+            const items = orderData.items;
+            
+            container.innerHTML = items.map(item => `
+                <div class="detail-item">
+                    <div class="d-flex align-items-center">
+                        <span class="badge bg-light text-dark me-3">${item.quantity}</span>
+                        <span>${item.name}</span>
+                    </div>
+                    <span class="fw-bold">₹${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
+            `).join('');
+        }
+
+        // Update delivery address
+        function updateDeliveryAddress() {
+            if (!orderData || !orderData.deliveryAddress) return;
+            
+            const container = document.getElementById('deliveryAddress');
+            const address = orderData.deliveryAddress;
+            
+            container.innerHTML = `
+                <div class="order-details-card">
+                    <h6 class="fw-bold">${address.fullName}</h6>
+                    <p class="mb-1">${address.address}</p>
+                    <p class="mb-1">${address.city}, ${address.pincode}</p>
+                    ${address.landmark ? `<p class="mb-1">Landmark: ${address.landmark}</p>` : ''}
+                    <p class="mb-0">Phone: ${address.phone}</p>
+                </div>
+            `;
+        }
+
+        // Track order function
+        function trackOrder() {
+            if (orderData && orderData.orderId) {
+                window.location.href = `order-tracking.html?orderId=${orderData.orderId}`;
+            } else {
+                smartEats.showToast('Order tracking will be available soon', 'info');
+            }
+        }
+
+        // Go to home function
+        function goToHome() {
+            window.location.href = 'index.html';
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            initConfirmation();
+        });
+    </script>
+</body>
+</html>
