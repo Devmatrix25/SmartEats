@@ -82,8 +82,8 @@
 | **Backend & Deployment Lead** | TIRUKOTI VINAY | 24BD1A059R | Server architecture, API development, deployment strategies |
 | **Frontend React Developer** | PAGIDIPALLI SUNNY KIRAN | 24BD1A059B | UI components, user experience, React implementation |
 | **UI/UX + API Research Lead** | CHAKRAPANDA SATHWIK | 24BD1A058D | Interface design, user research, API integration |
-| **Celery / Async Processing Engineer** | CILIVERU MANIMUKTESH | 24BD1A058J | Background jobs, task queues, asynchronous operations |
-| **MongoDB, Redis & Monitoring Engineer** | RENTALA RISHEETH PREETHAM | 24BD1A059G | Database design, caching strategies, system monitoring |
+| **MongoDB, Redis & Monitoring Engineer** | CILIVERU MANIMUKTESH | 24BD1A058J | Background jobs, task queues, asynchronous operations |
+| **Celery / Async Processing Engineer** | RENTALA RISHEETH PREETHAM | 24BD1A059G | Database design, caching strategies, system monitoring |
 
 ### 👨‍🏫 Project Mentor
 **G. Swetha Goud** - Project Guide & Mentor
