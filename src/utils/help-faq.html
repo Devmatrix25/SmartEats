@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Help & FAQ - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .help-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .help-header {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .faq-section {
+            margin-bottom: 3rem;
+        }
+        
+        .faq-section h2 {
+            color: var(--primary-orange);
+            border-bottom: 2px solid var(--light-orange);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .faq-item {
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 0;
+        }
+        
+        .faq-item:last-child {
+            border-bottom: none;
+        }
+        
+        .faq-question {
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .faq-answer {
+            margin-top: 1rem;
+            color: var(--text-secondary);
+            display: none;
+        }
+        
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        
+        .contact-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .contact-icon {
+            font-size: 2.5rem;
+            color: var(--primary-orange);
+            margin-bottom: 1rem;
+        }
+        
+        :root {
+            --primary-orange: #ff6b35;
+            --dark-orange: #e55a2b;
+            --light-orange: #ffefe6;
+            --light-grey: #f8f9fa;
+            --border-color: #dee2e6;
+            --text-secondary: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="help-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="fw-bold">Help & FAQs</h1>
+                    <p class="lead mb-0">Find answers to common questions and get support</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container help-container">
+        <div class="row mb-5">
+            <div class="col-md-4 mb-3">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h5>Call Us</h5>
+                    <p class="text-muted">+1 (555) 123-4567 (US)<br>+91 98765 43210 (India)</p>
+                    <small class="text-muted">Available 24/7</small>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h5>Email Us</h5>
+                    <p class="text-muted">support@smarteats.com</p>
+                    <small class="text-muted">Response within 2 hours</small>
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h5>Live Chat</h5>
+                    <p class="text-muted">Chat with our team</p>
+                    <small class="text-muted">Available 9 AM - 9 PM</small>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h2 class="text-center">Join the SmartEats Family</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <p class="mb-4">Whether you're a food lover, restaurant owner, or looking for delivery opportunities, there's a place for you in the SmartEats community.</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="../../customer/restaurant.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-utensils me-2"></i>Order Food
+                        </a>
+                        <a href="../../restaurant/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-store me-2"></i>Partner With Us
+                        </a>
+                        <a href="../../driver/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-motorcycle me-2"></i>Become a Driver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="faq-section">
+            <h2>A. User FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I place an order?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To place an order:</p>
+                    <ol>
+                        <li>Search for restaurants or browse categories</li>
+                        <li>Select items and add them to your cart</li>
+                        <li>Review your order and proceed to checkout</li>
+                        <li>Select payment method and confirm order</li>
+                        <li>Track your order in real-time</li>
+                    </ol>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I track my delivery?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Once your order is confirmed and a driver is assigned, you can track your delivery in real-time:</p>
+                    <ul>
+                        <li>Go to "My Orders" in the app or website</li>
+                        <li>Select the active order</li>
+                        <li>View the live map with driver location</li>
+                        <li>See estimated delivery time</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I check my refund status?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To check your refund status:</p>
+                    <ul>
+                        <li>Go to "Order History"</li>
+                        <li>Select the order with the refund request</li>
+                        <li>View refund status and details</li>
+                        <li>Refunds typically process within 5-7 business days</li>
+                    </ul>
+                    <p>If you have questions about your refund, contact our support team.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do if my payment fails?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If your payment fails:</p>
+                    <ul>
+                        <li>Check your payment method details</li>
+                        <li>Ensure sufficient funds are available</li>
+                        <li>Try a different payment method</li>
+                        <li>Contact your bank if issues persist</li>
+                    </ul>
+                    <p>If the problem continues, contact our support team for assistance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I update my account information?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To update your account information:</p>
+                    <ul>
+                        <li>Go to "Account Settings"</li>
+                        <li>Select the information you want to update</li>
+                        <li>Save your changes</li>
+                    </ul>
+                    <p>For security reasons, some changes may require verification.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>B. Restaurant FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I receive orders from SmartEats?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Once you're onboarded as a SmartEats restaurant partner:</p>
+                    <ul>
+                        <li>Orders will appear on your restaurant dashboard</li>
+                        <li>You'll receive notifications for new orders</li>
+                        <li>Accept orders within the specified time frame</li>
+                        <li>Prepare orders for pickup by delivery drivers</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I update my menu or prices?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To update your menu:</p>
+                    <ul>
+                        <li>Log in to your restaurant dashboard</li>
+                        <li>Navigate to the "Menu Management" section</li>
+                        <li>Add, edit, or remove items as needed</li>
+                        <li>Update prices and availability</li>
+                        <li>Save your changes</li>
+                    </ul>
+                    <p>Changes typically reflect on the platform within minutes.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What is the payout cycle for restaurants?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Our standard payout cycle is:</p>
+                    <ul>
+                        <li><strong>Weekly payouts:</strong> Processed every Monday</li>
+                        <li><strong>Processing time:</strong> 1-2 business days</li>
+                        <li><strong>Payment methods:</strong> Bank transfer or digital wallets</li>
+                    </ul>
+                    <p>You can view your earnings and payout history in your restaurant dashboard.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>Who should I contact for restaurant support?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>For restaurant-specific support:</p>
+                    <ul>
+                        <li><strong>Email:</strong> restaurants@smarteats.com</li>
+                        <li><strong>Phone:</strong> +1 (555) 123-4567 (US) / +91 98765 43210 (India)</li>
+                        <li><strong>Dedicated support:</strong> Available through your restaurant dashboard</li>
+                    </ul>
+                    <p>Our restaurant support team is available during business hours.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>C. Driver FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How do I accept delivery requests?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>To accept delivery requests:</p>
+                    <ul>
+                        <li>Ensure you're logged in and available in the driver app</li>
+                        <li>Delivery requests will appear with order details</li>
+                        <li>Accept requests within the specified time frame</li>
+                        <li>Navigate to the restaurant for pickup</li>
+                        <li>Confirm pickup and proceed to delivery location</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do if I have navigation issues?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If you experience navigation issues:</p>
+                    <ul>
+                        <li>Check your internet connection</li>
+                        <li>Ensure location services are enabled</li>
+                        <li>Try alternative navigation apps if needed</li>
+                        <li>Contact the customer for clarification if address is unclear</li>
+                        <li>Report persistent issues to driver support</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How and when will I receive my earnings?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Driver earnings are processed as follows:</p>
+                    <ul>
+                        <li><strong>Weekly payouts:</strong> Processed every Monday</li>
+                        <li><strong>Payment methods:</strong> Bank transfer or digital wallets</li>
+                        <li><strong>Earnings breakdown:</strong> Available in your driver dashboard</li>
+                        <li><strong>Instant cashout:</strong> Available for a small fee</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do if my account is suspended?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If your driver account is suspended:</p>
+                    <ul>
+                        <li>Check your email for notification with details</li>
+                        <li>Contact driver support for clarification</li>
+                        <li>Provide any requested information or documentation</li>
+                        <li>Follow the appeal process if you believe the suspension is in error</li>
+                    </ul>
+                    <p>Common reasons for suspension include safety violations, low ratings, or policy breaches.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-section">
+            <h2>D. General FAQs</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I contact customer support?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>You can contact our customer support team through:</p>
+                    <ul>
+                        <li><strong>Phone:</strong> +1 (555) 123-4567 (US) / +91 98765 43210 (India)</li>
+                        <li><strong>Email:</strong> support@smarteats.com</li>
+                        <li><strong>Live Chat:</strong> Available in the app and website during business hours</li>
+                        <li><strong>In-app Support:</strong> Use the help section in your account</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do in an emergency situation?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>In case of emergency:</p>
+                    <ul>
+                        <li><strong>Medical emergency:</strong> Contact local emergency services immediately</li>
+                        <li><strong>Safety concern:</strong> Use the emergency button in the app if available</li>
+                        <li><strong>Accident:</strong> Ensure safety first, then contact support</li>
+                        <li><strong>Food allergy reaction:</strong> Seek medical attention immediately</li>
+                    </ul>
+                    <p>After addressing the immediate emergency, contact our support team for assistance.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>What should I do if my order is delayed?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>If your order is delayed:</p>
+                    <ul>
+                        <li>Check the order tracking for updates</li>
+                        <li>Contact the restaurant if preparation is taking longer than expected</li>
+                        <li>Contact support if the delay is significant</li>
+                        <li>You may be eligible for compensation depending on the delay duration</li>
+                    </ul>
+                    <p>Common reasons for delays include high demand, traffic, or weather conditions.</p>
+                </div>
+            </div>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <span>How can I provide feedback or file a complaint?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>We welcome your feedback and take complaints seriously:</p>
+                    <ul>
+                        <li><strong>In-app feedback:</strong> Rate your order and provide comments</li>
+                        <li><strong>Email:</strong> feedback@smarteats.com</li>
+                        <li><strong>Complaints:</strong> Use the "Report Issue" feature in your order history</li>
+                        <li><strong>Social media:</strong> Message us on our official accounts</li>
+                    </ul>
+                    <p>We aim to respond to all feedback within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+        <div class="contact-info bg-light p-4 rounded">
+            <h3 class="text-center mb-3">Still Need Help?</h3>
+            <p class="text-center mb-4">Our support team is ready to assist you with any questions or concerns.</p>
+            <div class="text-center">
+                <a href="mailto:support@smarteats.com" class="btn btn-primary me-2">
+                    <i class="fas fa-envelope me-2"></i>Email Support
+                </a>
+                <a href="tel:+15551234567" class="btn btn-outline-primary">
+                    <i class="fas fa-phone me-2"></i>Call Support
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../../customer/support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="./help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="./privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="./terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Toggle FAQ items
+        function toggleFAQ(element) {
+            const faqItem = element.parentElement;
+            faqItem.classList.toggle('active');
+            
+            const icon = element.querySelector('i');
+            if (faqItem.classList.contains('active')) {
+                icon.className = 'fas fa-chevron-up';
+            } else {
+                icon.className = 'fas fa-chevron-down';
+            }
+        }
+    </script>
+</body>
+</html>

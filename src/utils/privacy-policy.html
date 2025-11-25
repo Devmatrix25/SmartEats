@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .legal-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .legal-header {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .legal-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .legal-section h2 {
+            color: var(--primary-orange);
+            border-bottom: 2px solid var(--light-orange);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .legal-section h3 {
+            color: var(--dark-orange);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .legal-list {
+            padding-left: 1.5rem;
+        }
+        
+        .legal-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .last-updated {
+            background-color: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .contact-info {
+            background-color: var(--light-orange);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        :root {
+            --primary-orange: #ff6b35;
+            --dark-orange: #e55a2b;
+            --light-orange: #ffefe6;
+            --light-grey: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="legal-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="fw-bold">Privacy Policy</h1>
+                    <p class="lead mb-0">How we collect, use, and protect your information</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container legal-container">
+        <div class="last-updated">
+            <i class="fas fa-clock me-2"></i>Last Updated: <span id="currentDate"></span>
+        </div>
+
+        <div class="legal-section">
+            <h2>A. General Information</h2>
+            <p><strong>SmartEats</strong> is a food delivery platform connecting Users (customers), Restaurants (partners), and Drivers (delivery partners).</p>
+            <p><strong>Scope:</strong> This Privacy Policy applies to all Users, Restaurants, and Drivers using the SmartEats platform.</p>
+            <p><strong>Definitions:</strong></p>
+            <ul class="legal-list">
+                <li><strong>User:</strong> Individual ordering food through SmartEats</li>
+                <li><strong>Restaurant:</strong> Food establishment partnering with SmartEats</li>
+                <li><strong>Driver:</strong> Delivery partner providing delivery services</li>
+                <li><strong>Personal Data:</strong> Any information relating to an identified or identifiable individual</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>B. Data Collection & Use</h2>
+            
+            <h3>Personal Data Collected</h3>
+            <ul class="legal-list">
+                <li>Name, contact number, email address</li>
+                <li>Payment information (processed securely by payment partners)</li>
+                <li>Location data (for delivery optimization and tracking)</li>
+                <li>Device information and cookies</li>
+                <li>Restaurant business data (registration, menu, pricing)</li>
+                <li>Driver verification data (KYC documents, background checks)</li>
+            </ul>
+            
+            <h3>Location Data Usage</h3>
+            <p>We collect location data from Drivers for route optimization and delivery tracking, and from Users for accurate delivery location.</p>
+            
+            <h3>Account Management</h3>
+            <p>SmartEats reserves the right to suspend accounts or implement "shadow banning" for violations of our terms, fraudulent activities, or to maintain platform safety.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>C. How Data is Used</h2>
+            <ul class="legal-list">
+                <li><strong>Order Processing:</strong> To facilitate food ordering and delivery</li>
+                <li><strong>Fraud Detection:</strong> To identify and prevent fraudulent activities</li>
+                <li><strong>Payments & Refunds:</strong> To process payments and manage refund requests</li>
+                <li><strong>Deliveries & Tracking:</strong> To coordinate and track deliveries in real-time</li>
+                <li><strong>Safety & Compliance:</strong> To ensure platform safety and regulatory compliance</li>
+                <li><strong>Service Improvement:</strong> To enhance user experience and platform functionality</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>D. Data Sharing</h2>
+            <p>We share your information only as necessary to provide our services:</p>
+            <ul class="legal-list">
+                <li><strong>With Restaurants:</strong> Only order details necessary for order fulfillment</li>
+                <li><strong>With Drivers:</strong> Only delivery details necessary for order delivery</li>
+                <li><strong>With Payment Processors:</strong> Payment data with Stripe, Razorpay, and other PCI-DSS compliant processors</li>
+                <li><strong>With Government Authorities:</strong> Only when required by law or to protect our legal rights</li>
+            </ul>
+            <p>We do not sell your personal data to third parties.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>E. Storage & Security</h2>
+            
+            <h3>Data Protection</h3>
+            <ul class="legal-list">
+                <li>Industry-standard encryption for data in transit and at rest</li>
+                <li>PCI-DSS compliance for payment data handling</li>
+                <li>Regular security assessments and vulnerability testing</li>
+            </ul>
+            
+            <h3>Data Retention</h3>
+            <p>We retain personal data only as long as necessary for the purposes outlined in this policy, or as required by law.</p>
+            
+            <h3>Compliance</h3>
+            <p>We comply with India's Digital Personal Data Protection Act (DPDP) 2023 and incorporate GDPR-style user rights where applicable.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>F. User Rights</h2>
+            <p>You have the right to:</p>
+            <ul class="legal-list">
+                <li><strong>Access:</strong> Request a copy of your personal data</li>
+                <li><strong>Deletion:</strong> Request deletion of your personal data</li>
+                <li><strong>Correction:</strong> Request correction of inaccurate personal data</li>
+                <li><strong>Opt-out:</strong> Opt-out of marketing communications</li>
+                <li><strong>Data Portability:</strong> Request transfer of your data to another service</li>
+            </ul>
+            <p>To exercise these rights, contact us at <a href="mailto:privacy@smarteats.com">privacy@smarteats.com</a>.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>G. Children's Privacy</h2>
+            <p><strong>United States (COPPA):</strong> We do not knowingly collect personal information from children under 13. If we learn we have collected such information, we will delete it promptly.</p>
+            <p><strong>Under 18 Safeguards:</strong> Users under 18 must have parent/guardian consent to use our services. We implement additional safeguards for minor users.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>H. International Transfers</h2>
+            <p>SmartEats operates in both the United States and India. Data may be transferred between these jurisdictions with appropriate safeguards in place to ensure protection equivalent to local data protection laws.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>I. Disclaimer</h2>
+            <p>SmartEats is not responsible for events outside our reasonable control, including but not limited to natural disasters, government actions, internet outages, or other force majeure events that may impact service delivery.</p>
+        </div>
+        <div class="section">
+            <h2 class="text-center">Join the SmartEats Family</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <p class="mb-4">Whether you're a food lover, restaurant owner, or looking for delivery opportunities, there's a place for you in the SmartEats community.</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="../../customer/restaurant.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-utensils me-2"></i>Order Food
+                        </a>
+                        <a href="../../restaurant/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-store me-2"></i>Partner With Us
+                        </a>
+                        <a href="../../driver/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-motorcycle me-2"></i>Become a Driver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>If you have questions about this Privacy Policy, please contact us:</p>
+            <p><i class="fas fa-envelope me-2"></i>Email: <a href="mailto:privacy@smarteats.com">privacy@smarteats.com</a></p>
+            <p><i class="fas fa-phone me-2"></i>Phone: +1 (555) 123-4567 (US) / +91 98765 43210 (India)</p>
+            <p><i class="fas fa-map-marker-alt me-2"></i>Address: SmartEats Inc., 576 Food Lane, San Francisco, CA 94105, USA</p>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../../customer/support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="./help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="./privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="./terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>

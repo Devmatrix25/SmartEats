@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms of Use - SmartEats</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        .legal-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 0;
+        }
+        
+        .legal-header {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 3rem 0;
+            margin-bottom: 2rem;
+        }
+        
+        .legal-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .legal-section h2 {
+            color: var(--primary-orange);
+            border-bottom: 2px solid var(--light-orange);
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .legal-section h3 {
+            color: var(--dark-orange);
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .legal-list {
+            padding-left: 1.5rem;
+        }
+        
+        .legal-list li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .last-updated {
+            background-color: var(--light-grey);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            font-weight: 500;
+        }
+        
+        .contact-info {
+            background-color: var(--light-orange);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+        
+        :root {
+            --primary-orange: #ff6b35;
+            --dark-orange: #e55a2b;
+            --light-orange: #ffefe6;
+            --light-grey: #f8f9fa;
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="customer"></smart-eats-navbar>
+
+    <div class="legal-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h1 class="fw-bold">Terms of Use</h1>
+                    <p class="lead mb-0">Rules and guidelines for using SmartEats services</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container legal-container">
+        <div class="last-updated">
+            <i class="fas fa-clock me-2"></i>Last Updated: <span id="currentDate"></span>
+        </div>
+
+        <div class="legal-section">
+            <h2>A. Parties Included</h2>
+            <p>These Terms of Use govern the relationship between:</p>
+            <ul class="legal-list">
+                <li><strong>SmartEats</strong> (the platform provider)</li>
+                <li><strong>Users</strong> (customers ordering food)</li>
+                <li><strong>Restaurants</strong> (food establishment partners)</li>
+                <li><strong>Drivers</strong> (delivery partners)</li>
+            </ul>
+            <p>By accessing or using SmartEats services, you agree to be bound by these Terms.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>B. Account Rules</h2>
+            
+            <h3>Verification</h3>
+            <p>All users must provide accurate information during registration. Restaurants and Drivers undergo additional verification processes.</p>
+            
+            <h3>Eligibility</h3>
+            <p>You must be at least 18 years old to create an account. Users under 18 may use the platform with parental consent.</p>
+            
+            <h3>Suspension or Termination</h3>
+            <p>SmartEats reserves the right to suspend or terminate accounts for:</p>
+            <ul class="legal-list">
+                <li>Violation of these Terms</li>
+                <li>Fraudulent activities</li>
+                <li>Abusive behavior toward other users or staff</li>
+                <li>Repeated cancellation of confirmed orders</li>
+            </ul>
+        </div>
+
+        <div class="legal-section">
+            <h2>C. Ordering & Delivery Terms</h2>
+            
+            <h3>Order Process</h3>
+            <p>The ordering process follows these steps:</p>
+            <ol class="legal-list">
+                <li>User places order through the platform</li>
+                <li>Restaurant accepts or declines the order</li>
+                <li>Driver is assigned for pickup and delivery</li>
+                <li>Order is delivered to the user</li>
+            </ol>
+            
+            <h3>Location Tracking</h3>
+            <p>We use real-time location tracking to facilitate deliveries. By using our services, you consent to this tracking.</p>
+            
+            <h3>Delivery Times</h3>
+            <p>Estimated delivery times are provided for convenience but are not guaranteed. Actual delivery times may vary due to traffic, weather, or restaurant preparation times.</p>
+            
+            <h3>Force Majeure</h3>
+            <p>SmartEats is not liable for delays or failures in performance resulting from causes beyond our reasonable control, including but not limited to: weather conditions, traffic congestion, natural disasters, government actions, or labor disputes.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>D. Payment Terms</h2>
+            
+            <h3>Payment Methods</h3>
+            <p>We accept various payment methods including credit/debit cards, digital wallets, UPI (in India), and cash on delivery where available.</p>
+            
+            <h3>Currency</h3>
+            <p>Transactions are processed in local currency (USD in the United States, INR in India).</p>
+            
+            <h3>Third-Party Processors</h3>
+            <p>Payments are processed by third-party payment processors (Stripe, Razorpay) that are PCI-DSS compliant.</p>
+            
+            <h3>Payment Security</h3>
+            <p>We implement industry-standard security measures to protect payment information. However, we are not liable for breaches occurring at the payment processor level.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>E. Refund & Cancellation</h2>
+            
+            <h3>Refund Conditions</h3>
+            <ul class="legal-list">
+                <li><strong>Full Refunds:</strong> Provided for orders that cannot be fulfilled</li>
+                <li><strong>Partial Refunds:</strong> Provided for incorrect or missing items</li>
+                <li><strong>No Refunds:</strong> For consumed or partially consumed orders</li>
+            </ul>
+            
+            <h3>Cancellation Policy</h3>
+            <ul class="legal-list">
+                <li><strong>User Cancellations:</strong> Free cancellation before restaurant acceptance; may incur fees after acceptance</li>
+                <li><strong>Restaurant Cancellations:</strong> Full refund provided to user</li>
+                <li><strong>Driver Cancellations:</strong> Order reassigned to another driver</li>
+            </ul>
+            
+            <h3>Compliance</h3>
+            <p>Our refund and cancellation policies comply with US Consumer Protection Laws and India's Consumer Protection Act 2019.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>F. Restaurant Partner Terms</h2>
+            
+            <h3>Menu Accuracy</h3>
+            <p>Restaurants are responsible for maintaining accurate menu information, including prices, descriptions, and availability.</p>
+            
+            <h3>Pricing Responsibility</h3>
+            <p>Restaurants set their own prices on the platform and are responsible for any pricing errors.</p>
+            
+            <h3>Food Safety Compliance</h3>
+            <p>Restaurants must comply with all applicable food safety regulations and maintain necessary licenses.</p>
+            
+            <h3>Liability Limitations</h3>
+            <p>SmartEats acts as an intermediary and is not liable for food quality, preparation, or any food-related issues.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>G. Driver Terms</h2>
+            
+            <h3>Independent Contractor Model</h3>
+            <p>Drivers are independent contractors, not employees of SmartEats. They are responsible for their own taxes, insurance, and vehicle maintenance.</p>
+            
+            <h3>Verification</h3>
+            <p>All drivers undergo KYC verification and background checks before being approved to deliver on the platform.</p>
+            
+            <h3>Obligations</h3>
+            <p>Drivers must:</p>
+            <ul class="legal-list">
+                <li>Maintain valid driver's license and vehicle insurance</li>
+                <li>Follow traffic laws and safety regulations</li>
+                <li>Handle orders with care and maintain food safety standards</li>
+                <li>Provide professional service to users and restaurants</li>
+            </ul>
+            
+            <h3>Safety Standards</h3>
+            <p>Drivers must adhere to our safety standards, including no distracted driving and proper handling of food items.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>H. Safety & Liability</h2>
+            
+            <h3>Intermediary Status</h3>
+            <p>SmartEats is an intermediary platform connecting Users, Restaurants, and Drivers. We are not responsible for the actions or omissions of any third party using our platform.</p>
+            
+            <h3>User Responsibilities</h3>
+            <p>Users are responsible for:</p>
+            <ul class="legal-list">
+                <li>Providing accurate delivery information</li>
+                <li>Being available to receive deliveries</li>
+                <li>Verifying orders upon receipt</li>
+                <li>Reporting issues promptly</li>
+            </ul>
+            
+            <h3>Service Interruptions</h3>
+            <p>SmartEats is not liable for temporary service interruptions, maintenance, or technical issues beyond our control.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>I. Dispute Resolution</h2>
+            
+            <h3>United States</h3>
+            <p>Any disputes shall be resolved through binding arbitration in accordance with the American Arbitration Association rules. Class action lawsuits are waived.</p>
+            
+            <h3>India</h3>
+            <p>Disputes shall be resolved through arbitration in accordance with the Arbitration and Conciliation Act, 1996, complying with IT Act 2000 requirements.</p>
+            
+            <h3>Informal Resolution</h3>
+            <p>Before initiating formal proceedings, parties agree to attempt to resolve disputes informally through our customer support team.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>J. Governing Law</h2>
+            
+            <h3>India</h3>
+            <p>These Terms are governed by Indian law, with jurisdiction in Mumbai courts, and comply with the Information Technology Act, 2000.</p>
+            
+            <h3>United States</h3>
+            <p>For US users, these Terms are governed by applicable federal and state laws, with jurisdiction in California courts.</p>
+        </div>
+
+        <div class="legal-section">
+            <h2>K. Disclaimer</h2>
+            <p><strong>SmartEats does not cook food and is not liable for food quality, preparation, or any food-related issues.</strong> We are a technology platform connecting users with restaurants and delivery partners. Any issues with food quality, temperature, or preparation should be addressed directly with the restaurant.</p>
+        </div>
+        <div class="section">
+            <h2 class="text-center">Join the SmartEats Family</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8 text-center">
+                    <p class="mb-4">Whether you're a food lover, restaurant owner, or looking for delivery opportunities, there's a place for you in the SmartEats community.</p>
+                    <div class="d-flex flex-wrap justify-content-center gap-3">
+                        <a href="../../customer/restaurant.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-utensils me-2"></i>Order Food
+                        </a>
+                        <a href="../../restaurant/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-store me-2"></i>Partner With Us
+                        </a>
+                        <a href="../../driver/index.html" class="btn btn-outline-primary btn-lg">
+                            <i class="fas fa-motorcycle me-2"></i>Become a Driver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="contact-info">
+            <h3>Contact Us</h3>
+            <p>If you have questions about these Terms of Use, please contact us:</p>
+            <p><i class="fas fa-envelope me-2"></i>Email: <a href="mailto:legal@smarteats.com">legal@smarteats.com</a></p>
+            <p><i class="fas fa-phone me-2"></i>Phone: +1 (555) 123-4567 (US) / +91 98765 43210 (India)</p>
+            <p><i class="fas fa-map-marker-alt me-2"></i>Address: SmartEats Inc., 576 Food Lane, San Francisco, CA 94105, USA</p>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="fw-bold mb-3">
+                        <i class="fas fa-utensils me-2"></i>SmartEats
+                    </h5>
+                    <p>Delivering happiness through delicious food. Order from your favorite restaurants and enjoy quick, reliable delivery.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="fab fa-facebook fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-twitter fa-lg"></i></a>
+                        <a href="#" class="text-light"><i class="fab fa-instagram fa-lg"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Company</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="./about.html" class="text-light text-decoration-none">About Us</a></li>
+                        <li><a href="../../driver/index.html" class="text-light text-decoration-none">Careers</a></li>
+                        <li><a href="https://devmatrix.page.gd/" class="text-light text-decoration-none">Team</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2">
+                    <h6 class="fw-bold mb-3">Support</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="../../customer/support.html" class="text-light text-decoration-none">Help Center</a></li>
+                        <li><a href="./help-faq.html" class="text-light text-decoration-none">FAQ's</a></li>
+                        <li><a href="mailto:devmatrixteam25@gmail.com" class="text-light text-decoration-none">Contact Us</a></li>
+                        <li><a href="./privacy-policy.html" class="text-light text-decoration-none">Privacy Policy</a></li>
+                        <li><a href="./terms-of-service.html" class="text-light text-decoration-none">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4">
+                    <h6 class="fw-bold mb-3">Download App</h6>
+                    <div class="d-flex gap-2 flex-wrap">
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-apple me-2"></i>App Store
+                        </button>
+                        <button class="btn btn-outline-light btn-sm">
+                            <i class="fab fa-google-play me-2"></i>Play Store
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 SmartEats. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Set current date
+        document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+    </script>
+</body>
+</html>
