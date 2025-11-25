@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartEats - Driver</title>
+    
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="../src/base.css">
+    
+    <style>
+        .driver-hero {
+            background: linear-gradient(135deg, var(--primary-orange), var(--dark-orange));
+            color: white;
+            padding: 80px 0;
+        }
+        
+        .feature-card {
+            border: none;
+            border-radius: 16px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            height: 100%;
+            background: white;
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: var(--light-orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+        
+        .kyc-steps {
+            background: var(--bg-secondary);
+            border-radius: 12px;
+            padding: 2rem;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: var(--primary-orange);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 1rem;
+        }
+        
+        .auth-section {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <smart-eats-navbar role="driver"></smart-eats-navbar>
+
+    <!-- Hero Section -->
+    <section class="driver-hero">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-5 fw-bold mb-4">Start Earning with SmartEats</h1>
+                    <p class="lead mb-4">Join our fleet of delivery partners and earn competitive income with flexible hours.</p>
+                    
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="#apply" class="btn btn-light btn-lg px-4">
+                            <i class="fas fa-user-plus me-2"></i>Apply Now
+                        </a>
+                        <a href="#features" class="btn btn-outline-light btn-lg px-4">
+                            <i class="fas fa-info-circle me-2"></i>Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <img src="https://plus.unsplash.com/premium_photo-1682088417767-afc375d5524a?fm=jpg&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGVsaXZlcnklMjBkcml2ZXJ8ZW58MHx8MHx8fDA%3D&ixlib=rb-4.1.0&q=60&w=3000" 
+                         alt="Delivery Driver" 
+                         class="img-fluid rounded-3 shadow-lg">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="fw-bold">Why Drive with SmartEats?</h2>
+                <p class="text-muted">Benefits of joining our delivery partner network</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                        <h5>Earn More</h5>
+                        <p class="text-muted">Competitive pay with bonuses and tips. Earn up to ₹1500 per day.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h5>Flexible Hours</h5>
+                        <p class="text-muted">Work when you want. Full-time or part-time, you're in control.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h5>Insurance</h5>
+                        <p class="text-muted">Accident insurance coverage for all our delivery partners.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- KYC Process -->
+    <section id="apply" class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="kyc-steps">
+                        <h3 class="fw-bold text-center mb-4">Become a Delivery Partner</h3>
+                        <p class="text-center text-muted mb-4">Complete these simple steps to start delivering</p>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="step-number">1</div>
+                            <div>
+                                <h5 class="fw-bold">Basic Information</h5>
+                                <p class="text-muted mb-0">Provide your personal details and contact information</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="step-number">2</div>
+                            <div>
+                                <h5 class="fw-bold">Vehicle Details</h5>
+                                <p class="text-muted mb-0">Share your vehicle information and documents</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="step-number">3</div>
+                            <div>
+                                <h5 class="fw-bold">Document Verification</h5>
+                                <p class="text-muted mb-0">Upload required documents for KYC verification</p>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-start mb-4">
+                            <div class="step-number">4</div>
+                            <div>
+                                <h5 class="fw-bold">Background Check</h5>
+                                <p class="text-muted mb-0">Quick verification process for safety and security</p>
+                            </div>
+                        </div>
+                        
+                        <div class="text-center mt-4">
+                            <button class="btn btn-primary btn-lg" onclick="startKYC()">
+                                <i class="fas fa-play-circle me-2"></i>Start Application
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Authentication Section -->
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="auth-section">
+                        <div class="text-center mb-4">
+                            <h3 class="fw-bold">Driver Login</h3>
+                            <p class="text-muted">Access your delivery partner account</p>
+                        </div>
+                        
+                        <form id="driverLoginForm">
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" name="password" required>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" name="remember">
+                                <label class="form-check-label">Remember me</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary w-100 py-2">
+                                <i class="fas fa-sign-in-alt me-2"></i>Login to Driver App
+                            </button>
+                        </form>
+                        
+                        <div class="text-center mt-3">
+                            <a href="#" class="text-decoration-none">Forgot password?</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-light py-4">
+        <div class="container text-center">
+            <p class="mb-0">&copy; 2024 SmartEats Driver App. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../src/base.js"></script>
+    <script src="../src/components/navbar.js"></script>
+    
+    <script>
+        function startKYC() {
+            if (smartEats.currentUser) {
+                window.location.href = 'profile.html?kyc=start';
+            } else {
+                smartEats.showToast('Please login or create an account first', 'info');
+                document.querySelector('.auth-section').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Form handling
+        smartEats.handleFormSubmit(
+            document.getElementById('driverLoginForm'),
+            '/auth/login',
+            'POST',
+            (data) => {
+                localStorage.setItem('accessToken', data.accessToken);
+                localStorage.setItem('refreshToken', data.refreshToken);
+
+                // Save user object so role check works
+                localStorage.setItem('driverToken', JSON.stringify(data.user));
+
+                window.location.href = 'requests.html';
+            }
+        );
+
+        // Check if user is already logged in
+        document.addEventListener('DOMContentLoaded', function() {
+            if (smartEats.currentUser) {
+                if (smartEats.currentUser.role === 'driver') {
+                    window.location.href = 'requests.html';
+                } else {
+                    smartEats.showToast('Please use the driver app with a driver account', 'warning');
+                }
+            }
+        });
+    </script>
+</body>
+</html>
