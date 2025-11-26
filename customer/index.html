@@ -136,7 +136,7 @@
                     </div>
                     
                     <div class="d-flex gap-3 flex-wrap">
-                        <a href="././restaurants.html" class="btn btn-light btn-lg px-4">
+                        <a href="restaurants.html" class="btn btn-light btn-lg px-4">
                             <i class="fas fa-utensils me-2"></i>Order Now
                         </a>
                         <a href="#how-it-works" class="btn btn-outline-light btn-lg px-4">
@@ -208,7 +208,7 @@
         <div class="container">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h2 class="fw-bold">Popular Restaurants</h2>
-                <a href="./restaurants.html" class="btn btn-outline-primary">View All</a>
+                <a href="restaurants.html" class="btn btn-outline-primary">View All</a>
             </div>
             
             <div class="row g-4" id="popularRestaurants">
@@ -369,7 +369,7 @@
     <!-- Socket.IO -->
     <script src="/socket.io/socket.io.js"></script>
     <!-- Base JS -->
-    <!-- <script src="./src/base.js"></script> -->
+    <!-- <script src="/src/base.js"></script> -->
     <!-- Components -->
     <script src="./src/components/navbar.js"></script>
 
@@ -606,7 +606,7 @@
 
             // Initialize Google Identity Services
             google.accounts.id.initialize({
-                client_id: '293796254086-i14b1kkqu7gmkl4os0muo8vhnicdl18i.apps.googleusercontent.com',
+                client_id: '293796254086-i14b1kkqu7gmkl4os0muo8vhnicdl18i.apps.googleusercontent.com', // Replace with your actual client ID
                 callback: handleGoogleCredentialResponse
             });
 
@@ -645,7 +645,7 @@
             
             smartEats.showToast('Google login successful!', 'success');
             setTimeout(() => {
-                window.location.href = './restaurants.html';
+                window.location.href = 'restaurants.html';
             }, 1000);
 
         } catch (error) {
@@ -696,7 +696,7 @@
             
             smartEats.showToast('OTP verification successful!', 'success');
             setTimeout(() => {
-                window.location.href = './restaurants.html';
+                window.location.href = 'restaurants.html';
             }, 1000);
 
         } catch (error) {
@@ -720,7 +720,7 @@
             const performSearch = () => {
                 const query = searchInput.value.trim();
                 if (query) {
-                    window.location.href = `./restaurants.html?search=${encodeURIComponent(query)}`;
+                    window.location.href = `restaurants.html?search=${encodeURIComponent(query)}`;
                 }
             };
 
@@ -741,7 +741,7 @@
 
         if (currentUser && accessToken) {
             // User is logged in, redirect to restaurants
-            window.location.href = './restaurants.html';
+            window.location.href = 'restaurants.html';
             return;
         }
 
@@ -756,7 +756,7 @@
                 smartEats.currentUser = data.user;
                 smartEats.showToast('Login successful!', 'success');
                 setTimeout(() => {
-                    window.location.href = './restaurants.html';
+                    window.location.href = 'restaurants.html';
                 }, 1000);
             }
         );
@@ -807,8 +807,4 @@
     window.viewRestaurant = viewRestaurant;
 </script>
 </body>
-
 </html>
-
-
-
