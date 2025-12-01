@@ -645,7 +645,7 @@
             
             smartEats.showToast('Google login successful!', 'success');
             setTimeout(() => {
-                window.location.href = 'restaurants.html';
+                window.location.href = './restaurants.html';
             }, 1000);
 
         } catch (error) {
@@ -696,7 +696,7 @@
             
             smartEats.showToast('OTP verification successful!', 'success');
             setTimeout(() => {
-                window.location.href = 'restaurants.html';
+                window.location.href = './restaurants.html';
             }, 1000);
 
         } catch (error) {
@@ -741,7 +741,7 @@
 
         if (currentUser && accessToken) {
             // User is logged in, redirect to restaurants
-            window.location.href = 'restaurants.html';
+            window.location.href = './restaurants.html';
             return;
         }
 
@@ -808,4 +808,5 @@
 </script>
 </body>
 </html>
+
 
