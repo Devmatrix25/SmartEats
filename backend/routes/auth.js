@@ -206,6 +206,7 @@ router.post('/google', async (req, res) => {
                 firstName: payload.given_name || payload.name.split(' ')[0],
                 lastName: payload.family_name || payload.name.split(' ').slice(1).join(' ') || 'User',
                 email: payload.email,
+                phone: payload.phone || '1234567890', 
                 googleId: payload.sub,
                 avatar: payload.picture,
                 isVerified: payload.email_verified || false
@@ -446,5 +447,6 @@ function generateRefreshToken(user) {
     
     return jwt.sign(payload, process.env.JWT_REFRESH_SECRET, { expiresIn: '7d' });
 }
+
 
 export default router;
