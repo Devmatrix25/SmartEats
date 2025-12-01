@@ -654,56 +654,63 @@
         }
     }
 
-    // OTP Login
     async function loginWithOTP() {
-        const email = prompt('Enter your email for OTP:');
-        if (!email) return;
+    const method = prompt("Login with:\n1. Email OTP\n2. Phone OTP");
 
-        if (!validateEmail(email)) {
-            smartEats.showToast('Please enter a valid email address', 'error');
+    if (method !== "1" && method !== "2") return;
+
+    let identifier = "";
+    if (method === "1") {
+        identifier = prompt("Enter your email:");
+        if (!validateEmail(identifier)) {
+            smartEats.showToast("Invalid email", "error");
             return;
         }
-
-        try {
-            const response = await smartEats.apiCall('/auth/send-otp', {
-                method: 'POST',
-                body: JSON.stringify({ 
-                    email: email, 
-                    type: 'login' 
-                })
-            });
-
-            const result = await response.json();
-            smartEats.showToast('OTP sent to your email!', 'success');
-
-            const otp = prompt('Enter the 6-digit OTP sent to your email:');
-            if (!otp) return;
-
-            // Verify OTP
-            const verifyResponse = await smartEats.apiCall('/auth/verify-otp', {
-                method: 'POST',
-                body: JSON.stringify({ 
-                    email: email, 
-                    otp: otp 
-                })
-            });
-
-            const verifyData = await verifyResponse.json();
-            
-            localStorage.setItem('accessToken', verifyData.accessToken);
-            localStorage.setItem('refreshToken', verifyData.refreshToken);
-            smartEats.currentUser = verifyData.user;
-            
-            smartEats.showToast('OTP verification successful!', 'success');
-            setTimeout(() => {
-                window.location.href = './restaurants.html';
-            }, 1000);
-
-        } catch (error) {
-            console.error('OTP login error:', error);
-            smartEats.showToast(error.message || 'OTP login failed', 'error');
+    } else {
+        identifier = prompt("Enter your phone number:");
+        if (!identifier.match(/^\d{10}$/)) {
+            smartEats.showToast("Invalid phone number", "error");
+            return;
         }
     }
+
+    try {
+        const response = await smartEats.apiCall("/auth/send-otp", {
+            method: "POST",
+            body: JSON.stringify({
+                email: method === "1" ? identifier : undefined,
+                phone: method === "2" ? identifier : undefined,
+                type: "login"
+            })
+        });
+
+        smartEats.showToast("OTP sent!", "success");
+
+        const otp = prompt("Enter OTP:");
+        if (!otp) return;
+
+        const verifyResponse = await smartEats.apiCall("/auth/verify-otp", {
+            method: "POST",
+            body: JSON.stringify({
+                email: method === "1" ? identifier : undefined,
+                phone: method === "2" ? identifier : undefined,
+                otp: otp
+            })
+        });
+
+        const data = await verifyResponse.json();
+
+        localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("refreshToken", data.refreshToken);
+        smartEats.currentUser = data.user;
+
+        window.location.href = "restaurants.html";
+
+    } catch (err) {
+        smartEats.showToast(err.message, "error");
+    }
+}
+
 
     // Email validation
     function validateEmail(email) {
@@ -808,5 +815,6 @@
 </script>
 </body>
 </html>
+
 
 
