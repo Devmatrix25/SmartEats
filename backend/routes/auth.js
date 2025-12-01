@@ -5,8 +5,34 @@ import User from '../models/User.js';
 import { authenticate } from '../middleware/auth.js';
 import { validationResult, body } from 'express-validator';
 import redisClient from '../config/redis.js';
+import nodemailer from 'nodemailer';
 
 const router = express.Router();
+
+// Email Transporter
+const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: process.env.SMTP_USER,  // your Gmail
+        pass: process.env.SMTP_PASS   // App Password
+    }
+});
+
+// Helper: Send email
+async function sendEmail(to, subject, text) {
+    try {
+        await transporter.sendMail({
+            from: `"SmartEats" <${process.env.SMTP_USER}>`,
+            to,
+            subject,
+            text
+        });
+        return true;
+    } catch (err) {
+        console.error('Email send error:', err);
+        return false;
+    }
+}
 
 // Initialize Google OAuth client
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
@@ -318,11 +344,16 @@ router.post('/send-otp', [
             // Store OTP in Redis (expires in 10 minutes)
             await redisClient.setEx(`otp:${identifier}`, 600, otp);
             
-            // In production, integrate with your email service (nodemailer, SendGrid, etc.)
-            console.log(`OTP for ${email}: ${otp}`);
-            
-            // TODO: Implement actual email sending
-            // await sendEmail(email, 'Your OTP Code', `Your OTP code is: ${otp}`);
+            const emailSent = await sendEmail(
+    email,
+    'Your SmartEats OTP Code',
+    `Your OTP is ${otp}. It is valid for 10 minutes.`
+);
+
+if (!emailSent) {
+    return res.status(500).json({ message: 'Failed to send OTP email' });
+}
+
             
         } else if (phone) {
             // SMS OTP flow
@@ -450,3 +481,4 @@ function generateRefreshToken(user) {
 
 
 export default router;
+
