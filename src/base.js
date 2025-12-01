@@ -1,7 +1,7 @@
 // Base JavaScript utilities and common functionality
 class SmartEatsApp {
     constructor() {
-        this.apiBaseUrl = 'http://localhost:3000/api';
+        this.apiBaseUrl = 'https://smarteats-09nh.onrender.com/api';
         this.socket = null;
         this.currentUser = null;
         this.init();
@@ -377,3 +377,4 @@ class SmartEatsApp {
 // Initialize the app
 const smartEats = new SmartEatsApp();
 window.smartEats = smartEats;
+
