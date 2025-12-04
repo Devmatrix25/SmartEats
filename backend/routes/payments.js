@@ -76,14 +76,15 @@ router.post('/confirm', authenticate, async (req, res) => {
         const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
         const tax = subtotal * 0.05;
         const finalAmount = subtotal + deliveryFee + tax;
+
         // Generate Order Number
-const generateOrderId = () => {
-    return "SE" + Math.floor(Math.random() * 900000000 + 100000000);
-};
+        const generateOrderId = () => {
+            return "SE" + Math.floor(Math.random() * 900000000 + 100000000);
+        };
 
         // Create order
         const order = await Order.create({
-            orderId: generateOrderId(),  
+            orderId: generateOrderId(),
             customer: req.user._id,
             restaurant: restaurantId,
             items: items.map(i => ({
@@ -111,13 +112,21 @@ const generateOrderId = () => {
             { status: "succeeded", order: order._id, paidAt: new Date() }
         );
 
-        // Notify restaurant (socket)
-        const io = req.app.get("io");
-        io.to(`restaurant:${restaurantId}`).emit("order:new", {
-            orderId: order._id,
-            items: order.items,
-            totalAmount: order.finalAmount
-        });
+        // SAFE SOCKET EMIT (No Crash)
+        try {
+            const io = req.app.get("io");
+            if (io) {
+                io.to(`restaurant:${restaurantId}`).emit("order:new", {
+                    orderId: order._id,
+                    items: order.items,
+                    totalAmount: order.finalAmount
+                });
+            } else {
+                console.warn("⚠️ io is undefined → skipping socket emit");
+            }
+        } catch (socketErr) {
+            console.error("Socket emit error:", socketErr.message);
+        }
 
         return res.json({
             message: "Payment confirmed & order created",
@@ -129,8 +138,6 @@ const generateOrderId = () => {
         return res.status(500).json({ message: "Payment confirmation failed" });
     }
 });
-
-
 
 // Handle payment webhooks (for production)
 router.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
@@ -430,6 +437,7 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
 
 
 
