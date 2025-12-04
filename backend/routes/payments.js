@@ -76,9 +76,14 @@ router.post('/confirm', authenticate, async (req, res) => {
         const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
         const tax = subtotal * 0.05;
         const finalAmount = subtotal + deliveryFee + tax;
+        // Generate Order Number
+const generateOrderId = () => {
+    return "SE" + Math.floor(Math.random() * 900000000 + 100000000);
+};
 
         // Create order
         const order = await Order.create({
+            orderId: generateOrderId(),  
             customer: req.user._id,
             restaurant: restaurantId,
             items: items.map(i => ({
@@ -425,5 +430,6 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
 
 
