@@ -484,7 +484,24 @@
                         throw new Error(error.message);
                     }
 
-                    paymentResult = paymentIntent;
+                    // Call backend to finalize order & create DB order
+const confirmRes = await smartEats.apiCall('/payments/confirm', {
+    method: 'POST',
+    body: JSON.stringify({
+        paymentIntentId: paymentIntent.id,
+        items: checkoutData.cart,
+        restaurantId: checkoutData.restaurant._id,
+        deliveryAddress: selectedAddress,
+        paymentMethod: selectedPaymentMethod
+    })
+});
+
+if (!confirmRes.ok) {
+    const err = await confirmRes.json();
+    throw new Error(err.message);
+}
+
+paymentResult = await confirmRes.json();
                 } else {
                     // For other payment methods, confirm directly
                     const response = await smartEats.apiCall('/payments/confirm', {
@@ -510,10 +527,8 @@
                 await clearCart();
                 location.reload(true);
                 
-                // Redirect to order confirmation
-                setTimeout(() => {
-                    window.location.href = `order-confirmation.html?orderId=${paymentResult.order._id}`;
-                }, 1500);
+               localStorage.setItem("smarteats_order_confirmation", JSON.stringify(paymentResult.order));
+               window.location.href = "order-confirmation.html";
 
             } catch (error) {
                 console.error('Order placement error:', error);
@@ -548,4 +563,5 @@
         });
     </script>
 </body>
+
 </html>
