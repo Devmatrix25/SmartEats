@@ -13,7 +13,6 @@ const router = express.Router();
 
 // Create payment intent
 router.post('/create-payment-intent', authenticate, [
-    body('orderId').optional().isMongoId(),
     body('amount').isFloat({ min: 1 }),
     body('currency').optional().isIn(['INR', 'USD']).default('INR')
 ], async (req, res) => {
@@ -23,86 +22,63 @@ router.post('/create-payment-intent', authenticate, [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { orderId, amount, currency } = req.body;
+        const { amount, currency } = req.body;
 
-        // Create a real Stripe PaymentIntent
-const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(amount * 100), // convert INR → paise
-    currency: currency.toLowerCase(),
-    automatic_payment_methods: { enabled: true }
-});
+        // REAL Stripe payment intent
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: Math.round(amount * 100),
+            currency: currency.toLowerCase(),
+            metadata: { userId: req.user._id.toString() }
+        });
 
-        // Store payment intent in database
-        const payment = new Payment({
+        // Store payment
+        await Payment.create({
             user: req.user._id,
-            order: orderId,
             paymentIntentId: paymentIntent.id,
             amount,
             currency,
-            status: 'pending'
+            status: 'pending',
         });
 
-        await payment.save();
-
-        res.json({
+        return res.json({
             clientSecret: paymentIntent.client_secret,
-            paymentIntentId: paymentIntent.id,
-            amount,
-            currency
+            paymentIntentId: paymentIntent.id
         });
+
     } catch (error) {
-        console.error('Create payment intent error:', error);
-        res.status(500).json({ message: 'Payment processing error' });
+        console.error("Stripe create-payment-intent error", error);
+        return res.status(500).json({ message: "Could not create payment intent" });
     }
 });
 
 // Confirm payment
-// Confirm payment
-router.post('/confirm', authenticate, [
-    body('paymentIntentId').notEmpty(),
-], async (req, res) => {
+router.post('/confirm', authenticate, async (req, res) => {
     try {
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return res.status(400).json({ errors: errors.array() });
+        const { paymentIntentId, items, restaurantId, deliveryAddress, paymentMethod } = req.body;
+
+        if (!paymentIntentId) {
+            return res.status(400).json({ message: "PaymentIntent ID missing" });
         }
 
-        const { 
-            paymentIntentId, 
-            items, 
-            restaurantId, 
-            deliveryAddress, 
-            paymentMethod 
-        } = req.body;
+        // Fetch REAL Stripe payment status
+        const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
 
-        // --- Validate incoming order data ---
-        if (!items || !Array.isArray(items) || items.length === 0) {
-            return res.status(400).json({ message: "Order items missing" });
-        }
-        if (!restaurantId) {
-            return res.status(400).json({ message: "Restaurant ID missing" });
+        if (paymentIntent.status !== "succeeded") {
+            return res.status(400).json({ message: "Payment not completed" });
         }
 
-        // Simulate payment gateway success (90% success rate)
-        const isPaymentSuccessful = Math.random() > 0.1;
-        if (!isPaymentSuccessful) {
-            return res.status(400).json({ message: "Payment failed. Try again." });
-        }
-
-        // --- Fetch restaurant ---
+        // Fetch restaurant
         const restaurant = await Restaurant.findById(restaurantId);
-        if (!restaurant) {
-            return res.status(404).json({ message: "Restaurant not found" });
-        }
+        if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
 
-        // --- Calculate costs ---
+        // Calculate totals
         const subtotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
         const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
         const tax = subtotal * 0.05;
-        const totalAmount = subtotal + deliveryFee + tax;
+        const finalAmount = subtotal + deliveryFee + tax;
 
-        // --- Create order ---
-        const order = new Order({
+        // Create order
+        const order = await Order.create({
             customer: req.user._id,
             restaurant: restaurantId,
             items: items.map(i => ({
@@ -115,58 +91,40 @@ router.post('/confirm', authenticate, [
             orderTotal: subtotal,
             deliveryFee,
             tax,
-            finalAmount: totalAmount,
-            deliveryAddress,
+            finalAmount,
             payment: {
                 method: paymentMethod,
                 status: "completed"
             },
-            status: "pending",
-            preparationTime: restaurant.deliveryInfo?.deliveryTime || 25,
+            deliveryAddress,
+            status: "pending"
         });
 
-        await order.save();
-        await order.populate("restaurant", "name images deliveryInfo");
-        await order.populate("customer", "firstName lastName phone email");
-
-        // --- Update payment record ---
+        // Update payment in DB
         await Payment.findOneAndUpdate(
             { paymentIntentId },
-            {
-                status: "succeeded",
-                paidAt: new Date(),
-                order: order._id
-            }
+            { status: "succeeded", order: order._id, paidAt: new Date() }
         );
 
-        // --- Notify restaurant (via socket.io) ---
+        // Notify restaurant (socket)
         const io = req.app.get("io");
         io.to(`restaurant:${restaurantId}`).emit("order:new", {
             orderId: order._id,
             items: order.items,
-            totalAmount: order.finalAmount,
-            user: order.customer
+            totalAmount: order.finalAmount
         });
 
-        // --- Return success response ---
         return res.json({
-            message: "Payment successful & order created",
-            order: {
-                _id: order._id,
-                orderNumber: order.orderNumber,
-                status: order.status,
-                totalAmount: order.finalAmount,
-                restaurant: order.restaurant,
-                items: order.items,
-                deliveryAddress: order.deliveryAddress
-            }
+            message: "Payment confirmed & order created",
+            order
         });
 
     } catch (error) {
-        console.error("Confirm payment error:", error);
+        console.error("Payment confirm error:", error);
         return res.status(500).json({ message: "Payment confirmation failed" });
     }
 });
+
 
 
 // Handle payment webhooks (for production)
@@ -467,4 +425,5 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
 
