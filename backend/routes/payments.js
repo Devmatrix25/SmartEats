@@ -57,9 +57,9 @@ const paymentIntent = await stripe.paymentIntents.create({
 });
 
 // Confirm payment
+// Confirm payment
 router.post('/confirm', authenticate, [
     body('paymentIntentId').notEmpty(),
-    body('orderId').optional().isMongoId()
 ], async (req, res) => {
     try {
         const errors = validationResult(req);
@@ -67,133 +67,107 @@ router.post('/confirm', authenticate, [
             return res.status(400).json({ errors: errors.array() });
         }
 
-        const { paymentIntentId, orderId } = req.body;
-        
-        await Payment.findOneAndUpdate(
-    { paymentIntentId },
-    {
-        status: 'succeeded',
-        paidAt: new Date()
-    }
-);
+        const { 
+            paymentIntentId, 
+            items, 
+            restaurantId, 
+            deliveryAddress, 
+            paymentMethod 
+        } = req.body;
+
+        // --- Validate incoming order data ---
+        if (!items || !Array.isArray(items) || items.length === 0) {
+            return res.status(400).json({ message: "Order items missing" });
+        }
+        if (!restaurantId) {
+            return res.status(400).json({ message: "Restaurant ID missing" });
+        }
+
+        // Simulate payment gateway success (90% success rate)
+        const isPaymentSuccessful = Math.random() > 0.1;
         if (!isPaymentSuccessful) {
-            return res.status(400).json({ message: 'Payment failed. Please try again.' });
+            return res.status(400).json({ message: "Payment failed. Try again." });
         }
 
-        let order;
-
-        if (orderId) {
-            // Update existing order
-            order = await Order.findByIdAndUpdate(
-                orderId,
-                {
-                    paymentStatus: 'paid',
-                    status: 'confirmed',
-                    paidAt: new Date()
-                },
-                { new: true }
-            ).populate('restaurant', 'name');
-
-            if (!order) {
-                return res.status(404).json({ message: 'Order not found' });
-            }
-        } else {
-            // Create new order from cart
-            const cart = await Cart.findOne({ user: req.user._id })
-                .populate('items.menuItem', 'name price isAvailable')
-                .populate('restaurant', 'name isOpen minOrder deliveryTime');
-
-            if (!cart || cart.items.length === 0) {
-                return res.status(400).json({ message: 'Cart is empty' });
-            }
-
-            if (!cart.restaurant.isOpen) {
-                return res.status(400).json({ message: 'Restaurant is currently closed' });
-            }
-
-            // Calculate order total
-            const subtotal = cart.items.reduce((total, item) => {
-                return total + (item.price * item.quantity);
-            }, 0);
-
-            if (subtotal < cart.restaurant.minOrder) {
-                return res.status(400).json({ 
-                    message: `Minimum order amount is ₹${cart.restaurant.minOrder}` 
-                });
-            }
-
-            const deliveryFee = cart.restaurant.deliveryFee || 30;
-            const tax = subtotal * 0.05; // 5% tax
-            const total = subtotal + deliveryFee + tax - (cart.coupon?.discount || 0);
-
-            // Create order
-            order = new Order({
-                user: req.user._id,
-                restaurant: cart.restaurant._id,
-                items: cart.items.map(item => ({
-                    menuItem: item.menuItem._id,
-                    name: item.menuItem.name,
-                    price: item.price,
-                    quantity: item.quantity,
-                    specialInstructions: item.specialInstructions
-                })),
-                subtotal,
-                deliveryFee,
-                tax,
-                discount: cart.coupon?.discount || 0,
-                totalAmount: total,
-                deliveryAddress: req.user.address,
-                paymentStatus: 'paid',
-                status: 'confirmed',
-                paidAt: new Date()
-            });
-
-            await order.save();
-            await order.populate('restaurant', 'name address phone');
-            await order.populate('user', 'firstName lastName phone');
-
-            // Clear cart
-            cart.items = [];
-            cart.restaurant = null;
-            cart.coupon = null;
-            await cart.save();
+        // --- Fetch restaurant ---
+        const restaurant = await Restaurant.findById(restaurantId);
+        if (!restaurant) {
+            return res.status(404).json({ message: "Restaurant not found" });
         }
 
-        // Update payment record
+        // --- Calculate costs ---
+        const subtotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
+        const tax = subtotal * 0.05;
+        const totalAmount = subtotal + deliveryFee + tax;
+
+        // --- Create order ---
+        const order = new Order({
+            customer: req.user._id,
+            restaurant: restaurantId,
+            items: items.map(i => ({
+                menuItem: i.menuItemId,
+                name: i.name,
+                price: i.price,
+                quantity: i.quantity,
+                specialInstructions: i.specialInstructions || ""
+            })),
+            orderTotal: subtotal,
+            deliveryFee,
+            tax,
+            finalAmount: totalAmount,
+            deliveryAddress,
+            payment: {
+                method: paymentMethod,
+                status: "completed"
+            },
+            status: "pending",
+            preparationTime: restaurant.deliveryInfo?.deliveryTime || 25,
+        });
+
+        await order.save();
+        await order.populate("restaurant", "name images deliveryInfo");
+        await order.populate("customer", "firstName lastName phone email");
+
+        // --- Update payment record ---
         await Payment.findOneAndUpdate(
             { paymentIntentId },
             {
-                status: 'succeeded',
+                status: "succeeded",
                 paidAt: new Date(),
                 order: order._id
             }
         );
 
-        // Notify restaurant
-        const io = req.app.get('io');
-        io.to(`restaurant:${order.restaurant._id}`).emit('order:new', {
+        // --- Notify restaurant (via socket.io) ---
+        const io = req.app.get("io");
+        io.to(`restaurant:${restaurantId}`).emit("order:new", {
             orderId: order._id,
-            orderNumber: order.orderNumber,
             items: order.items,
-            totalAmount: order.totalAmount,
-            user: order.user
+            totalAmount: order.finalAmount,
+            user: order.customer
         });
 
-        res.json({
-            message: 'Payment successful',
+        // --- Return success response ---
+        return res.json({
+            message: "Payment successful & order created",
             order: {
                 _id: order._id,
                 orderNumber: order.orderNumber,
                 status: order.status,
-                totalAmount: order.totalAmount,
-                restaurant: order.restaurant
+                totalAmount: order.finalAmount,
+                restaurant: order.restaurant,
+                items: order.items,
+                deliveryAddress: order.deliveryAddress
             }
         });
+
     } catch (error) {
-        console.error('Confirm payment error:', error);
-        res.status(500).json({ message: 'Payment confirmation failed' });
+        console.error("Confirm payment error:", error);
+        return res.status(500).json({ message: "Payment confirmation failed" });
     }
 });
+
 
 // Handle payment webhooks (for production)
 router.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
@@ -493,3 +467,4 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
