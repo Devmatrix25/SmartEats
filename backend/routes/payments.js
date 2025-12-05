@@ -56,82 +56,85 @@ router.post('/confirm', authenticate, async (req, res) => {
     try {
         const { paymentIntentId, items, restaurantId, deliveryAddress, paymentMethod } = req.body;
 
-        if (!paymentIntentId) {
-            return res.status(400).json({ message: "PaymentIntent ID missing" });
-        }
+        if (!paymentIntentId) return res.status(400).json({ message: "PaymentIntent ID missing" });
 
-        // Fetch REAL Stripe payment status
+        // Stripe validation
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-
-        if (paymentIntent.status !== "succeeded") {
+        if (paymentIntent.status !== "succeeded") 
             return res.status(400).json({ message: "Payment not completed" });
-        }
 
-        // Fetch restaurant
         const restaurant = await Restaurant.findById(restaurantId);
         if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
 
-        // Calculate totals
-        const subtotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        // Totals
+        const orderTotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
         const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
-        const tax = subtotal * 0.05;
-        const finalAmount = subtotal + deliveryFee + tax;
-        
-        // Generate display order number
-        const generateOrderNumber = () => {
-           return "ORD-" + Math.floor(Math.random() * 9000000000 + 1000000000);
+        const tax = orderTotal * 0.05;
+        const finalAmount = orderTotal + deliveryFee + tax;
+
+        // Convert checkout address → Order model address
+        const formattedAddress = {
+            street: deliveryAddress.address,
+            city: deliveryAddress.city,
+            state: deliveryAddress.state || "",
+            zipCode: deliveryAddress.pincode
         };
 
-        // Generate Order Number
-        const generateOrderId = () => {
-            return "SE" + Math.floor(Math.random() * 900000000 + 100000000);
-        };
+        // Build Order Items with total
+        const orderItems = items.map(item => ({
+            menuItem: item.menuItemId,
+            name: item.name,
+            price: item.price,
+            quantity: item.quantity,
+            specialInstructions: item.specialInstructions || "",
+            total: item.price * item.quantity
+        }));
 
         // Create order
         const order = await Order.create({
-            orderNumber: generateOrderNumber(),
-            orderId: generateOrderId(),
             customer: req.user._id,
             restaurant: restaurantId,
-            items: items.map(i => ({
-                menuItem: i.menuItemId,
-                name: i.name,
-                price: i.price,
-                quantity: i.quantity,
-                specialInstructions: i.specialInstructions || ""
-            })),
-            orderTotal: subtotal,
+
+            items: orderItems,
+
+            orderTotal,
             deliveryFee,
             tax,
+            discount: 0,
             finalAmount,
+
+            deliveryAddress: formattedAddress,
+
+            status: "pending",
+            preparationTime: restaurant.deliveryInfo.deliveryTime || 20,
+            deliveryTime: 30,
+
             payment: {
                 method: paymentMethod,
-                status: "completed"
+                status: "completed",
+                paymentIntentId
             },
-            deliveryAddress,
-            status: "pending"
+
+            specialInstructions: ""
         });
 
-        // Update payment in DB
+        // Update payment record
         await Payment.findOneAndUpdate(
             { paymentIntentId },
             { status: "succeeded", order: order._id, paidAt: new Date() }
         );
 
-        // SAFE SOCKET EMIT (No Crash)
+        // Safe socket emit
         try {
             const io = req.app.get("io");
             if (io) {
                 io.to(`restaurant:${restaurantId}`).emit("order:new", {
                     orderId: order._id,
-                    items: order.items,
-                    totalAmount: order.finalAmount
+                    order
                 });
-            } else {
-                console.warn("⚠️ io is undefined → skipping socket emit");
             }
-        } catch (socketErr) {
-            console.error("Socket emit error:", socketErr.message);
+        } catch (err) {
+            console.warn("Socket emit error:", err.message);
         }
 
         return res.json({
@@ -443,6 +446,7 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
 
 
 
