@@ -61,100 +61,78 @@ router.post('/confirm', authenticate, async (req, res) => {
             return res.status(400).json({ message: "PaymentIntent ID missing" });
         }
 
-        // Verify payment with Stripe
+        // Fetch REAL Stripe payment status
         const paymentIntent = await stripe.paymentIntents.retrieve(paymentIntentId);
-        if (!paymentIntent || paymentIntent.status !== "succeeded") {
+
+        if (paymentIntent.status !== "succeeded") {
             return res.status(400).json({ message: "Payment not completed" });
         }
 
-        // Load restaurant
+        // Fetch restaurant
         const restaurant = await Restaurant.findById(restaurantId);
         if (!restaurant) return res.status(404).json({ message: "Restaurant not found" });
 
         // Calculate totals
-        const orderTotal = (items || []).reduce((sum, i) => sum + (Number(i.price || 0) * Number(i.quantity || 0)), 0);
-        const deliveryFee = Number(restaurant.deliveryInfo?.deliveryFee || 30);
-        const tax = Number((orderTotal * 0.05).toFixed(2));
-        const finalAmount = Number((orderTotal + deliveryFee + tax).toFixed(2));
-
-        // Format deliveryAddress to Order model shape
-        const formattedAddress = {
-            street: deliveryAddress?.address || deliveryAddress?.street || "",
-            city: deliveryAddress?.city || "",
-            state: deliveryAddress?.state || "",
-            zipCode: deliveryAddress?.pincode || deliveryAddress?.zipCode || ""
+        const subtotal = items.reduce((sum, i) => sum + (i.price * i.quantity), 0);
+        const deliveryFee = restaurant.deliveryInfo?.deliveryFee || 30;
+        const tax = subtotal * 0.05;
+        const finalAmount = subtotal + deliveryFee + tax;
+        
+        // Generate display order number
+        const generateOrderNumber = () => {
+           return "ORD-" + Math.floor(Math.random() * 9000000000 + 1000000000);
         };
 
-        // Build order items (include total)
-        const orderItems = (items || []).map(it => ({
-            menuItem: it.menuItemId || it.menuItem || null,
-            name: it.name || "",
-            price: Number(it.price || 0),
-            quantity: Number(it.quantity || 0),
-            specialInstructions: it.specialInstructions || "",
-            total: Number((Number(it.price || 0) * Number(it.quantity || 0)).toFixed(2))
-        }));
-
-        // Helper to generate orderId matching your model's style:
+        // Generate Order Number
         const generateOrderId = () => {
-            const timestamp = Date.now().toString(36);
-            const random = Math.random().toString(36).substring(2, 6);
-            return (`SE${timestamp}${random}`).toUpperCase();
+            return "SE" + Math.floor(Math.random() * 900000000 + 100000000);
         };
 
-        // Ensure unique-ish orderId (very low collision chance)
-        const newOrderId = generateOrderId();
-
-        // Create order (explicitly set required fields like orderId)
+        // Create order
         const order = await Order.create({
-            orderId: newOrderId,          // required by schema
+            orderNumber: generateOrderNumber(),
+            orderId: generateOrderId(),
             customer: req.user._id,
             restaurant: restaurantId,
-
-            items: orderItems,
-
-            orderTotal: orderTotal,
-            deliveryFee: deliveryFee,
-            tax: tax,
-            discount: 0,
-            finalAmount: finalAmount,
-
-            deliveryAddress: formattedAddress,
-
-            status: "pending",
-            preparationTime: restaurant.deliveryInfo?.deliveryTime || 20,
-            deliveryTime: 30,
-
+            items: items.map(i => ({
+                menuItem: i.menuItemId,
+                name: i.name,
+                price: i.price,
+                quantity: i.quantity,
+                specialInstructions: i.specialInstructions || ""
+            })),
+            orderTotal: subtotal,
+            deliveryFee,
+            tax,
+            finalAmount,
             payment: {
-                method: paymentMethod || 'card',
-                status: 'completed',
-                paymentIntentId: paymentIntentId,
-                transactionId: paymentIntent.charges?.data?.[0]?.id || undefined
+                method: paymentMethod,
+                status: "completed"
             },
-
-            specialInstructions: ""
+            deliveryAddress,
+            status: "pending"
         });
 
-        // Update Payment record to link to order
+        // Update payment in DB
         await Payment.findOneAndUpdate(
             { paymentIntentId },
-            { status: "succeeded", order: order._id, paidAt: new Date() },
-            { new: true }
+            { status: "succeeded", order: order._id, paidAt: new Date() }
         );
 
-        // Safe socket emit
+        // SAFE SOCKET EMIT (No Crash)
         try {
             const io = req.app.get("io");
             if (io) {
                 io.to(`restaurant:${restaurantId}`).emit("order:new", {
                     orderId: order._id,
-                    order: order.toObject()
+                    items: order.items,
+                    totalAmount: order.finalAmount
                 });
             } else {
-                console.warn("Socket.io (io) not available - skipped emit");
+                console.warn("⚠️ io is undefined → skipping socket emit");
             }
-        } catch (emitErr) {
-            console.warn("Socket emit error:", emitErr.message);
+        } catch (socketErr) {
+            console.error("Socket emit error:", socketErr.message);
         }
 
         return res.json({
@@ -164,11 +142,9 @@ router.post('/confirm', authenticate, async (req, res) => {
 
     } catch (error) {
         console.error("Payment confirm error:", error);
-        // If duplicate key / validation happens again, print details for debugging
         return res.status(500).json({ message: "Payment confirmation failed" });
     }
 });
-
 // Handle payment webhooks (for production)
 router.post('/webhook', express.raw({ type: 'application/json' }), (req, res) => {
     try {
@@ -467,6 +443,7 @@ async function handlePaymentFailure(paymentIntent) {
 
 
 export default router;
+
 
 
 
